@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { SearchIcon } from '../Icons';
+import { useState } from 'react';
 
 export default function LabTests() {
   const [cartCount, setCartCount] = useState(0);

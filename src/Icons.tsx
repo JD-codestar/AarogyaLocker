@@ -10,20 +10,22 @@
 import React from 'react';
 
 // A small helper so every icon has consistent sizing props.
-interface IconProps {
+export interface IconProps {
   size?: number;
   className?: string;
+  color?: string;
+  style?: React.CSSProperties;
 }
 
-export const SearchIcon: React.FC<IconProps> = ({ size = 20, className }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+export const SearchIcon: React.FC<IconProps> = ({ size = 20, className, color, style }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color || "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={{ color, ...style }} aria-hidden="true">
     <circle cx="11" cy="11" r="8" />
     <line x1="21" y1="21" x2="16.65" y2="16.65" />
   </svg>
 );
 
-export const LocationIcon: React.FC<IconProps> = ({ size = 20, className }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+export const LocationIcon: React.FC<IconProps> = ({ size = 20, className, color, style }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color || "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={{ color, ...style }} aria-hidden="true">
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
     <circle cx="12" cy="10" r="3" />
   </svg>
@@ -44,8 +46,8 @@ export const CloseIcon: React.FC<IconProps> = ({ size = 24, className }) => (
   </svg>
 );
 
-export const StarIcon: React.FC<IconProps> = ({ size = 16, className }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+export const StarIcon: React.FC<IconProps> = ({ size = 16, className, color, style }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color || "currentColor"} className={className} style={{ color, ...style }} aria-hidden="true">
     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
   </svg>
 );

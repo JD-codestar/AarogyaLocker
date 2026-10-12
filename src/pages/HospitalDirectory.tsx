@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { LocationIcon, SearchIcon } from '../Icons';
 
 export default function HospitalDirectory() {

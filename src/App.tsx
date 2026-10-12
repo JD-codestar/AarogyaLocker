@@ -7,6 +7,7 @@
 import { useState, useMemo } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
+import { useApp } from './context/AppContext';
 
 // Data
 import { doctors as allDoctors } from './data';
@@ -46,12 +47,12 @@ function App() {
   const navigate = useNavigate();
 
   // --- State ---
+  const { isLoggedIn } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const [_searchLocation, setSearchLocation] = useState('');
   const [bookingDoctor, setBookingDoctor] = useState<Doctor | null>(null);
   const [profileDoctor, setProfileDoctor] = useState<Doctor | null>(null);
   const [showSignInModal, setShowSignInModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // --- Filter doctors based on search ---
   const filteredDoctors = useMemo(() => {
@@ -210,7 +211,6 @@ function App() {
         <SignInModal 
           onClose={() => setShowSignInModal(false)} 
           onLoginSuccess={() => {
-            setIsLoggedIn(true);
             setShowSignInModal(false);
           }}
         />

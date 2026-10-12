@@ -15,6 +15,7 @@ import { useState, useRef, useEffect } from 'react';
 import type { Doctor } from '../data';
 import { getBookingDates, getBookingTimes } from '../data';
 import { CloseIcon, CheckCircleIcon, AlertCircleIcon } from '../Icons';
+import { useApp } from '../context/AppContext';
 
 interface BookingModalProps {
   doctor: Doctor;
@@ -24,15 +25,22 @@ interface BookingModalProps {
 type BookingStep = 'select' | 'confirm' | 'success';
 
 export default function BookingModal({ doctor, onClose }: BookingModalProps) {
+  const { currentUser, bookAppointment } = useApp();
   const [step, setStep] = useState<BookingStep>('select');
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [patientName, setPatientName] = useState('');
+  const [patientName, setPatientName] = useState(currentUser?.name || '');
   const [errors, setErrors] = useState<string[]>([]);
 
   const dates = getBookingDates();
   const times = getBookingTimes();
   const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (currentUser?.name && !patientName) {
+      setPatientName(currentUser.name);
+    }
+  }, [currentUser]);
 
   // Trap focus inside the modal for accessibility
   useEffect(() => {
@@ -64,6 +72,19 @@ export default function BookingModal({ doctor, onClose }: BookingModalProps) {
   };
 
   const handleBook = () => {
+    bookAppointment({
+      doctorId: doctor.id,
+      doctorName: doctor.name,
+      doctorSpecialty: doctor.specialty,
+      patientId: currentUser?.id || 'pat-101',
+      patientName: patientName.trim(),
+      date: selectedDate !== null ? dates[selectedDate].fullDate : 'Tomorrow',
+      time: selectedTime || '10:00 AM',
+      consultationType: doctor.consultationType.includes('Video') ? 'Video Consultation' : 'In-person',
+      fee: doctor.fee,
+      status: 'Scheduled',
+      notes: 'Booked via AarogyaLocker appointment scheduler'
+    });
     setStep('success');
   };
 
