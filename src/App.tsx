@@ -5,7 +5,7 @@
  * the application's shared state and routing.
  */
 import { useState, useMemo } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import { useApp } from './context/AppContext';
 
@@ -42,9 +42,12 @@ import HospitalDirectory from './pages/HospitalDirectory';
 import LabTests from './pages/LabTests';
 import Pharmacy from './pages/Pharmacy';
 import OnlineConsultation from './pages/OnlineConsultation';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
 
   // --- State ---
   const { isLoggedIn } = useApp();
@@ -92,7 +95,7 @@ function App() {
   };
 
   const handleSignIn = () => {
-    setShowSignInModal(true);
+    navigate('/login');
   };
 
   return (
@@ -103,10 +106,11 @@ function App() {
         Skip to main content
       </a>
 
-      <Navbar onSignIn={handleSignIn} isLoggedIn={isLoggedIn} />
+      {!isLoginPage && <Navbar onSignIn={handleSignIn} isLoggedIn={isLoggedIn} />}
 
       <main id="main-content">
         <Routes>
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={
             <>
               <Hero onSearch={handleSearch} />
@@ -185,7 +189,7 @@ function App() {
         </Routes>
       </main>
 
-      <Footer />
+      {!isLoginPage && <Footer />}
 
       {/* --- Modals --- */}
       {bookingDoctor && (
@@ -212,11 +216,14 @@ function App() {
           onClose={() => setShowSignInModal(false)} 
           onLoginSuccess={() => {
             setShowSignInModal(false);
+            if (isLoggedIn) {
+              navigate('/dashboard');
+            }
           }}
         />
       )}
 
-      <AIFloatingWidget />
+      {!isLoginPage && <AIFloatingWidget />}
     </>
   );
 }

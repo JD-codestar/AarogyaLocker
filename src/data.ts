@@ -254,7 +254,9 @@ export function getBookingTimes(): BookingTime[] {
 export const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Find Doctors', href: '/doctors' },
+  { label: 'Health Locker', href: '/health-records' },
   { label: 'Hospitals', href: '/hospitals' },
   { label: 'Lab Tests', href: '/lab-tests' },
   { label: 'Pharmacy', href: '/pharmacy' },
 ];
+

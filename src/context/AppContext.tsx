@@ -52,58 +52,121 @@ export const DEMO_USERS: User[] = [
   }
 ];
 
-const INITIAL_RECORDS: HealthRecord[] = [
+export const INITIAL_RECORDS: HealthRecord[] = [
+  {
+    id: 'REC-100',
+    patientId: 'pat-101',
+    name: 'ABHA Universal Health Identity Card',
+    date: 'Oct 01, 2026',
+    type: 'IdentityCard',
+    doctor: 'National Health Authority (NHA)',
+    hospitalOrLab: 'Ayushman Bharat Digital Mission (ABDM)',
+    fileSize: '420 KB',
+    fileType: 'application/pdf',
+    notes: 'Official Digital Health ID linked to Ayushman Bharat Digital Mission. Authenticated with Aadhaar e-KYC.',
+    tags: ['ABHA Card', 'National Health ID', 'Govt Verified'],
+    abhaLinked: true,
+    isIssued: true,
+    verifiedBy: 'Govt. of India — ABDM Gateway',
+    documentNumber: 'ABDM-NHA-91-4521-8932'
+  },
   {
     id: 'REC-101',
     patientId: 'pat-101',
-    name: 'Complete Blood Count (CBC)',
+    name: 'Complete Blood Count (CBC) & Lipid Profile',
     date: 'Oct 01, 2026',
     type: 'Laboratory',
     doctor: 'Dr. Priya Sharma',
+    hospitalOrLab: 'CareConnect Central Pathology Lab',
     fileSize: '1.2 MB',
     fileType: 'application/pdf',
-    notes: 'Hemoglobin: 14.2 g/dL, Platelets: 250k. All indicators normal.',
-    tags: ['Routine Checkup', 'Blood Work'],
-    abhaLinked: true
+    notes: 'Comprehensive venous blood analysis. Hemoglobin: 14.2 g/dL, Platelets: 250k. All primary metabolic indicators within optimal clinical limits.',
+    tags: ['Routine Checkup', 'Blood Work', 'Pathology'],
+    abhaLinked: true,
+    isIssued: true,
+    verifiedBy: 'Dr. Priya Sharma (Reg #KMC-48291)',
+    documentNumber: 'LAB-2026-88129',
+    labResults: [
+      { parameter: 'Hemoglobin (Hb)', value: '14.2', unit: 'g/dL', referenceRange: '13.0 - 17.0', status: 'Normal' },
+      { parameter: 'Total Leucocyte Count (WBC)', value: '6,800', unit: '/mcL', referenceRange: '4,500 - 11,000', status: 'Normal' },
+      { parameter: 'Platelet Count', value: '250,000', unit: '/mcL', referenceRange: '150,000 - 450,000', status: 'Normal' },
+      { parameter: 'Fasting Blood Sugar', value: '94', unit: 'mg/dL', referenceRange: '70 - 99', status: 'Normal' },
+      { parameter: 'Total Cholesterol', value: '182', unit: 'mg/dL', referenceRange: '< 200', status: 'Normal' },
+      { parameter: 'Serum Creatinine', value: '0.9', unit: 'mg/dL', referenceRange: '0.7 - 1.3', status: 'Normal' }
+    ]
   },
   {
     id: 'REC-102',
     patientId: 'pat-101',
-    name: 'Chest X-Ray (AP View)',
+    name: 'Chest X-Ray Digital Radiograph (PA View)',
     date: 'Sep 15, 2026',
     type: 'Imaging',
     doctor: 'Dr. Rahul Mehta',
+    hospitalOrLab: 'Apex Advanced Diagnostic Imaging Center',
     fileSize: '3.8 MB',
     fileType: 'image/jpeg',
-    notes: 'Clear lung fields, cardiac silhouette normal.',
-    tags: ['Radiology', 'Lungs'],
-    abhaLinked: true
+    notes: 'Clear bilateral lung fields, normal cardiothoracic ratio, intact bony rib cage, no evidence of acute focal infiltrates.',
+    tags: ['Radiology', 'Lungs', 'Chest X-Ray'],
+    abhaLinked: true,
+    isIssued: true,
+    verifiedBy: 'Dr. Rahul Mehta (Consultant Radiologist)',
+    documentNumber: 'RAD-IMG-40912'
   },
   {
     id: 'REC-103',
     patientId: 'pat-101',
-    name: 'E-Prescription - Seasonal Flu',
+    name: 'Digital E-Prescription — Seasonal Viral Care',
     date: 'Aug 20, 2026',
     type: 'Prescription',
     doctor: 'Dr. Arjun Patel',
+    hospitalOrLab: 'CareConnect Telehealth Clinic',
     fileSize: '450 KB',
     fileType: 'application/pdf',
-    notes: 'Paracetamol 650mg TDS, Levocetirizine 5mg OD x 5 days.',
-    tags: ['Flu', 'Fever', 'Medication'],
-    abhaLinked: true
+    notes: 'Patient presented with mild rhinitis, low-grade pyrexia, and sore throat. Advised adequate hydration, rest, and symptomatic therapy.',
+    tags: ['Flu', 'Fever', 'Medication', 'E-Prescription'],
+    abhaLinked: true,
+    isIssued: true,
+    verifiedBy: 'Dr. Arjun Patel (Reg #MCI-77341)',
+    documentNumber: 'RX-EHR-99201',
+    medicines: [
+      { name: 'Paracetamol', dosage: '650 mg', frequency: 'Three times daily (TDS)', duration: '5 days', instructions: 'Take after meals for fever or body ache.' },
+      { name: 'Levocetirizine', dosage: '5 mg', frequency: 'Once daily at bedtime (OD)', duration: '5 days', instructions: 'Take with warm water before sleep.' },
+      { name: 'Vitamin C + Zinc Chewable', dosage: '500 mg', frequency: 'Once daily (OD)', duration: '10 days', instructions: 'Immunity booster after breakfast.' }
+    ]
   },
   {
     id: 'REC-104',
     patientId: 'pat-101',
-    name: 'Hospital Discharge Summary',
+    name: 'Hospital Discharge Summary & Inpatient Record',
     date: 'Jan 10, 2026',
     type: 'Discharge',
     doctor: 'Apollo Specialty Hospital',
+    hospitalOrLab: 'Apollo Hospitals Multispecialty Care',
     fileSize: '2.4 MB',
     fileType: 'application/pdf',
-    notes: 'Admitted for acute gastroenteritis. Discharged stable.',
-    tags: ['In-Patient', 'Discharge'],
-    abhaLinked: true
+    notes: 'Admitted for acute foodborne gastroenteritis with dehydration. Successfully stabilized with IV fluid resuscitation. Discharged in stable condition.',
+    tags: ['In-Patient', 'Discharge Summary', 'Apollo'],
+    abhaLinked: true,
+    isIssued: true,
+    verifiedBy: 'Medical Superintendent — Apollo Hospitals',
+    documentNumber: 'DIS-APOLLO-10943'
+  },
+  {
+    id: 'REC-105',
+    patientId: 'pat-101',
+    name: 'Universal COVID-19 & Adult Vaccination Certificate',
+    date: 'Dec 05, 2025',
+    type: 'Vaccination',
+    doctor: 'Ministry of Health & Family Welfare',
+    hospitalOrLab: 'National Immunization Program (ABDM-COWIN)',
+    fileSize: '680 KB',
+    fileType: 'application/pdf',
+    notes: 'Fully immunized (Precaution Dose / Booster). Verified with digital cryptographic public key.',
+    tags: ['Vaccination', 'COVID-19', 'Govt Certificate'],
+    abhaLinked: true,
+    isIssued: true,
+    verifiedBy: 'NHA & CoWIN Digital Gateway',
+    documentNumber: 'VAC-IND-9940129'
   }
 ];
 
@@ -220,7 +283,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     if (saved) {
       try { return JSON.parse(saved); } catch (e) { /* ignore */ }
     }
-    return DEMO_USERS[0]; // Default logged-in as Rahul Sharma (Patient)
+    return null; // Start logged out — users must sign in via /login
   });
 
   // 2. Health Records State
@@ -283,11 +346,131 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Auth actions
   const loginAs = (userOrRole: User | UserRole) => {
+    let targetUser: User | null = null;
     if (typeof userOrRole === 'string') {
       const match = DEMO_USERS.find(u => u.role === userOrRole);
-      if (match) setCurrentUser(match);
+      if (match) targetUser = match;
     } else {
-      setCurrentUser(userOrRole);
+      targetUser = userOrRole;
+    }
+
+    if (targetUser) {
+      setCurrentUser(targetUser);
+
+      // Auto-provision personalized AarogyaLocker records if new patient has none
+      if (targetUser.role === 'patient') {
+        const patientId = targetUser.id;
+        const patientName = targetUser.name;
+        const patientAbha = targetUser.abhaId || '91-4521-8932-1104';
+
+        setRecords(prev => {
+          const userHasRecords = prev.some(r => r.patientId === patientId);
+          if (userHasRecords) return prev;
+
+          const nowStr = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+          const personalizedRecords: HealthRecord[] = [
+            {
+              id: `REC-${Date.now().toString().slice(-4)}-ID`,
+              patientId,
+              name: 'ABHA Universal Health Identity Card',
+              date: nowStr,
+              type: 'IdentityCard',
+              doctor: 'National Health Authority (NHA)',
+              hospitalOrLab: 'Ayushman Bharat Digital Mission (ABDM)',
+              fileSize: '420 KB',
+              fileType: 'application/pdf',
+              notes: `Official Digital Health ID linked to Ayushman Bharat Digital Mission for ${patientName}. Authenticated via e-KYC.`,
+              tags: ['ABHA Card', 'National Health ID', 'Govt Verified'],
+              abhaLinked: true,
+              isIssued: true,
+              verifiedBy: 'Govt. of India — ABDM Gateway',
+              documentNumber: `ABDM-${patientAbha}`
+            },
+            {
+              id: `REC-${Date.now().toString().slice(-4)}-REG`,
+              patientId,
+              name: 'Patient Registration & Vitals Profile Certificate',
+              date: nowStr,
+              type: 'IdentityCard',
+              doctor: 'CareConnect Hospital Network',
+              hospitalOrLab: 'Central Health Registry',
+              fileSize: '310 KB',
+              fileType: 'application/pdf',
+              notes: `Registered health profile for ${patientName}. Phone: ${targetUser.phone || 'Verified'}. Email: ${targetUser.email}. Digital consent agreement verified.`,
+              tags: ['Registration Profile', 'ABHA Linked', 'Verified'],
+              abhaLinked: true,
+              isIssued: true,
+              verifiedBy: 'CareConnect Health Authority',
+              documentNumber: `REG-PID-${patientId}`
+            },
+            {
+              id: `REC-${Date.now().toString().slice(-4)}-LAB`,
+              patientId,
+              name: 'Complete Blood Count (CBC) & Metabolic Profile',
+              date: nowStr,
+              type: 'Laboratory',
+              doctor: 'Dr. Priya Sharma',
+              hospitalOrLab: 'CareConnect Central Pathology Lab',
+              fileSize: '1.4 MB',
+              fileType: 'application/pdf',
+              notes: `Comprehensive baseline laboratory screening for ${patientName}. All vital hematological parameters within optimal reference thresholds.`,
+              tags: ['Blood Work', 'Routine Screening', 'Pathology'],
+              abhaLinked: true,
+              isIssued: true,
+              verifiedBy: 'Dr. Priya Sharma (Reg #KMC-48291)',
+              documentNumber: `LAB-${Date.now().toString().slice(-5)}`,
+              labResults: [
+                { parameter: 'Hemoglobin (Hb)', value: '14.0', unit: 'g/dL', referenceRange: '13.0 - 17.0', status: 'Normal' },
+                { parameter: 'Total Leucocyte Count (WBC)', value: '6,600', unit: '/mcL', referenceRange: '4,500 - 11,000', status: 'Normal' },
+                { parameter: 'Platelet Count', value: '245,000', unit: '/mcL', referenceRange: '150,000 - 450,000', status: 'Normal' },
+                { parameter: 'Fasting Blood Sugar', value: '92', unit: 'mg/dL', referenceRange: '70 - 99', status: 'Normal' },
+                { parameter: 'Total Cholesterol', value: '178', unit: 'mg/dL', referenceRange: '< 200', status: 'Normal' },
+                { parameter: 'Serum Creatinine', value: '0.88', unit: 'mg/dL', referenceRange: '0.7 - 1.3', status: 'Normal' }
+              ]
+            },
+            {
+              id: `REC-${Date.now().toString().slice(-4)}-RX`,
+              patientId,
+              name: 'Digital E-Prescription — Outpatient Consultation',
+              date: nowStr,
+              type: 'Prescription',
+              doctor: 'Dr. Priya Sharma',
+              hospitalOrLab: 'CareConnect Outpatient Care',
+              fileSize: '450 KB',
+              fileType: 'application/pdf',
+              notes: `Clinical Assessment for ${patientName}: Preventive health evaluation and nutritional optimization.`,
+              tags: ['Prescription', 'General Medicine', 'Vitamins'],
+              abhaLinked: true,
+              isIssued: true,
+              verifiedBy: 'Dr. Priya Sharma (Reg #KMC-48291)',
+              documentNumber: `RX-EHR-${Date.now().toString().slice(-5)}`,
+              medicines: [
+                { name: 'Multivitamin & Minerals Supplement', dosage: '1 tablet', frequency: 'Once daily after breakfast', duration: '30 days', instructions: 'Take with full glass of water.' },
+                { name: 'Vitamin D3 60,000 IU', dosage: '1 capsule', frequency: 'Once weekly', duration: '8 weeks', instructions: 'Take after a milk or food-based meal.' }
+              ]
+            },
+            {
+              id: `REC-${Date.now().toString().slice(-4)}-VAC`,
+              patientId,
+              name: 'Universal COVID-19 & Immunization Certificate',
+              date: 'Dec 05, 2025',
+              type: 'Vaccination',
+              doctor: 'Ministry of Health & Family Welfare',
+              hospitalOrLab: 'National Immunization Program (ABDM-COWIN)',
+              fileSize: '680 KB',
+              fileType: 'application/pdf',
+              notes: `Immunization credentials for ${patientName} authenticated through national digital registry.`,
+              tags: ['Vaccination', 'COVID-19', 'Govt Certificate'],
+              abhaLinked: true,
+              isIssued: true,
+              verifiedBy: 'NHA & CoWIN Digital Gateway',
+              documentNumber: `VAC-IND-${Date.now().toString().slice(-6)}`
+            }
+          ];
+
+          return [...personalizedRecords, ...prev];
+        });
+      }
     }
   };
 

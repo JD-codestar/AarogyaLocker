@@ -13,7 +13,23 @@ export interface User {
   specialty?: string;
 }
 
-export type RecordCategory = 'Laboratory' | 'Imaging' | 'Prescription' | 'Discharge' | 'Vaccination';
+export type RecordCategory = 'Laboratory' | 'Imaging' | 'Prescription' | 'Discharge' | 'Vaccination' | 'IdentityCard';
+
+export interface MedicineEntry {
+  name: string;
+  dosage: string;
+  frequency: string;
+  duration: string;
+  instructions?: string;
+}
+
+export interface LabResultEntry {
+  parameter: string;
+  value: string;
+  unit: string;
+  referenceRange: string;
+  status: 'Normal' | 'High' | 'Low' | 'Attention';
+}
 
 export interface HealthRecord {
   id: string;
@@ -28,6 +44,12 @@ export interface HealthRecord {
   notes?: string;
   tags?: string[];
   abhaLinked: boolean;
+  isIssued?: boolean; // Issued by government / hospital / lab vs self-uploaded
+  hospitalOrLab?: string;
+  medicines?: MedicineEntry[];
+  labResults?: LabResultEntry[];
+  verifiedBy?: string;
+  documentNumber?: string;
 }
 
 export type AppointmentStatus = 'Waiting' | 'Scheduled' | 'In Consultation' | 'Completed' | 'Cancelled';

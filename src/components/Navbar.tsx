@@ -64,11 +64,44 @@ export default function Navbar({ onSignIn }: NavbarProps) {
 
         {/* Desktop links */}
         <div className="navbar-links" role="menubar">
-          {navLinks.map((link) => (
-            <Link key={link.label} to={link.href} role="menuitem">
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isLocker = link.href === '/health-records';
+            return (
+              <Link 
+                key={link.label} 
+                to={link.href} 
+                role="menuitem"
+                style={isLocker ? {
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontWeight: 600,
+                  color: 'var(--color-primary-dark, #1e3a8a)',
+                  background: 'rgba(30, 58, 138, 0.06)',
+                  padding: '6px 12px',
+                  borderRadius: '20px',
+                  border: '1px solid rgba(30, 58, 138, 0.15)'
+                } : undefined}
+              >
+                {isLocker && <span>🔐</span>}
+                {link.label}
+                {isLocker && (
+                  <span style={{
+                    fontSize: '9px',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    background: '#10b981',
+                    color: '#ffffff',
+                    padding: '1px 6px',
+                    borderRadius: '10px'
+                  }}>
+                    ABDM
+                  </span>
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Desktop actions */}
@@ -284,11 +317,45 @@ export default function Navbar({ onSignIn }: NavbarProps) {
 
       {/* Mobile menu */}
       <div className={`navbar-mobile-menu ${mobileOpen ? 'open' : ''}`} role="menu">
-        {navLinks.map((link) => (
-          <Link key={link.label} to={link.href} role="menuitem" onClick={closeMobile}>
-            {link.label}
-          </Link>
-        ))}
+        {navLinks.map((link) => {
+          const isLocker = link.href === '/health-records';
+          return (
+            <Link 
+              key={link.label} 
+              to={link.href} 
+              role="menuitem" 
+              onClick={closeMobile}
+              style={isLocker ? {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                fontWeight: 600,
+                color: 'var(--color-primary-dark, #1e3a8a)',
+                background: 'rgba(30, 58, 138, 0.05)',
+                padding: '8px 12px',
+                borderRadius: '8px'
+              } : undefined}
+            >
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {isLocker && <span>🔐</span>}
+                {link.label}
+              </span>
+              {isLocker && (
+                <span style={{
+                  fontSize: '9px',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  background: '#10b981',
+                  color: '#ffffff',
+                  padding: '2px 6px',
+                  borderRadius: '10px'
+                }}>
+                  ABDM Locker
+                </span>
+              )}
+            </Link>
+          );
+        })}
         <div className="mobile-actions">
           {isLoggedIn && currentUser ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
