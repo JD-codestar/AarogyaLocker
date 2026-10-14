@@ -170,9 +170,11 @@ export default function LoginPage() {
           position: relative;
           z-index: 1;
         }
-        .lp-brand-logo svg {
-          width: 36px;
-          height: 36px;
+        .lp-brand-logo svg,
+        .lp-brand-logo img {
+          width: 40px;
+          height: 40px;
+          object-fit: contain;
         }
         .lp-brand-logo span {
           font-size: 22px;

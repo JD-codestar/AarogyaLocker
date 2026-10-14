@@ -154,13 +154,40 @@ export const CheckupIcon: React.FC<IconProps> = ({ size = 32, className }) => (
 
 // --- Brand Logo ---
 
-export const AarogyaLockerLogo: React.FC<IconProps> = ({ size = 36 }) => (
-  <svg width={size} height={size} viewBox="0 0 36 36" fill="none" aria-hidden="true">
-    <rect width="36" height="36" rx="10" fill="#28328C" />
-    <path d="M18 29s-10-6-10-12.5C8 13 10.7 10.5 14 10.5c1.8 0 3.3 1 3.8 2.3.5-1.3 2-2.3 3.8-2.3 3.3 0 5.8 2.5 5.8 6.5C27.4 23 18 29 18 29z" fill="#FFFFFF" fillOpacity="0.9" />
-    <rect x="16.5" y="15" width="3" height="7" rx="1" fill="#28328C" />
-    <rect x="14.5" y="17" width="7" height="3" rx="1" fill="#28328C" />
-  </svg>
+export const AarogyaLockerLogo: React.FC<IconProps> = ({ size = 38, className, style }) => (
+  <img
+    src="/aarogya-icon-transparent.png"
+    alt="AarogyaLocker Logo"
+    width={size}
+    height={size}
+    className={className}
+    style={{
+      width: `${size}px`,
+      height: `${size}px`,
+      objectFit: 'contain',
+      display: 'inline-block',
+      verticalAlign: 'middle',
+      filter: 'drop-shadow(0 2px 6px rgba(15, 44, 89, 0.15))',
+      ...style
+    }}
+  />
+);
+
+export const AarogyaLockerFullLogo: React.FC<{ height?: number; className?: string; style?: React.CSSProperties }> = ({ height = 48, className, style }) => (
+  <img
+    src="/aarogya-logo.jpg"
+    alt="AarogyaLocker - Your Medical Records, Securely in One Place"
+    height={height}
+    className={className}
+    style={{
+      height: `${height}px`,
+      width: 'auto',
+      objectFit: 'contain',
+      display: 'inline-block',
+      borderRadius: '8px',
+      ...style
+    }}
+  />
 );
 
 export const CareConnectLogo = AarogyaLockerLogo;
