@@ -38,16 +38,34 @@ export default function Pharmacy() {
   const [promoMessage, setPromoMessage] = useState('');
   const [attachedPrescriptionId, setAttachedPrescriptionId] = useState<string>('');
   const [paymentMethod, setPaymentMethod] = useState<'UPI' | 'Card' | 'COD' | 'ABHA'>('UPI');
+  const [fulfillmentPartner, setFulfillmentPartner] = useState<'Tata 1mg' | 'AarogyaLocker Direct'>('Tata 1mg');
   const [completedOrderId, setCompletedOrderId] = useState<string | null>(null);
 
   // Address State
   const [address, setAddress] = useState({
     fullName: currentUser?.name || 'Rahul Sharma',
     phone: currentUser?.phone || '+91 98765 43210',
-    street: 'Flat 402, Green Valley Apartments, MG Road',
-    city: 'Bengaluru',
-    pincode: '560001'
+    street: 'Sector 70, SAS Nagar',
+    city: 'Mohali',
+    pincode: '160071'
   });
+
+  // Direct Tata 1mg helper functions
+  const openTata1mg = (query?: string) => {
+    const url = query 
+      ? `https://www.1mg.com/search/all?name=${encodeURIComponent(query)}`
+      : 'https://www.1mg.com';
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const transferCartToTata1mg = () => {
+    if (cart.length === 0) {
+      openTata1mg();
+      return;
+    }
+    const searchTerms = cart.map(i => i.medicine.name).join(' ');
+    openTata1mg(searchTerms);
+  };
 
   // Sync cart to localStorage
   const saveCart = (newCart: PharmacyCartItem[]) => {
@@ -112,15 +130,20 @@ export default function Pharmacy() {
 
   // Promo code apply
   const handleApplyPromo = () => {
-    if (promoCode.trim().toUpperCase() === 'AAROGYA15') {
+    const code = promoCode.trim().toUpperCase();
+    if (code === 'TATA1MG20' || code === '1MG20') {
+      const discount = Math.round(cartTotalSelling * 0.20);
+      setPromoDiscount(discount);
+      setPromoMessage('🎉 Tata 1mg Exclusive 20% Discount applied!');
+    } else if (code === 'AAROGYA15') {
       const discount = Math.round(cartTotalSelling * 0.15);
       setPromoDiscount(discount);
-      setPromoMessage('🎉 15% Discount applied successfully!');
-    } else if (promoCode.trim().toUpperCase() === 'HEALTH50') {
+      setPromoMessage('🎉 15% Aarogya Discount applied successfully!');
+    } else if (code === 'HEALTH50') {
       setPromoDiscount(50);
       setPromoMessage('🎉 ₹50 Health Discount applied!');
     } else {
-      setPromoMessage('❌ Invalid coupon code. Try AAROGYA15');
+      setPromoMessage('❌ Invalid coupon code. Try TATA1MG20 or AAROGYA15');
       setPromoDiscount(0);
     }
   };
@@ -156,7 +179,11 @@ export default function Pharmacy() {
       finalPayable,
       deliveryAddress: address,
       paymentMethod: paymentMethod === 'COD' ? 'Cash on Delivery' : paymentMethod === 'UPI' ? 'BHIM / UPI' : paymentMethod === 'ABHA' ? 'ABHA Health Voucher (PM-JAY)' : 'Debit / Credit Card',
-      prescriptionRecordId: attachedPrescriptionId || undefined
+      prescriptionRecordId: attachedPrescriptionId || undefined,
+      fulfillmentPartner,
+      tata1mgTrackingUrl: fulfillmentPartner === 'Tata 1mg' 
+        ? `https://www.1mg.com/order-tracking?orderId=1MG-TRICITY-${Date.now().toString().slice(-6)}`
+        : undefined
     });
 
     setCompletedOrderId(createdOrder.id);
@@ -193,7 +220,7 @@ export default function Pharmacy() {
                 <span>⚡ Express 2-Hour Delivery Available</span>
               </div>
               <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '4px 0', letterSpacing: '-0.5px' }}>
-                CareConnect Online Pharmacy
+                AarogyaLocker Online Pharmacy
               </h1>
               <p style={{ color: '#a7f3d0', fontSize: '15px', margin: 0, maxWidth: '600px' }}>
                 Order doctor-prescribed medications with instant verification, automated GST tax invoices, and direct sync with your AarogyaLocker.
@@ -277,6 +304,77 @@ export default function Pharmacy() {
 
       {/* Main Container */}
       <div style={{ maxWidth: '1200px', margin: '24px auto', padding: '0 16px' }}>
+
+        {/* Tata 1mg Official Express Integration Banner */}
+        <div style={{
+          background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fef2f2 100%)',
+          border: '1.5px solid #fecdd3',
+          borderRadius: '16px',
+          padding: '20px 24px',
+          marginBottom: '20px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '16px',
+          boxShadow: '0 4px 16px rgba(225, 29, 72, 0.06)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: '#e11d48',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '24px',
+              fontWeight: 900,
+              boxShadow: '0 4px 12px rgba(225, 29, 72, 0.3)'
+            }}>
+              1mg
+            </div>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 800, color: '#be123c', background: '#ffe4e6', padding: '2px 8px', borderRadius: '12px', textTransform: 'uppercase' }}>
+                  Official Partner
+                </span>
+                <span style={{ fontSize: '12px', color: '#9f1239', fontWeight: 600 }}>
+                  📍 Mohali Express Hub (Sector 82 SAS Nagar)
+                </span>
+              </div>
+              <h3 style={{ margin: 0, color: '#881337', fontSize: '17px', fontWeight: 800 }}>
+                Direct Tata 1mg Pharmacy Fulfillment & Ordering
+              </h3>
+              <p style={{ margin: '3px 0 0', color: '#9f1239', fontSize: '13px' }}>
+                Order medicines directly from <strong>Tata 1mg</strong> or checkout in-app with <strong>20% OFF</strong> using code <code style={{ background: '#fecdd3', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>TATA1MG20</code>. Tax invoices automatically sync to AarogyaLocker!
+              </p>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <button
+              onClick={() => openTata1mg(searchQuery || undefined)}
+              style={{
+                background: '#e11d48',
+                color: 'white',
+                border: 'none',
+                padding: '10px 18px',
+                borderRadius: '10px',
+                fontSize: '13px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                boxShadow: '0 4px 10px rgba(225, 29, 72, 0.25)'
+              }}
+            >
+              <span>Order on Tata 1mg</span>
+              <span style={{ fontSize: '11px' }}>↗</span>
+            </button>
+          </div>
+        </div>
 
         {/* AarogyaLocker Prescription Sync Banner */}
         <div style={{
@@ -500,7 +598,7 @@ export default function Pharmacy() {
                     <button
                       onClick={() => setSelectedMedicine(med)}
                       style={{
-                        padding: '8px 12px',
+                        padding: '8px 10px',
                         background: '#f1f5f9',
                         color: '#475569',
                         border: 'none',
@@ -511,6 +609,27 @@ export default function Pharmacy() {
                       }}
                     >
                       Details
+                    </button>
+
+                    <button
+                      onClick={() => openTata1mg(med.name)}
+                      title="Order directly on Tata 1mg"
+                      style={{
+                        padding: '8px 10px',
+                        background: '#fff1f2',
+                        color: '#be123c',
+                        border: '1px solid #fecdd3',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                      }}
+                    >
+                      <span style={{ color: '#e11d48' }}>🔴 1mg</span>
+                      <span style={{ fontSize: '10px' }}>↗</span>
                     </button>
 
                     {inCartItem ? (
@@ -613,7 +732,7 @@ export default function Pharmacy() {
                   Your Pharmacy Cart ({cartTotalItems})
                 </h2>
                 <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#64748b' }}>
-                  Fulfilled by CareConnect Licensed Digital Dispensary
+                  Fulfilled by AarogyaLocker Licensed Digital Dispensary
                 </p>
               </div>
               <button
@@ -840,8 +959,30 @@ export default function Pharmacy() {
                     boxShadow: '0 4px 12px rgba(4,120,87,0.3)'
                   }}
                 >
-                  <span>Proceed to Checkout</span>
+                  <span>Proceed to In-App Checkout</span>
                   <span>₹{finalPayable} →</span>
+                </button>
+
+                <button
+                  onClick={transferCartToTata1mg}
+                  style={{
+                    width: '100%',
+                    marginTop: '10px',
+                    padding: '12px',
+                    background: '#fff1f2',
+                    color: '#be123c',
+                    border: '1.5px solid #fecdd3',
+                    borderRadius: '12px',
+                    fontSize: '13.5px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  <span>🔴 Transfer Entire Cart to Tata 1mg ↗</span>
                 </button>
               </div>
             )}
@@ -889,7 +1030,7 @@ export default function Pharmacy() {
                   Secure Medicine Checkout
                 </h3>
                 <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#64748b' }}>
-                  CareConnect Express Delivery • GST Verified Billing
+                  AarogyaLocker Express Delivery • GST Verified Billing
                 </p>
               </div>
               <button
@@ -1008,8 +1149,109 @@ export default function Pharmacy() {
                     </div>
                   </div>
 
+                  {/* Fulfillment Partner Selector */}
+                  <div style={{ marginTop: '8px' }}>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '8px' }}>
+                      Choose Medicine Fulfillment Partner
+                    </label>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <div
+                        onClick={() => setFulfillmentPartner('Tata 1mg')}
+                        style={{
+                          padding: '12px 14px',
+                          borderRadius: '12px',
+                          border: fulfillmentPartner === 'Tata 1mg' ? '2px solid #e11d48' : '1px solid #cbd5e1',
+                          background: fulfillmentPartner === 'Tata 1mg' ? '#fff1f2' : 'white',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          transition: 'all 0.15s'
+                        }}
+                      >
+                        <div style={{
+                          width: '36px',
+                          height: '36px',
+                          borderRadius: '8px',
+                          background: '#e11d48',
+                          color: 'white',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '14px',
+                          fontWeight: 900
+                        }}>
+                          1mg
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontWeight: 800, fontSize: '14px', color: '#881337' }}>
+                              Tata 1mg Express Fulfillment
+                            </span>
+                            <span style={{ fontSize: '10px', background: '#ffe4e6', color: '#be123c', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
+                              RECOMMENDED
+                            </span>
+                          </div>
+                          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#9f1239' }}>
+                            Dispatched from Tata 1mg Hub, Sector 82 Industrial Area, Mohali • Official Tax Invoice & Live 1mg Tracking
+                          </p>
+                        </div>
+                        <div style={{
+                          width: '18px',
+                          height: '18px',
+                          borderRadius: '50%',
+                          border: fulfillmentPartner === 'Tata 1mg' ? '5px solid #e11d48' : '2px solid #cbd5e1'
+                        }} />
+                      </div>
+
+                      <div
+                        onClick={() => setFulfillmentPartner('AarogyaLocker Direct')}
+                        style={{
+                          padding: '12px 14px',
+                          borderRadius: '12px',
+                          border: fulfillmentPartner === 'AarogyaLocker Direct' ? '2px solid #047857' : '1px solid #cbd5e1',
+                          background: fulfillmentPartner === 'AarogyaLocker Direct' ? '#f0fdf4' : 'white',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          transition: 'all 0.15s'
+                        }}
+                      >
+                        <div style={{
+                          width: '36px',
+                          height: '36px',
+                          borderRadius: '8px',
+                          background: '#047857',
+                          color: 'white',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '18px'
+                        }}>
+                          🏥
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <span style={{ fontWeight: 800, fontSize: '14px', color: '#065f46' }}>
+                            AarogyaLocker Local Chemist Network
+                          </span>
+                          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#047857' }}>
+                            Verified local dispensary in Mohali & Chandigarh
+                          </p>
+                        </div>
+                        <div style={{
+                          width: '18px',
+                          height: '18px',
+                          borderRadius: '50%',
+                          border: fulfillmentPartner === 'AarogyaLocker Direct' ? '5px solid #047857' : '2px solid #cbd5e1'
+                        }} />
+                      </div>
+                    </div>
+                  </div>
+
                   <div style={{ background: '#f0fdf4', padding: '12px', borderRadius: '10px', border: '1px solid #bbf7d0', fontSize: '13px', color: '#166534' }}>
-                    🚚 <strong>Estimated Delivery:</strong> Today within 2 hours to {address.pincode}.
+                    🚚 <strong>Estimated Delivery:</strong> Today within 2 hours to {address.pincode} via {fulfillmentPartner}.
                   </div>
 
                   <button
@@ -1253,9 +1495,53 @@ export default function Pharmacy() {
             <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', margin: '0 0 8px' }}>
               Order Placed Successfully!
             </h2>
-            <p style={{ fontSize: '14px', color: '#64748b', margin: '0 0 20px' }}>
+            <p style={{ fontSize: '14px', color: '#64748b', margin: '0 0 16px' }}>
               Order ID: <strong>#{completedOrderId}</strong> • Estimated Delivery: Today by 6:00 PM
             </p>
+
+            {/* Tata 1mg fulfillment info if applicable */}
+            {fulfillmentPartner === 'Tata 1mg' && (
+              <div style={{
+                background: '#fff1f2',
+                border: '1.5px solid #fecdd3',
+                borderRadius: '16px',
+                padding: '16px',
+                textAlign: 'left',
+                marginBottom: '16px'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#be123c', fontWeight: 800, fontSize: '14px' }}>
+                    <span style={{ background: '#e11d48', color: 'white', padding: '2px 6px', borderRadius: '4px', fontSize: '11px' }}>1mg</span>
+                    <span>Tata 1mg Express Fulfillment</span>
+                  </div>
+                  <span style={{ fontSize: '11px', color: '#9f1239', fontWeight: 700, background: '#ffe4e6', padding: '2px 8px', borderRadius: '10px' }}>
+                    Sector 82 Mohali Hub
+                  </span>
+                </div>
+                <p style={{ margin: '0 0 10px', fontSize: '12.5px', color: '#9f1239' }}>
+                  Consignment Token: <strong style={{ letterSpacing: '0.5px' }}>1MG-TRICITY-{completedOrderId}</strong>
+                </p>
+                <button
+                  onClick={() => window.open(`https://www.1mg.com/order-tracking?orderId=1MG-TRICITY-${completedOrderId}`, '_blank', 'noopener,noreferrer')}
+                  style={{
+                    background: '#e11d48',
+                    color: 'white',
+                    border: 'none',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    fontSize: '12.5px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  <span>🔴 Track Live on Tata 1mg Portal</span>
+                  <span style={{ fontSize: '11px' }}>↗</span>
+                </button>
+              </div>
+            )}
 
             {/* AarogyaLocker Auto-generation alert */}
             <div style={{
@@ -1271,7 +1557,7 @@ export default function Pharmacy() {
                 <span>Saved to your AarogyaLocker!</span>
               </div>
               <p style={{ margin: 0, fontSize: '13px', color: '#3b82f6', lineHeight: 1.5 }}>
-                Your itemized medical invoice has been issued with digital GST compliance and linked directly to your <strong>ABHA Universal Health ID</strong>.
+                Your itemized medical invoice from {fulfillmentPartner === 'Tata 1mg' ? 'Tata 1mg Healthcare Solutions' : 'AarogyaLocker Dispensary'} has been issued with digital GST compliance and linked directly to your <strong>ABHA Universal Health ID</strong>.
               </p>
             </div>
 
@@ -1372,7 +1658,7 @@ export default function Pharmacy() {
                 {selectedMedicine.composition}
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '16px', marginTop: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '16px', marginTop: '8px', flexWrap: 'wrap', gap: '10px' }}>
                 <div>
                   <span style={{ fontSize: '22px', fontWeight: 800, color: '#047857' }}>
                     ₹{selectedMedicine.price}
@@ -1382,24 +1668,46 @@ export default function Pharmacy() {
                   </span>
                 </div>
 
-                <button
-                  onClick={() => {
-                    addToCart(selectedMedicine);
-                    setSelectedMedicine(null);
-                    setIsCartOpen(true);
-                  }}
-                  style={{
-                    background: '#047857',
-                    color: 'white',
-                    border: 'none',
-                    padding: '10px 20px',
-                    borderRadius: '8px',
-                    fontWeight: 700,
-                    cursor: 'pointer'
-                  }}
-                >
-                  Add to Cart & Checkout
-                </button>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button
+                    onClick={() => openTata1mg(selectedMedicine.name)}
+                    style={{
+                      background: '#fff1f2',
+                      color: '#be123c',
+                      border: '1.5px solid #fecdd3',
+                      padding: '10px 16px',
+                      borderRadius: '8px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      fontSize: '13px'
+                    }}
+                  >
+                    <span>🔴 Order on Tata 1mg ↗</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      addToCart(selectedMedicine);
+                      setSelectedMedicine(null);
+                      setIsCartOpen(true);
+                    }}
+                    style={{
+                      background: '#047857',
+                      color: 'white',
+                      border: 'none',
+                      padding: '10px 18px',
+                      borderRadius: '8px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      fontSize: '13px'
+                    }}
+                  >
+                    Add to Cart & Checkout
+                  </button>
+                </div>
               </div>
             </div>
           </div>

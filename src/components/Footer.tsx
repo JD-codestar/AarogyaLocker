@@ -9,7 +9,7 @@
  * • Legal links (Privacy, Terms, Accessibility)
  * • Demo disclaimer
  */
-import { CareConnectLogo } from '../Icons';
+import { AarogyaLockerLogo } from '../Icons';
 
 const currentYear = new Date().getFullYear();
 
@@ -21,13 +21,13 @@ export default function Footer() {
           {/* Brand Column */}
           <div>
             <div className="footer-brand">
-              <CareConnectLogo size={32} />
-              <span>CareConnect</span>
+              <AarogyaLockerLogo size={32} />
+              <span>AarogyaLocker</span>
             </div>
             <p className="footer-description">
-              Your trusted platform for finding healthcare professionals
-              and booking appointments with ease. Making healthcare
-              accessible for everyone.
+              Your trusted platform for secure health record storage, ABHA integration,
+              verified Tricity doctors, and hospital OPD passes. Making healthcare
+              seamless and accessible for everyone.
             </p>
           </div>
 
@@ -54,18 +54,18 @@ export default function Footer() {
           {/* Contact */}
           <div className="footer-column">
             <h4>Contact</h4>
-            <a href="mailto:hello@careconnect.demo">hello@careconnect.demo</a>
-            <a href="tel:+911234567890">+91 123 456 7890</a>
+            <a href="mailto:support@aarogyalocker.in">support@aarogyalocker.in</a>
+            <a href="tel:+911722747585">+91 172 274 7585</a>
             <p style={{ fontSize: 'var(--font-size-sm)', marginTop: 'var(--space-2)' }}>
-              Demo Address Placeholder<br />
-              City, State 000000
+              Tricity Digital Health Hub<br />
+              Chandigarh & Mohali, India
             </p>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="footer-bottom">
-          <p>© {currentYear} CareConnect. All rights reserved.</p>
+          <p>© {currentYear} AarogyaLocker. All rights reserved.</p>
 
           <div className="footer-bottom-links">
             <a href="#footer">Privacy Policy</a>
@@ -75,7 +75,7 @@ export default function Footer() {
 
           {/* Demo Disclaimer */}
           <div className="footer-disclaimer">
-            <strong>Demo Disclaimer:</strong> CareConnect is a demonstration project built for
+            <strong>Demo Disclaimer:</strong> AarogyaLocker is a demonstration project built for
             educational and portfolio purposes. All doctor profiles, patient testimonials,
             ratings, and appointment slots shown are fictional. No real medical services,
             appointments, payments, or patient data are involved. This application does not

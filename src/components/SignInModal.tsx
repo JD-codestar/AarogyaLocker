@@ -96,7 +96,7 @@ export default function SignInModal({ onClose, onLoginSuccess }: SignInModalProp
         {/* Header */}
         <div className="modal-header">
           <h2 id="signin-title">
-            {mode === 'signin' ? 'Sign In to CareConnect' : mode === 'signup' ? 'Create Your Account' : 'Welcome!'}
+            {mode === 'signin' ? 'Sign In to AarogyaLocker' : mode === 'signup' ? 'Create Your Account' : 'Welcome!'}
           </h2>
           <button
             type="button"

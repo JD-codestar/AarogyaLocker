@@ -7,7 +7,7 @@
  */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CareConnectLogo, AlertCircleIcon } from '../Icons';
+import { AarogyaLockerLogo, AlertCircleIcon } from '../Icons';
 import { useApp } from '../context/AppContext';
 import type { UserRole, User } from '../types';
 
@@ -519,7 +519,7 @@ export default function LoginPage() {
       {/* ====== LEFT BRAND PANEL ====== */}
       <div className="lp-brand">
         <div className="lp-brand-logo">
-          <CareConnectLogo />
+          <AarogyaLockerLogo />
           <span>AarogyaLocker</span>
         </div>
 

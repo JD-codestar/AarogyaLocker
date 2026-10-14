@@ -33,7 +33,7 @@ export default function TrustSection() {
     <section className="trust-section" aria-labelledby="trust-heading">
       <div className="container">
         <h2 className="section-title" id="trust-heading">
-          Why Choose CareConnect
+          Why Choose AarogyaLocker
         </h2>
         <p className="section-subtitle">
           We make finding and booking healthcare appointments straightforward and hassle-free.

@@ -1,5 +1,5 @@
 /**
- * App.tsx — Main application component for CareConnect.
+ * App.tsx — Main application component for AarogyaLocker.
  *
  * This file wires all the page sections together and manages
  * the application's shared state and routing.

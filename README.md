@@ -1,4 +1,4 @@
-# AarogyaLocker & CareConnect 🏥🔐
+# AarogyaLocker 🏥🔐
 ### *A Unified Digital Health Locker & Next-Gen Healthcare Ecosystem*
 
 [![React](https://img.shields.io/badge/React-19.2.8-61DAFB?logo=react&logoColor=black)](https://react.dev/)
@@ -11,7 +11,7 @@
 
 ## 📌 Executive Summary
 
-Healthcare data today is fragmented across physical prescription slips, laboratory diagnostic reports, hospital discharge summaries, and separate consultation portals. **AarogyaLocker (CareConnect)** bridges this gap by unifying personal medical records management with comprehensive healthcare services in a single, modern, and accessible web application.
+Healthcare data today is fragmented across physical prescription slips, laboratory diagnostic reports, hospital discharge summaries, and separate consultation portals. **AarogyaLocker** bridges this gap by unifying personal medical records management with comprehensive healthcare services in a single, modern, and accessible web application.
 
 Built for the **CU Hackathon**, the platform combines an **ABHA-ready Digital Health Locker**, multi-role management dashboards (Patient, Doctor, Staff, Administrator), intelligent **AI Health Triage**, doctor discovery and scheduling, teleconsultations, hospital directories, lab test bookings, and online pharmacy fulfillment.
 
@@ -95,7 +95,7 @@ A unified `DashboardLayout` provides dedicated portals for every healthcare stak
 
 - **Curated Color System**: Tailored HSL palette consisting of Deep Blue (`#0F3E6D`), Ice Blue (`#EDF4F9`), Vibrant Cyan (`#14B8A6`), Mint Green (`#10B981`), and Crimson (`#EF4444`).
 - **Glassmorphism & Micro-Interactions**: Translucent sticky navbars, elevation shadows, smooth scale transitions, and abstract mesh gradient backdrops.
-- **Zero Heavy External Icon Libraries**: Fully hand-crafted, lightweight inline SVG icons (`CareConnectLogo`, `SearchIcon`, `LocationIcon`, `StarIcon`, `ShieldIcon`, `CalendarIcon`, `ClockIcon`, etc.) to keep bundle size ultra-compact and lightning fast.
+- **Zero Heavy External Icon Libraries**: Fully hand-crafted, lightweight inline SVG icons (`AarogyaLockerLogo`, `SearchIcon`, `LocationIcon`, `StarIcon`, `ShieldIcon`, `CalendarIcon`, `ClockIcon`, etc.) to keep bundle size ultra-compact and lightning fast.
 - **Accessibility (a11y)**:
   - Skip-to-main-content link for keyboard and screen-reader accessibility.
   - Proper ARIA attributes (`aria-expanded`, `aria-label`, `role="navigation"`, `role="menubar"`).

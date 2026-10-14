@@ -15,7 +15,7 @@ export default function OnlineConsultation() {
   // In-call chat messages
   const [chatInput, setChatInput] = useState('');
   const [chatMessages, setChatMessages] = useState<Array<{ sender: 'doctor' | 'patient'; text: string; time: string }>>([
-    { sender: 'doctor', text: 'Hello! I am Dr. Priya Sharma. I have reviewed your AarogyaLocker health records. How are you feeling today?', time: '10:30 AM' }
+    { sender: 'doctor', text: 'Hello! I am Dr. Manmohanjit Singh from PGIMER Chandigarh. I have reviewed your AarogyaLocker health records. How are you feeling today?', time: '10:30 AM' }
   ]);
 
   // Doctor vitals assessment
@@ -137,7 +137,7 @@ export default function OnlineConsultation() {
         date: nowStr,
         type: 'Prescription',
         doctor: 'Dr. Priya Sharma (Reg #KMC-48291)',
-        hospitalOrLab: 'CareConnect Telemedicine Outpatient Clinic',
+        hospitalOrLab: 'AarogyaLocker Telemedicine Clinic (Tricity)',
         fileSize: '410 KB',
         fileType: 'application/pdf',
         notes: `Clinical Telemedicine Assessment for ${patientName}: General consultation completed. Vitals: BP ${vitals.bp}, Pulse ${vitals.pulse}, SpO2 ${vitals.spo2}. Prescribed: Paracetamol 650mg, Multivitamin supplement.`,

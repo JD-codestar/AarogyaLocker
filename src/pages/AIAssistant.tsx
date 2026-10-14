@@ -158,7 +158,7 @@ export default function AIAssistant() {
             contents: [
               {
                 role: 'user',
-                parts: [{ text: `You are CareConnect's AI Clinical Triage Specialist. Provide a structured, helpful, and empathetic health response. Suggest possible causes, precautions, and recommended doctor specialty. Query: ${query}` }]
+                parts: [{ text: `You are AarogyaLocker's AI Clinical Triage Specialist. Provide a structured, helpful, and empathetic health response. Suggest possible causes, precautions, and recommended doctor specialty. Query: ${query}` }]
               }
             ]
           })

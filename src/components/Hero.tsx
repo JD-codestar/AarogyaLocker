@@ -10,7 +10,7 @@ interface HeroProps {
 
 export default function Hero({ onSearch }: HeroProps) {
   const [query, setQuery] = useState('');
-  const [location, setLocation] = useState('New Delhi');
+  const [location, setLocation] = useState('Chandigarh & Mohali');
 
   const handleSearch = () => {
     onSearch(query, location);

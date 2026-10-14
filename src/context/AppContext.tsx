@@ -28,7 +28,7 @@ export const DEMO_USERS: User[] = [
   {
     id: 'doc-1',
     name: 'Dr. Priya Sharma',
-    email: 'dr.priya@careconnect.health',
+    email: 'dr.priya@aarogyalocker.in',
     role: 'doctor',
     specialty: 'General Physician',
     age: 41,
@@ -39,7 +39,7 @@ export const DEMO_USERS: User[] = [
   {
     id: 'stf-201',
     name: 'Anita Desai',
-    email: 'anita.desai@careconnect.health',
+    email: 'anita.desai@aarogyalocker.in',
     role: 'staff',
     age: 29,
     gender: 'Female',
@@ -49,7 +49,7 @@ export const DEMO_USERS: User[] = [
   {
     id: 'adm-001',
     name: 'Vikram Malhotra',
-    email: 'admin@careconnect.health',
+    email: 'admin@aarogyalocker.in',
     role: 'admin',
     age: 45,
     gender: 'Male',
@@ -83,7 +83,7 @@ export const INITIAL_RECORDS: HealthRecord[] = [
     date: 'Oct 01, 2026',
     type: 'Laboratory',
     doctor: 'Dr. Priya Sharma',
-    hospitalOrLab: 'CareConnect Central Pathology Lab',
+    hospitalOrLab: 'AarogyaLocker Central Pathology Lab',
     fileSize: '1.2 MB',
     fileType: 'application/pdf',
     notes: 'Comprehensive venous blood analysis. Hemoglobin: 14.2 g/dL, Platelets: 250k. All primary metabolic indicators within optimal clinical limits.',
@@ -125,7 +125,7 @@ export const INITIAL_RECORDS: HealthRecord[] = [
     date: 'Aug 20, 2026',
     type: 'Prescription',
     doctor: 'Dr. Arjun Patel',
-    hospitalOrLab: 'CareConnect Telehealth Clinic',
+    hospitalOrLab: 'AarogyaLocker Telehealth Clinic',
     fileSize: '450 KB',
     fileType: 'application/pdf',
     notes: 'Patient presented with mild rhinitis, low-grade pyrexia, and sore throat. Advised adequate hydration, rest, and symptomatic therapy.',
@@ -434,7 +434,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
               name: 'Patient Registration & Vitals Profile Certificate',
               date: nowStr,
               type: 'IdentityCard',
-              doctor: 'CareConnect Hospital Network',
+              doctor: 'AarogyaLocker Hospital Network',
               hospitalOrLab: 'Central Health Registry',
               fileSize: '310 KB',
               fileType: 'application/pdf',
@@ -442,7 +442,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
               tags: ['Registration Profile', 'ABHA Linked', 'Verified'],
               abhaLinked: true,
               isIssued: true,
-              verifiedBy: 'CareConnect Health Authority',
+              verifiedBy: 'AarogyaLocker Health Authority',
               documentNumber: `REG-PID-${patientId}`
             },
             {
@@ -452,7 +452,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
               date: nowStr,
               type: 'Laboratory',
               doctor: 'Dr. Priya Sharma',
-              hospitalOrLab: 'CareConnect Central Pathology Lab',
+              hospitalOrLab: 'AarogyaLocker Central Pathology Lab',
               fileSize: '1.4 MB',
               fileType: 'application/pdf',
               notes: `Comprehensive baseline laboratory screening for ${patientName}. All vital hematological parameters within optimal reference thresholds.`,
@@ -477,7 +477,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
               date: nowStr,
               type: 'Prescription',
               doctor: 'Dr. Priya Sharma',
-              hospitalOrLab: 'CareConnect Outpatient Care',
+              hospitalOrLab: 'AarogyaLocker Outpatient Care',
               fileSize: '450 KB',
               fileType: 'application/pdf',
               notes: `Clinical Assessment for ${patientName}: Preventive health evaluation and nutritional optimization.`,
@@ -627,14 +627,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   ): PharmacyOrder => {
     const orderId = `ORD-${Date.now().toString().slice(-6)}`;
     const nowStr = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
-    const estDelivery = 'Today, by 6:00 PM (Express Pharmacy Delivery)';
+    const is1mg = orderData.fulfillmentPartner === 'Tata 1mg';
+    const estDelivery = is1mg 
+      ? 'Today, in 2-3 hours (Tata 1mg Express Hub Mohali)' 
+      : 'Today, by 6:00 PM (AarogyaLocker Express Chemist)';
+    const trackingUrl = is1mg 
+      ? `https://www.1mg.com/order-tracking?orderId=1MG-TRICITY-${orderId}` 
+      : undefined;
 
     const newOrder: PharmacyOrder = {
       ...orderData,
       id: orderId,
       status: 'Processing',
       createdAt: nowStr,
-      estimatedDelivery: estDelivery
+      estimatedDelivery: estDelivery,
+      fulfillmentPartner: orderData.fulfillmentPartner || 'AarogyaLocker Direct',
+      tata1mgTrackingUrl: trackingUrl
     };
 
     setPharmacyOrders(prev => [newOrder, ...prev]);
@@ -644,21 +652,28 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       .map(i => `${i.medicine.name} (Qty: ${i.quantity}, ₹${i.medicine.price * i.quantity})`)
       .join(', ');
 
+    const issuer = is1mg 
+      ? 'Tata 1mg Healthcare Solutions (Hub: Sector 82, Mohali)' 
+      : 'AarogyaLocker Licensed Digital Pharmacy (DL #DL-2026-9912)';
+    const verifier = is1mg 
+      ? 'Tata 1mg Verified Pharmacist & ABDM Gateway' 
+      : 'AarogyaLocker Pharmacy Authority & ABDM Gateway';
+
     addRecord({
       patientId: orderData.patientId,
-      name: `Pharmacy Tax Invoice — #${orderId}`,
+      name: is1mg ? `Tata 1mg Pharmacy Invoice — #${orderId}` : `Pharmacy Tax Invoice — #${orderId}`,
       date: nowStr,
       type: 'Invoice',
-      doctor: 'R. K. Verma (Registered Chief Pharmacist)',
-      hospitalOrLab: 'CareConnect Licensed Digital Pharmacy (DL #DL-2026-9912)',
-      fileSize: '360 KB',
+      doctor: is1mg ? 'Tata 1mg Chief Dispensing Pharmacist' : 'R. K. Verma (Registered Chief Pharmacist)',
+      hospitalOrLab: issuer,
+      fileSize: '380 KB',
       fileType: 'application/pdf',
-      notes: `Official Itemized GST Medical Invoice. Items: ${medicinesListSummary}. Delivery to: ${orderData.deliveryAddress.fullName}, ${orderData.deliveryAddress.street}, ${orderData.deliveryAddress.city} - ${orderData.deliveryAddress.pincode}. Payment Method: ${orderData.paymentMethod}. Total Paid: ₹${orderData.finalPayable}.`,
-      tags: ['Pharmacy Invoice', 'Medication Order', 'GST Verified', orderData.paymentMethod],
+      notes: `Official Itemized GST Medical Invoice. Fulfilled by: ${is1mg ? 'Tata 1mg Express Delivery Hub (Mohali & Chandigarh)' : 'AarogyaLocker Local Partner Network'}. Items: ${medicinesListSummary}. Delivery to: ${orderData.deliveryAddress.fullName}, ${orderData.deliveryAddress.street}, ${orderData.deliveryAddress.city} - ${orderData.deliveryAddress.pincode}. Payment Method: ${orderData.paymentMethod}. Total Paid: ₹${orderData.finalPayable}. ${is1mg ? `Tata 1mg Tracking: 1MG-TRICITY-${orderId}` : ''}`,
+      tags: is1mg ? ['Tata 1mg Order', 'Pharmacy Invoice', 'Medication Order', 'GST Verified', orderData.paymentMethod] : ['Pharmacy Invoice', 'Medication Order', 'GST Verified', orderData.paymentMethod],
       abhaLinked: true,
       isIssued: true,
-      verifiedBy: 'CareConnect Pharmacy Authority & ABDM Gateway',
-      documentNumber: `INV-PHARM-${orderId}`
+      verifiedBy: verifier,
+      documentNumber: is1mg ? `1MG-INV-${orderId}` : `INV-PHARM-${orderId}`
     });
 
     return newOrder;
@@ -694,7 +709,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       date: nowStr,
       type: 'Laboratory',
       doctor: 'Dr. Ramesh Gupta, MD (Pathology)',
-      hospitalOrLab: 'CareConnect Central NABL & CAP Accredited Pathology Labs',
+      hospitalOrLab: 'AarogyaLocker Central NABL & CAP Accredited Pathology Labs',
       fileSize: '1.6 MB',
       fileType: 'application/pdf',
       notes: `Sample collected at home by ${chosenPhleb} on ${bookingData.collectionDate} (${bookingData.timeSlot}). Tests conducted: ${testNames}. High precision automated analysis calibrated to international ISO 15189 standards.`,

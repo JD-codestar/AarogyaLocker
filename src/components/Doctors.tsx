@@ -24,7 +24,17 @@ export default function Doctors({
 }: DoctorsProps) {
   // A local state for the filter pill buttons to simulate a rich UI
   const [activeFilter, setActiveFilter] = useState('All');
-  const filters = ['All', 'Available Today', 'Video Consult', 'In-Person', 'Female Doctors'];
+  const filters = ['All', 'Chandigarh', 'Mohali', 'Available Today', 'Video Consult', 'In-Person'];
+
+  const displayDoctors = doctors.filter((doc) => {
+    if (activeFilter === 'All') return true;
+    if (activeFilter === 'Chandigarh') return doc.city === 'Chandigarh';
+    if (activeFilter === 'Mohali') return doc.city === 'Mohali';
+    if (activeFilter === 'Available Today') return doc.availability === 'Available Today';
+    if (activeFilter === 'Video Consult') return doc.consultationType.includes('Video');
+    if (activeFilter === 'In-Person') return doc.consultationType.includes('In-person');
+    return true;
+  });
 
   return (
     <section className="doctors-page" aria-labelledby="doctors-heading" style={{ 
@@ -52,9 +62,9 @@ export default function Doctors({
             Find the right doctor for you
           </h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', color: 'var(--color-slate)' }}>
-            <LocationIcon size={16} /> <span>New Delhi</span>
+            <LocationIcon size={16} /> <span>Chandigarh & Mohali (Tricity)</span>
             <span style={{ margin: '0 var(--space-2)' }}>•</span>
-            <SearchIcon size={16} /> <span>{searchQuery ? `Searching for "${searchQuery}"` : 'All Specialists'}</span>
+            <SearchIcon size={16} /> <span>{searchQuery ? `Searching for "${searchQuery}"` : 'Top Hospital Specialists'}</span>
             
             {searchQuery && (
               <button
@@ -94,7 +104,7 @@ export default function Doctors({
                   whiteSpace: 'nowrap'
                 }}
               >
-                {f}
+                {f === 'Chandigarh' || f === 'Mohali' ? `📍 ${f}` : f}
               </button>
             ))}
           </div>
@@ -107,16 +117,16 @@ export default function Doctors({
           <div style={{ flex: '1' }}>
             <div style={{ marginBottom: 'var(--space-4)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--color-dark)' }}>
-                {doctors.length} {doctors.length === 1 ? 'Doctor' : 'Doctors'} available
+                {displayDoctors.length} {displayDoctors.length === 1 ? 'Doctor' : 'Doctors'} available in Tricity
               </h2>
               <span style={{ color: 'var(--color-slate)', fontSize: '14px' }}>
-                Sorted by <strong>Relevance</strong>
+                Sorted by <strong>Hospital Affiliation & Rating</strong>
               </span>
             </div>
 
-            {doctors.length > 0 ? (
+            {displayDoctors.length > 0 ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-                {doctors.map((doctor) => (
+                {displayDoctors.map((doctor) => (
                   <DoctorCard
                     key={doctor.id}
                     doctor={doctor}

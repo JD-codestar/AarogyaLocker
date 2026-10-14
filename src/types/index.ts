@@ -112,6 +112,7 @@ export interface PharmacyMedicine {
   packSize: string;
   rating: number;
   reviewsCount: number;
+  tata1mgUrl?: string;
 }
 
 export interface PharmacyCartItem {
@@ -137,6 +138,8 @@ export interface PharmacyOrder {
   };
   paymentMethod: string;
   prescriptionRecordId?: string;
+  fulfillmentPartner?: 'Tata 1mg' | 'AarogyaLocker Direct';
+  tata1mgTrackingUrl?: string;
   status: 'Processing' | 'Out for Delivery' | 'Delivered';
   createdAt: string;
   estimatedDelivery: string;

@@ -179,7 +179,7 @@ export default function HealthRecords({ onSignInClick }: HealthRecordsProps) {
       date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
       type: docCategory,
       doctor: issuingDoctor.trim() || 'Self-Uploaded / Patient Record',
-      hospitalOrLab: hospitalOrLab.trim() || 'CareConnect Digital Health Vault',
+      hospitalOrLab: hospitalOrLab.trim() || 'AarogyaLocker Digital Health Vault',
       fileSize: calculatedSize,
       fileType: calculatedType,
       fileData: fileDataUrl || undefined,
@@ -236,7 +236,7 @@ Document Title : ${record.name}
 Document Type  : ${record.type}
 Issued Date    : ${record.date}
 Issuing Doctor : ${record.doctor}
-Facility/Lab   : ${record.hospitalOrLab || 'CareConnect Network'}
+Facility/Lab   : ${record.hospitalOrLab || 'AarogyaLocker Hospital Network'}
 Patient Name   : ${currentUser.name}
 ABHA Health ID : ${currentUser.abhaId || '91-4521-8932-1104'}
 Doc ID / Hash  : ${record.documentNumber || record.id}
@@ -816,8 +816,13 @@ National Digital Health Mission Compliant
                       border: '1px solid #f1f5f9',
                       marginBottom: '14px'
                     }}>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#475569', textTransform: 'uppercase', marginBottom: '6px' }}>
-                        Prescribed Medicines ({record.medicines.length}):
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>
+                          Prescribed Medicines ({record.medicines.length}):
+                        </span>
+                        <span style={{ fontSize: '10px', color: '#be123c', fontWeight: 700 }}>
+                          🔴 Tata 1mg Sync
+                        </span>
                       </div>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                         {record.medicines.slice(0, 3).map((m, idx) => (
@@ -838,6 +843,34 @@ National Digital Health Mission Compliant
                           </span>
                         )}
                       </div>
+
+                      {/* Direct Tata 1mg Order Action */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const query = record.medicines?.map(m => m.name).join(' ') || record.name;
+                          window.open(`https://www.1mg.com/search/all?name=${encodeURIComponent(query)}`, '_blank', 'noopener,noreferrer');
+                        }}
+                        style={{
+                          marginTop: '8px',
+                          width: '100%',
+                          padding: '6px 10px',
+                          background: '#fff1f2',
+                          color: '#be123c',
+                          border: '1px solid #fecdd3',
+                          borderRadius: '6px',
+                          fontSize: '11.5px',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px'
+                        }}
+                      >
+                        <span>🔴 Order Prescribed Medicines on Tata 1mg</span>
+                        <span style={{ fontSize: '10px' }}>↗</span>
+                      </button>
                     </div>
                   )}
 
@@ -1522,7 +1555,7 @@ National Digital Health Mission Compliant
                       AarogyaLocker Healthcare Vault
                     </div>
                     <div style={{ fontSize: '12px', color: '#64748b' }}>
-                      ABDM Certified Medical Document • {previewRecord.hospitalOrLab || 'CareConnect Hospital Network'}
+                      ABDM Certified Medical Document • {previewRecord.hospitalOrLab || 'AarogyaLocker Hospital Network'}
                     </div>
                   </div>
 
@@ -1571,9 +1604,34 @@ National Digital Health Mission Compliant
                 {/* Content: Medicines if Prescription */}
                 {previewRecord.medicines && previewRecord.medicines.length > 0 && (
                   <div style={{ marginBottom: '18px' }}>
-                    <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#1e3a8a', textTransform: 'uppercase', marginBottom: '8px' }}>
-                      Prescribed Medicines & Posology
-                    </h4>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
+                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#1e3a8a', textTransform: 'uppercase', margin: 0 }}>
+                        Prescribed Medicines & Posology
+                      </h4>
+                      <button
+                        onClick={() => {
+                          const query = previewRecord.medicines?.map(m => m.name).join(' ') || previewRecord.name;
+                          window.open(`https://www.1mg.com/search/all?name=${encodeURIComponent(query)}`, '_blank', 'noopener,noreferrer');
+                        }}
+                        style={{
+                          background: '#fff1f2',
+                          color: '#be123c',
+                          border: '1.5px solid #fecdd3',
+                          padding: '5px 12px',
+                          borderRadius: '8px',
+                          fontSize: '12px',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px'
+                        }}
+                      >
+                        <span>🔴 Order All on Tata 1mg</span>
+                        <span style={{ fontSize: '10px' }}>↗</span>
+                      </button>
+                    </div>
+
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px' }}>
                       <thead>
                         <tr style={{ background: '#f1f5f9', textAlign: 'left', borderBottom: '1px solid #e2e8f0' }}>
@@ -1582,6 +1640,7 @@ National Digital Health Mission Compliant
                           <th style={{ padding: '8px' }}>Frequency</th>
                           <th style={{ padding: '8px' }}>Duration</th>
                           <th style={{ padding: '8px' }}>Instruction</th>
+                          <th style={{ padding: '8px', textAlign: 'center' }}>1mg Order</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -1592,6 +1651,24 @@ National Digital Health Mission Compliant
                             <td style={{ padding: '8px', color: '#0369a1', fontWeight: 600 }}>{m.frequency}</td>
                             <td style={{ padding: '8px', color: '#475569' }}>{m.duration}</td>
                             <td style={{ padding: '8px', color: '#64748b', fontSize: '11.5px' }}>{m.instructions || '-'}</td>
+                            <td style={{ padding: '8px', textAlign: 'center' }}>
+                              <button
+                                onClick={() => window.open(`https://www.1mg.com/search/all?name=${encodeURIComponent(m.name)}`, '_blank', 'noopener,noreferrer')}
+                                style={{
+                                  background: '#fff1f2',
+                                  color: '#be123c',
+                                  border: '1px solid #fecdd3',
+                                  padding: '4px 8px',
+                                  borderRadius: '6px',
+                                  fontSize: '11px',
+                                  fontWeight: 700,
+                                  cursor: 'pointer',
+                                  whiteSpace: 'nowrap'
+                                }}
+                              >
+                                🔴 1mg ↗
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>

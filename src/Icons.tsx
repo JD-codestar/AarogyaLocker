@@ -1,5 +1,5 @@
 /**
- * Icons.tsx — Inline SVG icons used throughout CareConnect.
+ * Icons.tsx — Inline SVG icons used throughout AarogyaLocker.
  *
  * Why inline SVGs instead of an icon library?
  * • Zero extra dependencies to install
@@ -154,7 +154,7 @@ export const CheckupIcon: React.FC<IconProps> = ({ size = 32, className }) => (
 
 // --- Brand Logo ---
 
-export const CareConnectLogo: React.FC<IconProps> = ({ size = 36 }) => (
+export const AarogyaLockerLogo: React.FC<IconProps> = ({ size = 36 }) => (
   <svg width={size} height={size} viewBox="0 0 36 36" fill="none" aria-hidden="true">
     <rect width="36" height="36" rx="10" fill="#28328C" />
     <path d="M18 29s-10-6-10-12.5C8 13 10.7 10.5 14 10.5c1.8 0 3.3 1 3.8 2.3.5-1.3 2-2.3 3.8-2.3 3.3 0 5.8 2.5 5.8 6.5C27.4 23 18 29 18 29z" fill="#FFFFFF" fillOpacity="0.9" />
@@ -162,6 +162,8 @@ export const CareConnectLogo: React.FC<IconProps> = ({ size = 36 }) => (
     <rect x="14.5" y="17" width="7" height="3" rx="1" fill="#28328C" />
   </svg>
 );
+
+export const CareConnectLogo = AarogyaLockerLogo;
 
 // --- Hero Illustration (inline SVG so no external dependencies) ---
 

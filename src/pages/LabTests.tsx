@@ -24,7 +24,7 @@ export default function LabTests() {
   const [patientDetails, setPatientDetails] = useState({
     name: currentUser?.name || 'Rahul Sharma',
     phone: currentUser?.phone || '+91 98765 43210',
-    address: 'Flat 402, Green Valley Apartments, MG Road, Bengaluru - 560001',
+    address: 'House #402, Sector 35-C, Chandigarh - 160022',
     age: currentUser?.age || 32,
     gender: currentUser?.gender || 'Male'
   });

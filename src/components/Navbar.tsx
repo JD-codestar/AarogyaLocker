@@ -3,7 +3,7 @@
  */
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CareConnectLogo, MenuIcon, CloseIcon } from '../Icons';
+import { AarogyaLockerLogo, MenuIcon, CloseIcon } from '../Icons';
 import { navLinks } from '../data';
 import { useApp } from '../context/AppContext';
 import type { UserRole } from '../types';
@@ -57,9 +57,9 @@ export default function Navbar({ onSignIn }: NavbarProps) {
     <nav className="navbar" id="home" role="navigation" aria-label="Main navigation">
       <div className="container navbar-inner">
         {/* Brand */}
-        <Link to="/" className="navbar-brand" aria-label="CareConnect — Home">
-          <CareConnectLogo />
-          <span>CareConnect</span>
+        <Link to="/" className="navbar-brand" aria-label="AarogyaLocker — Home">
+          <AarogyaLockerLogo />
+          <span>AarogyaLocker</span>
         </Link>
 
         {/* Desktop links */}

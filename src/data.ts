@@ -1,5 +1,5 @@
 /**
- * data.ts — Demo data for CareConnect
+ * data.ts — Demo data for AarogyaLocker
  *
  * This file holds all the sample data used on the homepage.
  * Everything here is fictional and clearly labelled.
@@ -24,7 +24,7 @@ export interface Doctor {
   initials: string;
   location?: string;
   hospitalAffiliation?: string;
-  city?: 'Chandigarh' | 'Mohali' | 'New Delhi' | 'Bengaluru' | 'Mumbai';
+  city?: 'Chandigarh' | 'Mohali';
 }
 
 export interface Service {
@@ -273,42 +273,114 @@ export const doctors: Doctor[] = [
     city: 'Mohali'
   },
 
-  // --- Delhi Doctors (Default Telemedicine & National Network) ---
+  // --- Additional Top Specialists from Chandigarh & Mohali Hospitals ---
   {
-    id: 'doc-1',
-    name: 'Dr. Priya Sharma',
-    specialty: 'General Physician',
-    experience: '12 years experience',
-    rating: 4.8,
-    reviewCount: 340,
-    fee: 500,
+    id: 'doc-chd-7',
+    name: 'Dr. Rajiv Singla',
+    specialty: 'Senior Nephrologist & Renal Transplant Specialist',
+    experience: '20 years experience',
+    rating: 4.9,
+    reviewCount: 510,
+    fee: 1000,
     availability: 'Available Today',
     consultationType: 'In-person & Video',
-    bio: 'Experienced in internal medicine, preventive primary health, and chronic illness management. Chief telemedicine consultation provider.',
-    education: 'MBBS, MD (Internal Medicine) — Gold Medalist',
-    languages: ['English', 'Hindi', 'Punjabi'],
-    initials: 'PS',
-    location: 'Sarita Vihar, New Delhi',
-    hospitalAffiliation: 'Apollo Hospital',
-    city: 'New Delhi'
+    bio: 'Renowned clinical nephrologist handling complex kidney failure, dialysis care, and kidney transplant programs at PGIMER.',
+    education: 'MBBS, MD (Medicine), DM (Nephrology) — PGIMER Chandigarh',
+    languages: ['English', 'Punjabi', 'Hindi'],
+    initials: 'RS',
+    location: 'Sector 12, Chandigarh',
+    hospitalAffiliation: 'PGIMER Chandigarh',
+    city: 'Chandigarh'
   },
   {
-    id: 'doc-2',
-    name: 'Dr. Arjun Patel',
-    specialty: 'Cardiologist',
+    id: 'doc-chd-8',
+    name: 'Dr. Vineet Mahajan',
+    specialty: 'Chief General & Laparoscopic Surgeon',
     experience: '18 years experience',
+    rating: 4.8,
+    reviewCount: 420,
+    fee: 750,
+    availability: 'Available Tomorrow',
+    consultationType: 'In-person Only',
+    bio: 'Expert in advanced minimal access hernia repairs, gall bladder stones removal, and gastrointestinal surgical interventions.',
+    education: 'MBBS, MS (General Surgery) — GMCH Chandigarh',
+    languages: ['English', 'Punjabi', 'Hindi'],
+    initials: 'VM',
+    location: 'Sector 32, Chandigarh',
+    hospitalAffiliation: 'GMCH-32 Chandigarh',
+    city: 'Chandigarh'
+  },
+  {
+    id: 'doc-moh-7',
+    name: 'Dr. R. K. Jaswal',
+    specialty: 'Director — Interventional Cardiology',
+    experience: '28 years experience',
+    rating: 5.0,
+    reviewCount: 1120,
+    fee: 1300,
+    availability: 'Available Today',
+    consultationType: 'In-person & Video',
+    bio: 'Pioneer in transradial interventional cardiology with over 30,000 successful coronary angiographies and angioplasties at Fortis Mohali.',
+    education: 'MBBS, MD, DM (Cardiology), FACC, FSCAI',
+    languages: ['English', 'Punjabi', 'Hindi'],
+    initials: 'RJ',
+    location: 'Sector 62, Phase 8, Mohali',
+    hospitalAffiliation: 'Fortis Hospital Mohali',
+    city: 'Mohali'
+  },
+  {
+    id: 'doc-moh-8',
+    name: 'Dr. Sachin Gupta',
+    specialty: 'Director — Medical Oncology & Cancer Care',
+    experience: '16 years experience',
     rating: 4.9,
-    reviewCount: 520,
-    fee: 1200,
+    reviewCount: 590,
+    fee: 1100,
     availability: 'Available Tomorrow',
     consultationType: 'In-person & Video',
-    bio: 'Specializes in cardiovascular health, heart disease prevention, and cardiac rehabilitation.',
-    education: 'MBBS, DM (Cardiology)',
-    languages: ['English', 'Hindi', 'Gujarati'],
-    initials: 'AP',
-    location: 'Okhla Road, New Delhi',
-    hospitalAffiliation: 'Fortis Escorts Heart Institute',
-    city: 'New Delhi'
+    bio: 'Senior oncologist specializing in targeted immunotherapies, precision chemotherapy, and comprehensive cancer care protocols.',
+    education: 'MBBS, MD, DM (Medical Oncology) — Max Mohali',
+    languages: ['English', 'Punjabi', 'Hindi'],
+    initials: 'SG',
+    location: 'Phase VI, Mohali',
+    hospitalAffiliation: 'Max Super Speciality Hospital Mohali',
+    city: 'Mohali'
+  },
+  {
+    id: 'doc-moh-9',
+    name: 'Dr. Raka Kaushal',
+    specialty: 'Director — Nephrology & Kidney Care',
+    experience: '23 years experience',
+    rating: 4.9,
+    reviewCount: 680,
+    fee: 1050,
+    availability: 'Available Today',
+    consultationType: 'In-person & Video',
+    bio: 'Foremost authority on acute renal management, chronic kidney disease stages, and successful kidney transplant follow-ups.',
+    education: 'MBBS, MD, DM (Nephrology) — Ivy Hospital',
+    languages: ['English', 'Punjabi', 'Hindi'],
+    initials: 'RK',
+    location: 'Sector 71, Mohali',
+    hospitalAffiliation: 'Ivy Hospital Mohali',
+    city: 'Mohali'
+  },
+  {
+    id: 'doc-moh-10',
+    name: 'Dr. Gagandeep Singh',
+    specialty: 'Chief Vitreo-Retinal & Eye Surgeon',
+    experience: '17 years experience',
+    rating: 4.8,
+    reviewCount: 530,
+    fee: 850,
+    availability: 'Available Today',
+    consultationType: 'In-person Only',
+    bio: 'Specialist in diabetic retinopathy, retinal detachment surgery, advanced cataract surgery, and laser eye treatments.',
+    education: 'MBBS, MS (Ophthalmology), FVR (Vitreo-Retina)',
+    languages: ['English', 'Punjabi', 'Hindi'],
+    initials: 'GS',
+    location: 'Sector 77, Sohana, Mohali',
+    hospitalAffiliation: 'Sohana Super Speciality Hospital',
+    city: 'Mohali'
   }
 ];
 
