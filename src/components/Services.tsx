@@ -3,6 +3,7 @@
  *
  * Matches the layout with large image cards.
  */
+import { Link } from 'react-router-dom';
 import { services } from '../data';
 
 export default function Services() {
@@ -15,11 +16,16 @@ export default function Services() {
           gap: 'var(--space-6)',
           justifyContent: 'center'
         }}>
-          {services.map((service) => (
-            <a
-              key={service.id}
-              href={service.href}
-              className="card service-card"
+          {services.map((service) => {
+            const isInternal = service.href.startsWith('/');
+            const CardWrapper = isInternal ? Link : 'a';
+            const linkProps = isInternal ? { to: service.href } : { href: service.href };
+
+            return (
+              <CardWrapper
+                key={service.id}
+                {...(linkProps as any)}
+                className="card service-card"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -65,10 +71,11 @@ export default function Services() {
               </div>
               <div className="service-content" style={{ padding: 'var(--space-5)' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: 600, marginBottom: 'var(--space-2)' }}>{service.title}</h3>
-                <p style={{ fontSize: '14px', color: 'var(--color-slate)' }}>{service.description}</p>
+                <p style={{ fontSize: '14px', color: 'var(--color-slate)', margin: 0 }}>{service.description}</p>
               </div>
-            </a>
-          ))}
+            </CardWrapper>
+          );
+        })}
         </div>
       </div>
     </section>

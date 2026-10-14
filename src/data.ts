@@ -391,33 +391,33 @@ export const services: Service[] = [
     id: 'svc-1',
     title: 'Instant Video Consultation',
     description: 'Connect within 60 secs',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=400&q=80',
+    image: '/images/consult.jpg',
     bgColor: '#A0C4E2', // Light blue
-    href: '#services',
+    href: '/consult',
   },
   {
     id: 'svc-2',
     title: 'Find Doctors Near You',
-    description: 'Confirmed appointments',
-    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80',
+    description: 'Confirmed appointments in Tricity',
+    image: '/images/doctors.jpg',
     bgColor: '#89C2C5', // Teal
-    href: '#doctors',
+    href: '/doctors',
   },
   {
     id: 'svc-3',
     title: 'Lab Tests',
-    description: 'Safe and trusted lab tests',
-    image: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=400&q=80',
+    description: 'Safe and trusted diagnostic tests',
+    image: '/images/lab-tests.jpg',
     bgColor: '#C5C1F0', // Light purple
-    href: '#how-it-works',
+    href: '/lab-tests',
   },
   {
     id: 'svc-4',
     title: 'Surgeries',
     description: 'Safe and trusted surgery centers',
-    image: 'https://images.unsplash.com/photo-1551076805-e1869043e560?auto=format&fit=crop&w=400&q=80',
-    bgColor: '#C5C9D4', // Grey
-    href: '#how-it-works',
+    image: '/images/surgery.jpg',
+    bgColor: '#94a3b8', // Slate Blue/Grey
+    href: '/hospitals',
   },
 ];
 
