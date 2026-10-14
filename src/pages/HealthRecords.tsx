@@ -98,7 +98,8 @@ export default function HealthRecords({ onSignInClick }: HealthRecordsProps) {
       (filterCategory === 'Imaging' && record.type === 'Imaging') ||
       (filterCategory === 'Vaccination' && record.type === 'Vaccination') ||
       (filterCategory === 'Discharge' && record.type === 'Discharge') ||
-      (filterCategory === 'IdentityCard' && record.type === 'IdentityCard');
+      (filterCategory === 'IdentityCard' && record.type === 'IdentityCard') ||
+      (filterCategory === 'Invoice' && record.type === 'Invoice');
 
     if (!matchesCategory) return false;
 
@@ -276,6 +277,8 @@ National Digital Health Mission Compliant
         return { bg: '#fef2f2', color: '#b91c1c', border: '#fecaca', icon: '🏥' };
       case 'IdentityCard':
         return { bg: '#f0fdf4', color: '#15803d', border: '#bbf7d0', icon: '🪪' };
+      case 'Invoice':
+        return { bg: '#ecfdf5', color: '#047857', border: '#a7f3d0', icon: '🧾' };
       default:
         return { bg: '#f1f5f9', color: '#475569', border: '#e2e8f0', icon: '📄' };
     }
@@ -684,6 +687,7 @@ National Digital Health Mission Compliant
             { label: '💉 Vaccines', value: 'Vaccination' },
             { label: '🏥 Hospital Summaries', value: 'Discharge' },
             { label: '🪪 Identity Cards', value: 'IdentityCard' },
+            { label: '🧾 Medical Invoices', value: 'Invoice' },
           ].map((cat) => (
             <button
               key={cat.value}

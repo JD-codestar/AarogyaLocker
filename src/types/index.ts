@@ -13,7 +13,7 @@ export interface User {
   specialty?: string;
 }
 
-export type RecordCategory = 'Laboratory' | 'Imaging' | 'Prescription' | 'Discharge' | 'Vaccination' | 'IdentityCard';
+export type RecordCategory = 'Laboratory' | 'Imaging' | 'Prescription' | 'Discharge' | 'Vaccination' | 'IdentityCard' | 'Invoice';
 
 export interface MedicineEntry {
   name: string;
@@ -93,4 +93,85 @@ export interface ChatMessage {
     precautions: string[];
     recommendedSpecialist: string;
   };
+}
+
+// --- Pharmacy Types ---
+export interface PharmacyMedicine {
+  id: string;
+  name: string;
+  brand: string;
+  price: number;
+  mrp: number;
+  type: 'Tablet' | 'Capsule' | 'Syrup' | 'Injection' | 'Ointment' | 'Drops';
+  dosage: string;
+  category: 'All' | 'Antibiotics' | 'Pain Relief' | 'Diabetes' | 'Cardiac' | 'Vitamins & Supplements' | 'Respiratory' | 'Gastrointestinal';
+  prescriptionRequired: boolean;
+  inStock: boolean;
+  description: string;
+  composition: string;
+  packSize: string;
+  rating: number;
+  reviewsCount: number;
+}
+
+export interface PharmacyCartItem {
+  medicine: PharmacyMedicine;
+  quantity: number;
+}
+
+export interface PharmacyOrder {
+  id: string;
+  patientId: string;
+  patientName: string;
+  items: PharmacyCartItem[];
+  totalMrp: number;
+  discount: number;
+  deliveryFee: number;
+  finalPayable: number;
+  deliveryAddress: {
+    fullName: string;
+    phone: string;
+    street: string;
+    city: string;
+    pincode: string;
+  };
+  paymentMethod: string;
+  prescriptionRecordId?: string;
+  status: 'Processing' | 'Out for Delivery' | 'Delivered';
+  createdAt: string;
+  estimatedDelivery: string;
+}
+
+// --- Lab Test Types ---
+export interface LabTestPackage {
+  id: string;
+  name: string;
+  category: 'Blood Test' | 'Heart Health' | 'Diabetes' | 'Health Package' | 'Thyroid' | 'Kidney & Liver';
+  price: number;
+  mrp: number;
+  reportTime: string;
+  fastingRequired: boolean;
+  fastingHours?: number;
+  sampleType: string;
+  description: string;
+  testCount: number;
+  parameters: string[];
+  popular?: boolean;
+}
+
+export interface LabTestBooking {
+  id: string;
+  patientId: string;
+  patientName: string;
+  tests: LabTestPackage[];
+  collectionDate: string;
+  timeSlot: string;
+  address: string;
+  phone: string;
+  totalAmount: number;
+  paymentMethod: string;
+  status: 'Confirmed' | 'Sample Collected' | 'Report Generated';
+  createdAt: string;
+  phlebotomistName: string;
+  reportRecordId?: string;
 }

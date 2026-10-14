@@ -4,8 +4,14 @@ import type {
   UserRole, 
   HealthRecord, 
   Appointment, 
-  PrescriptionItem 
+  PrescriptionItem,
+  PharmacyMedicine,
+  PharmacyOrder,
+  LabTestPackage,
+  LabTestBooking,
+  LabResultEntry
 } from '../types';
+import { INITIAL_PHARMACY_MEDICINES, INITIAL_LAB_PACKAGES } from '../data/storeData';
 
 export const DEMO_USERS: User[] = [
   {
@@ -268,6 +274,16 @@ interface AppContextType {
   // Prescriptions
   prescriptions: PrescriptionItem[];
   addPrescription: (rx: Omit<PrescriptionItem, 'id'>) => void;
+
+  // Pharmacy Store
+  pharmacyMedicines: PharmacyMedicine[];
+  pharmacyOrders: PharmacyOrder[];
+  createPharmacyOrder: (orderData: Omit<PharmacyOrder, 'id' | 'createdAt' | 'status' | 'estimatedDelivery'>) => PharmacyOrder;
+
+  // Diagnostics & Lab Tests
+  labPackages: LabTestPackage[];
+  labBookings: LabTestBooking[];
+  createLabBooking: (bookingData: Omit<LabTestBooking, 'id' | 'createdAt' | 'status' | 'phlebotomistName' | 'reportRecordId'>) => LabTestBooking;
   
   // Gemini AI Key
   geminiApiKey: string;
@@ -313,7 +329,25 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return INITIAL_PRESCRIPTIONS;
   });
 
-  // 5. Gemini API Key
+  // 5. Pharmacy Orders State
+  const [pharmacyOrders, setPharmacyOrders] = useState<PharmacyOrder[]>(() => {
+    const saved = localStorage.getItem('aarogya_pharmacy_orders');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+    }
+    return [];
+  });
+
+  // 6. Lab Test Bookings State
+  const [labBookings, setLabBookings] = useState<LabTestBooking[]>(() => {
+    const saved = localStorage.getItem('aarogya_lab_bookings');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+    }
+    return [];
+  });
+
+  // 7. Gemini API Key
   const [geminiApiKey, setGeminiApiKeyState] = useState<string>(() => {
     return localStorage.getItem('aarogya_gemini_key') || '';
   });
@@ -338,6 +372,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     localStorage.setItem('aarogya_prescriptions', JSON.stringify(prescriptions));
   }, [prescriptions]);
+
+  useEffect(() => {
+    localStorage.setItem('aarogya_pharmacy_orders', JSON.stringify(pharmacyOrders));
+  }, [pharmacyOrders]);
+
+  useEffect(() => {
+    localStorage.setItem('aarogya_lab_bookings', JSON.stringify(labBookings));
+  }, [labBookings]);
 
   const setGeminiApiKey = (key: string) => {
     setGeminiApiKeyState(key);
@@ -579,6 +621,105 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  // Pharmacy order creation + Auto-save invoice to AarogyaLocker
+  const createPharmacyOrder = (
+    orderData: Omit<PharmacyOrder, 'id' | 'createdAt' | 'status' | 'estimatedDelivery'>
+  ): PharmacyOrder => {
+    const orderId = `ORD-${Date.now().toString().slice(-6)}`;
+    const nowStr = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+    const estDelivery = 'Today, by 6:00 PM (Express Pharmacy Delivery)';
+
+    const newOrder: PharmacyOrder = {
+      ...orderData,
+      id: orderId,
+      status: 'Processing',
+      createdAt: nowStr,
+      estimatedDelivery: estDelivery
+    };
+
+    setPharmacyOrders(prev => [newOrder, ...prev]);
+
+    // Automatically deposit Official Tax Invoice into patient's AarogyaLocker
+    const medicinesListSummary = orderData.items
+      .map(i => `${i.medicine.name} (Qty: ${i.quantity}, ₹${i.medicine.price * i.quantity})`)
+      .join(', ');
+
+    addRecord({
+      patientId: orderData.patientId,
+      name: `Pharmacy Tax Invoice — #${orderId}`,
+      date: nowStr,
+      type: 'Invoice',
+      doctor: 'R. K. Verma (Registered Chief Pharmacist)',
+      hospitalOrLab: 'CareConnect Licensed Digital Pharmacy (DL #DL-2026-9912)',
+      fileSize: '360 KB',
+      fileType: 'application/pdf',
+      notes: `Official Itemized GST Medical Invoice. Items: ${medicinesListSummary}. Delivery to: ${orderData.deliveryAddress.fullName}, ${orderData.deliveryAddress.street}, ${orderData.deliveryAddress.city} - ${orderData.deliveryAddress.pincode}. Payment Method: ${orderData.paymentMethod}. Total Paid: ₹${orderData.finalPayable}.`,
+      tags: ['Pharmacy Invoice', 'Medication Order', 'GST Verified', orderData.paymentMethod],
+      abhaLinked: true,
+      isIssued: true,
+      verifiedBy: 'CareConnect Pharmacy Authority & ABDM Gateway',
+      documentNumber: `INV-PHARM-${orderId}`
+    });
+
+    return newOrder;
+  };
+
+  // Lab booking creation + Auto-generate booking receipt & clinical results in AarogyaLocker
+  const createLabBooking = (
+    bookingData: Omit<LabTestBooking, 'id' | 'createdAt' | 'status' | 'phlebotomistName' | 'reportRecordId'>
+  ): LabTestBooking => {
+    const bookingId = `LAB-BK-${Date.now().toString().slice(-6)}`;
+    const nowStr = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+    const phlebotomistNames = ['Suresh Verma (ABDM Phlebotomist)', 'Kavita Nair (Senior Pathologist)', 'Rajesh Kumar (Certified Phlebotomist)'];
+    const chosenPhleb = phlebotomistNames[Math.floor(Math.random() * phlebotomistNames.length)];
+
+    const testNames = bookingData.tests.map(t => t.name).join(' & ');
+
+    // Compile realistic lab results based on chosen tests
+    const defaultLabResults: LabResultEntry[] = [
+      { parameter: 'Hemoglobin (Hb)', value: '14.2', unit: 'g/dL', referenceRange: '13.0 - 17.0', status: 'Normal' },
+      { parameter: 'Total Leucocyte Count (WBC)', value: '7,100', unit: '/mcL', referenceRange: '4,500 - 11,000', status: 'Normal' },
+      { parameter: 'Absolute Platelet Count', value: '260,000', unit: '/mcL', referenceRange: '150,000 - 450,000', status: 'Normal' },
+      { parameter: 'Fasting Blood Glucose', value: '94', unit: 'mg/dL', referenceRange: '70 - 99', status: 'Normal' },
+      { parameter: 'Total Serum Cholesterol', value: '180', unit: 'mg/dL', referenceRange: '< 200', status: 'Normal' },
+      { parameter: 'Serum Creatinine', value: '0.92', unit: 'mg/dL', referenceRange: '0.7 - 1.3', status: 'Normal' },
+      { parameter: 'SGPT / Alanine Aminotransferase', value: '31', unit: 'U/L', referenceRange: '< 45', status: 'Normal' },
+      { parameter: 'Thyroid Stimulating Hormone (TSH)', value: '2.40', unit: 'uIU/mL', referenceRange: '0.45 - 4.50', status: 'Normal' }
+    ];
+
+    // Automatically deposit Official Diagnostic Laboratory Report into patient's AarogyaLocker
+    const createdRecord = addRecord({
+      patientId: bookingData.patientId,
+      name: `Diagnostic Report — ${testNames.slice(0, 48)}${testNames.length > 48 ? '...' : ''}`,
+      date: nowStr,
+      type: 'Laboratory',
+      doctor: 'Dr. Ramesh Gupta, MD (Pathology)',
+      hospitalOrLab: 'CareConnect Central NABL & CAP Accredited Pathology Labs',
+      fileSize: '1.6 MB',
+      fileType: 'application/pdf',
+      notes: `Sample collected at home by ${chosenPhleb} on ${bookingData.collectionDate} (${bookingData.timeSlot}). Tests conducted: ${testNames}. High precision automated analysis calibrated to international ISO 15189 standards.`,
+      tags: ['Diagnostic Report', 'NABL Accredited', 'Home Sample', bookingData.paymentMethod],
+      abhaLinked: true,
+      isIssued: true,
+      verifiedBy: 'Dr. Ramesh Gupta, MD (Pathology) — Reg #DMC-39104',
+      documentNumber: `LAB-REP-${bookingId}`,
+      labResults: defaultLabResults
+    });
+
+    const newBooking: LabTestBooking = {
+      ...bookingData,
+      id: bookingId,
+      status: 'Confirmed',
+      createdAt: nowStr,
+      phlebotomistName: chosenPhleb,
+      reportRecordId: createdRecord.id
+    };
+
+    setLabBookings(prev => [newBooking, ...prev]);
+
+    return newBooking;
+  };
+
   return (
     <AppContext.Provider value={{
       currentUser,
@@ -597,6 +738,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       cancelAppointment,
       prescriptions,
       addPrescription,
+      pharmacyMedicines: INITIAL_PHARMACY_MEDICINES,
+      pharmacyOrders,
+      createPharmacyOrder,
+      labPackages: INITIAL_LAB_PACKAGES,
+      labBookings,
+      createLabBooking,
       geminiApiKey,
       setGeminiApiKey
     }}>
