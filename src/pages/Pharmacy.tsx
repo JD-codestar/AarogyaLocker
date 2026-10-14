@@ -280,6 +280,7 @@ export default function Pharmacy() {
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Escape') setSearchQuery(''); }}
                 placeholder="Search by medicine name, active salt (e.g. Paracetamol), or brand..."
                 style={{
                   width: '100%',
@@ -291,12 +292,50 @@ export default function Pharmacy() {
               />
               {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => setSearchQuery('')}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8' }}
+                  title="Clear search (Esc)"
+                  style={{
+                    background: '#f1f5f9',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: '24px',
+                    height: '24px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: '#64748b'
+                  }}
                 >
-                  <CloseIcon size={18} />
+                  <CloseIcon size={14} />
                 </button>
               )}
+            </div>
+
+            {/* Quick Medicine Chips */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '10px' }}>
+              <span style={{ fontSize: '12px', color: '#a7f3d0', fontWeight: 600 }}>Popular:</span>
+              {['Paracetamol', 'Azithromycin', 'Metformin', 'Vitamin C', 'Omega 3', 'Telmisartan', 'Pan-D'].map(chip => (
+                <button
+                  key={chip}
+                  type="button"
+                  onClick={() => setSearchQuery(chip)}
+                  style={{
+                    background: 'rgba(255,255,255,0.18)',
+                    border: '1px solid rgba(255,255,255,0.3)',
+                    color: 'white',
+                    borderRadius: '14px',
+                    padding: '3px 10px',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  {chip}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -471,6 +510,26 @@ export default function Pharmacy() {
             />
             Show Prescription (Rx) Only
           </label>
+        </div>
+
+        {/* Results Counter Bar */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', padding: '0 4px' }}>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: '#334155' }}>
+            Showing {filteredMedicines.length} of {pharmacyMedicines.length} medicines
+            {searchQuery && <span style={{ color: '#047857', fontWeight: 500 }}> matching "{searchQuery}"</span>}
+          </span>
+          {(searchQuery || selectedCategory !== 'All' || showRxOnly) && (
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory('All');
+                setShowRxOnly(false);
+              }}
+              style={{ background: 'none', border: 'none', color: '#dc2626', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+            >
+              Reset Filters
+            </button>
+          )}
         </div>
 
         {/* Products Grid */}
@@ -688,10 +747,50 @@ export default function Pharmacy() {
         </div>
 
         {filteredMedicines.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '60px 20px', color: '#64748b' }}>
+          <div style={{
+            textAlign: 'center',
+            padding: '50px 20px',
+            color: '#64748b',
+            background: 'white',
+            borderRadius: '16px',
+            border: '1px solid #e2e8f0',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+          }}>
             <div style={{ fontSize: '48px', marginBottom: '12px' }}>🔍</div>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1e293b' }}>No medications found</h3>
-            <p>We could not find any medicine matching "{searchQuery}". Try searching by salt name like "Paracetamol" or change category.</p>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1e293b', margin: '0 0 8px' }}>No medications found</h3>
+            <p style={{ maxWidth: '440px', margin: '0 auto 20px', fontSize: '14px', lineHeight: 1.5 }}>
+              We could not find any medicine matching "{searchQuery}". You can search the full catalog directly on Tata 1mg or reset your filters.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => openTata1mg(searchQuery)}
+                style={{
+                  background: '#e11d48',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '10px',
+                  fontWeight: 700,
+                  fontSize: '13px',
+                  cursor: 'pointer'
+                }}
+              >
+                Search "{searchQuery}" on Tata 1mg ↗
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('All');
+                  setShowRxOnly(false);
+                }}
+                className="btn btn-secondary"
+                style={{ padding: '10px 20px', borderRadius: '10px', fontSize: '13px' }}
+              >
+                Show All Medications
+              </button>
+            </div>
           </div>
         )}
       </div>

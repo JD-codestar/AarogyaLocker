@@ -4,7 +4,7 @@
  * This file wires all the page sections together and manages
  * the application's shared state and routing.
  */
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import { useApp } from './context/AppContext';
@@ -23,6 +23,7 @@ import TrustSection from './components/TrustSection';
 import Testimonials from './components/Testimonials';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 // Modals
 import BookingModal from './components/BookingModal';
@@ -57,23 +58,16 @@ function App() {
   const [profileDoctor, setProfileDoctor] = useState<Doctor | null>(null);
   const [showSignInModal, setShowSignInModal] = useState(false);
 
-  // --- Filter doctors based on search ---
-  const filteredDoctors = useMemo(() => {
-    if (!searchQuery.trim()) return allDoctors;
-    const q = searchQuery.toLowerCase();
-    return allDoctors.filter(
-      (doc) =>
-        doc.name.toLowerCase().includes(q) ||
-        doc.specialty.toLowerCase().includes(q)
-    );
-  }, [searchQuery]);
+
 
   // --- Event Handlers ---
   const handleSearch = (query: string, location: string) => {
     setSearchQuery(query);
     setSearchLocation(location);
-    navigate('/doctors');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const params = new URLSearchParams();
+    if (query.trim()) params.set('search', query.trim());
+    if (location && location !== 'Chandigarh & Mohali') params.set('city', location);
+    navigate(`/doctors${params.toString() ? `?${params.toString()}` : ''}`);
   };
 
   const handleClearSearch = () => {
@@ -83,7 +77,6 @@ function App() {
 
   const handleFindDoctor = () => {
     navigate('/doctors');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleViewProfile = (doctor: Doctor) => {
@@ -100,6 +93,7 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       <div id="top" style={{ position: 'absolute', top: 0 }} />
       {/* Skip-to-content link for keyboard users */}
       <a href="#main-content" className="sr-only" style={{ position: 'absolute', top: 0, left: 0, zIndex: 999 }}>
@@ -125,8 +119,9 @@ function App() {
           <Route path="/doctors" element={
             <div style={{ paddingTop: 'var(--space-8)' }}>
               <Doctors
-                doctors={filteredDoctors}
+                doctors={allDoctors}
                 searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
                 onClearSearch={handleClearSearch}
                 onViewProfile={handleViewProfile}
                 onBook={handleBook}

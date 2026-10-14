@@ -616,6 +616,7 @@ National Digital Health Mission Compliant
                 placeholder="Search prescription, test, doctor..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Escape') setSearchQuery(''); }}
                 style={{
                   width: '100%',
                   padding: '8px 12px 8px 34px',

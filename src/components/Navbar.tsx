@@ -2,7 +2,7 @@
  * Navbar.tsx — Sticky navigation bar with responsive mobile menu & user role switcher.
  */
 import { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AarogyaLockerLogo, MenuIcon, CloseIcon } from '../Icons';
 import { navLinks } from '../data';
 import { useApp } from '../context/AppContext';
@@ -18,6 +18,7 @@ export default function Navbar({ onSignIn }: NavbarProps) {
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { currentUser, isLoggedIn, logout, switchRole } = useApp();
 
@@ -66,29 +67,35 @@ export default function Navbar({ onSignIn }: NavbarProps) {
         <div className="navbar-links" role="menubar">
           {navLinks.map((link) => {
             const isLocker = link.href === '/health-records';
-            return (
-              <Link 
-                key={link.label} 
-                to={link.href} 
-                role="menuitem"
-                style={isLocker ? {
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontWeight: 600,
-                  color: 'var(--color-primary-dark, #1e3a8a)',
-                  background: 'rgba(30, 58, 138, 0.06)',
-                  padding: '6px 12px',
-                  borderRadius: '20px',
-                  border: '1px solid rgba(30, 58, 138, 0.15)'
-                } : undefined}
-              >
-                {isLocker && <span>🔐</span>}
-                {link.label}
-                {isLocker && (
+            const isActive = link.href === '/' 
+              ? location.pathname === '/' 
+              : location.pathname.startsWith(link.href);
+
+            if (isLocker) {
+              return (
+                <Link 
+                  key={link.label} 
+                  to={link.href} 
+                  role="menuitem"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontWeight: 700,
+                    color: '#1e3a8a',
+                    background: isActive ? 'rgba(30, 58, 138, 0.12)' : 'rgba(30, 58, 138, 0.05)',
+                    padding: '6px 14px',
+                    borderRadius: '20px',
+                    border: isActive ? '2px solid #1e3a8a' : '1px solid rgba(30, 58, 138, 0.15)',
+                    boxShadow: isActive ? '0 2px 8px rgba(30, 58, 138, 0.12)' : 'none',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  <span>🔐</span>
+                  {link.label}
                   <span style={{
                     fontSize: '9px',
-                    fontWeight: 700,
+                    fontWeight: 800,
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px',
                     background: '#10b981',
@@ -98,7 +105,26 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                   }}>
                     ABDM
                   </span>
-                )}
+                </Link>
+              );
+            }
+
+            return (
+              <Link 
+                key={link.label} 
+                to={link.href} 
+                role="menuitem"
+                style={{
+                  display: 'inline-block',
+                  padding: '6px 12px',
+                  borderRadius: '20px',
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? '#1e3a8a' : 'var(--color-dark)',
+                  background: isActive ? 'rgba(30, 58, 138, 0.08)' : 'transparent',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                {link.label}
               </Link>
             );
           })}
@@ -319,22 +345,28 @@ export default function Navbar({ onSignIn }: NavbarProps) {
       <div className={`navbar-mobile-menu ${mobileOpen ? 'open' : ''}`} role="menu">
         {navLinks.map((link) => {
           const isLocker = link.href === '/health-records';
+          const isActive = link.href === '/' 
+            ? location.pathname === '/' 
+            : location.pathname.startsWith(link.href);
+
           return (
             <Link 
               key={link.label} 
               to={link.href} 
               role="menuitem" 
               onClick={closeMobile}
-              style={isLocker ? {
+              style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                fontWeight: 600,
-                color: 'var(--color-primary-dark, #1e3a8a)',
-                background: 'rgba(30, 58, 138, 0.05)',
-                padding: '8px 12px',
-                borderRadius: '8px'
-              } : undefined}
+                fontWeight: isActive ? 700 : 500,
+                color: isActive ? '#1e3a8a' : 'inherit',
+                background: isActive ? 'rgba(30, 58, 138, 0.08)' : (isLocker ? 'rgba(30, 58, 138, 0.04)' : 'transparent'),
+                padding: '10px 14px',
+                borderRadius: '8px',
+                borderLeft: isActive ? '3px solid #1e3a8a' : '3px solid transparent',
+                transition: 'all 0.15s ease'
+              }}
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 {isLocker && <span>🔐</span>}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import { SearchIcon, CloseIcon } from '../Icons';
 
 interface DoctorDashboardProps {
   isLoggedIn: boolean;
@@ -10,6 +11,7 @@ export default function DoctorDashboard({ onSignInClick }: DoctorDashboardProps)
   const { currentUser, isLoggedIn, appointments, updateAppointmentStatus, addDoctorNotesAndPrescription } = useApp();
 
   const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [patientSearch, setPatientSearch] = useState('');
   const [selectedAptId, setSelectedAptId] = useState<string>('');
   const [clinicalNotes, setClinicalNotes] = useState('');
   
@@ -42,10 +44,16 @@ export default function DoctorDashboard({ onSignInClick }: DoctorDashboardProps)
   );
 
   const displayedAppointments = doctorAppointments.filter(a => {
-    if (filterStatus === 'waiting') return a.status === 'Waiting';
-    if (filterStatus === 'scheduled') return a.status === 'Scheduled';
-    if (filterStatus === 'completed') return a.status === 'Completed';
-    return true;
+    if (filterStatus === 'waiting' && a.status !== 'Waiting') return false;
+    if (filterStatus === 'scheduled' && a.status !== 'Scheduled') return false;
+    if (filterStatus === 'completed' && a.status !== 'Completed') return false;
+    if (!patientSearch.trim()) return true;
+    const q = patientSearch.toLowerCase();
+    return (
+      a.patientName.toLowerCase().includes(q) ||
+      a.id.toLowerCase().includes(q) ||
+      (a.notes && a.notes.toLowerCase().includes(q))
+    );
   });
 
   const selectedApt = doctorAppointments.find(a => a.id === selectedAptId) || displayedAppointments[0];
@@ -210,6 +218,36 @@ export default function DoctorDashboard({ onSignInClick }: DoctorDashboardProps)
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Patient Quick Search Input */}
+          <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <SearchIcon size={16} color="#64748b" />
+            <input
+              type="text"
+              value={patientSearch}
+              onChange={(e) => setPatientSearch(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Escape') setPatientSearch(''); }}
+              placeholder="Search patient name, token ID or condition..."
+              style={{
+                flex: 1,
+                border: 'none',
+                background: 'transparent',
+                outline: 'none',
+                fontSize: '12px',
+                color: '#1e293b'
+              }}
+            />
+            {patientSearch && (
+              <button
+                type="button"
+                onClick={() => setPatientSearch('')}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex', alignItems: 'center' }}
+                title="Clear (Esc)"
+              >
+                <CloseIcon size={12} />
+              </button>
+            )}
           </div>
 
           <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>

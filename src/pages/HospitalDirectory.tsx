@@ -658,12 +658,12 @@ export default function HospitalDirectory() {
           {/* Search Bar */}
           <div style={{
             display: 'flex',
-            maxWidth: '680px',
+            maxWidth: '720px',
             margin: '0 auto',
             background: 'white',
-            border: '1px solid var(--color-gray-200)',
+            border: '2px solid #cbd5e1',
             borderRadius: '14px',
-            padding: '10px 18px',
+            padding: '8px 18px',
             boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
             alignItems: 'center',
             gap: '12px'
@@ -676,21 +676,60 @@ export default function HospitalDirectory() {
               placeholder="Search hospital, doctor, sector or specialty (e.g. Fortis, PGIMER, Dr. Jaswal, Cardiology)..." 
               value={search}
               onChange={e => setSearch(e.target.value)}
-              style={{ flex: 1, border: 'none', outline: 'none', fontSize: '15px' }}
+              onKeyDown={e => { if (e.key === 'Escape') setSearch(''); }}
+              style={{ flex: 1, border: 'none', outline: 'none', fontSize: '15px', color: '#1e293b' }}
             />
             {search && (
               <button
+                type="button"
                 onClick={() => setSearch('')}
-                style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}
+                title="Clear search (Esc)"
+                style={{
+                  background: '#f1f5f9',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '26px',
+                  height: '26px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#64748b',
+                  cursor: 'pointer'
+                }}
               >
-                Clear
+                <CloseIcon size={14} />
               </button>
             )}
+          </div>
+
+          {/* Quick Hospital Tags */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '12px' }}>
+            <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 600 }}>Quick Search:</span>
+            {['PGIMER', 'Fortis Mohali', 'Max Super Speciality', 'GMCH 32', 'Ivy Hospital', 'Apex Trauma Level-1', 'Cardiology'].map(chip => (
+              <button
+                key={chip}
+                type="button"
+                onClick={() => setSearch(chip)}
+                style={{
+                  background: search === chip ? '#1e3a8a' : '#ffffff',
+                  color: search === chip ? '#ffffff' : '#334155',
+                  border: '1px solid #cbd5e1',
+                  borderRadius: '14px',
+                  padding: '3px 10px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                {chip}
+              </button>
+            ))}
           </div>
         </div>
 
         {/* Filter Controls Row */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '28px', background: 'white', padding: '16px 20px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '20px', background: 'white', padding: '16px 20px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
           {/* Region Filter */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '13px', fontWeight: 700, color: '#334155', marginRight: '4px' }}>Region:</span>
@@ -740,6 +779,26 @@ export default function HospitalDirectory() {
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Results Counter Bar */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', padding: '0 4px' }}>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: '#334155' }}>
+            Showing {filtered.length} of {hospitals.length} hospitals {selectedCity !== 'All' ? `in ${selectedCity}` : 'in Tricity'}
+            {search && <span style={{ color: '#1e40af', fontWeight: 500 }}> matching "{search}"</span>}
+          </span>
+          {(search || selectedCity !== 'All' || selectedSpecialty !== 'All') && (
+            <button
+              onClick={() => {
+                setSearch('');
+                setSelectedCity('All');
+                setSelectedSpecialty('All');
+              }}
+              style={{ background: 'none', border: 'none', color: '#dc2626', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+            >
+              Reset Filters
+            </button>
+          )}
         </div>
 
         {/* Hospital Directory Cards */}

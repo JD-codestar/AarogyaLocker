@@ -154,6 +154,7 @@ export default function LabTests() {
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Escape') setSearchQuery(''); }}
                 placeholder="Search test name (e.g. CBC, HbA1c, Thyroid, Lipid, Liver)..."
                 style={{
                   width: '100%',
@@ -165,12 +166,50 @@ export default function LabTests() {
               />
               {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => setSearchQuery('')}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8' }}
+                  title="Clear search (Esc)"
+                  style={{
+                    background: '#f1f5f9',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: '24px',
+                    height: '24px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: '#64748b'
+                  }}
                 >
-                  <CloseIcon size={18} />
+                  <CloseIcon size={14} />
                 </button>
               )}
+            </div>
+
+            {/* Quick Test Chips */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '10px' }}>
+              <span style={{ fontSize: '12px', color: '#bfdbfe', fontWeight: 600 }}>Popular:</span>
+              {['Full Body', 'CBC', 'HbA1c', 'Thyroid', 'Lipid', 'Liver', 'Vitamin D'].map(chip => (
+                <button
+                  key={chip}
+                  type="button"
+                  onClick={() => setSearchQuery(chip)}
+                  style={{
+                    background: 'rgba(255,255,255,0.18)',
+                    border: '1px solid rgba(255,255,255,0.3)',
+                    color: 'white',
+                    borderRadius: '14px',
+                    padding: '3px 10px',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  {chip}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -180,7 +219,7 @@ export default function LabTests() {
       <div style={{ maxWidth: '1200px', margin: '24px auto', padding: '0 16px' }}>
 
         {/* Categories */}
-        <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '24px' }}>
+        <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '16px' }}>
           {categories.map(cat => (
             <button
               key={cat}
@@ -202,6 +241,57 @@ export default function LabTests() {
             </button>
           ))}
         </div>
+
+        {/* Results Counter Bar */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', padding: '0 4px' }}>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: '#334155' }}>
+            Showing {filteredPackages.length} of {labPackages.length} test packages
+            {searchQuery && <span style={{ color: '#1e40af', fontWeight: 500 }}> matching "{searchQuery}"</span>}
+          </span>
+          {(searchQuery || selectedCategory !== 'All') && (
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory('All');
+              }}
+              style={{ background: 'none', border: 'none', color: '#dc2626', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+            >
+              Reset Filters
+            </button>
+          )}
+        </div>
+
+        {/* Empty State */}
+        {filteredPackages.length === 0 && (
+          <div style={{
+            background: 'white',
+            borderRadius: '16px',
+            border: '1px solid #e2e8f0',
+            padding: '50px 20px',
+            textAlign: 'center',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+          }}>
+            <div style={{ color: '#94a3b8', display: 'flex', justifyContent: 'center', marginBottom: '12px' }}>
+              <SearchIcon size={48} />
+            </div>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', margin: '0 0 6px' }}>
+              No diagnostic tests found
+            </h3>
+            <p style={{ color: '#64748b', fontSize: '14px', maxWidth: '400px', margin: '0 auto 16px' }}>
+              We couldn't find any lab tests matching "{searchQuery}".
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory('All');
+              }}
+              className="btn btn-primary"
+              style={{ padding: '8px 20px', fontSize: '13px', fontWeight: 700, borderRadius: '10px' }}
+            >
+              Show All Diagnostic Tests
+            </button>
+          </div>
+        )}
 
         {/* Packages Grid */}
         <div style={{
