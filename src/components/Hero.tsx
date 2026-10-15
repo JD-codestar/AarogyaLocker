@@ -60,16 +60,20 @@ export default function Hero({ onSearch }: HeroProps) {
           }}
         >
           {/* Location Selector */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 16px',
-            flex: '0 0 240px',
-            borderRight: '1px solid #e2e8f0',
-            background: '#f8fafc'
-          }}>
+          <div 
+            className="hero-location-wrap"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0 16px',
+              flex: '0 0 240px',
+              borderRight: '1px solid #e2e8f0',
+              background: '#f8fafc'
+            }}
+          >
             <LocationIcon size={18} color="#1e3a8a" />
             <select
+              className="hero-location-select"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               style={{
@@ -91,15 +95,19 @@ export default function Hero({ onSearch }: HeroProps) {
           </div>
 
           {/* Doctor / Specialty Search */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 16px',
-            flex: '1',
-            position: 'relative'
-          }}>
+          <div 
+            className="hero-input-wrap"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0 16px',
+              flex: '1',
+              position: 'relative'
+            }}
+          >
             <SearchIcon size={18} color="#64748b" />
             <input
+              className="hero-query-input"
               type="text"
               placeholder="Search doctors, specialties, hospitals (e.g. PGIMER, Fortis, Cardiology)..."
               value={query}
@@ -118,6 +126,7 @@ export default function Hero({ onSearch }: HeroProps) {
             {query && (
               <button
                 type="button"
+                className="hero-query-clear"
                 onClick={() => setQuery('')}
                 style={{
                   background: '#f1f5f9',
@@ -142,6 +151,7 @@ export default function Hero({ onSearch }: HeroProps) {
           {/* Search CTA Button */}
           <button
             type="button"
+            className="hero-search-submit-btn"
             onClick={() => handleSearch()}
             style={{
               background: '#1e3a8a',
@@ -166,11 +176,12 @@ export default function Hero({ onSearch }: HeroProps) {
 
         {/* Quick Suggestion Chips */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: 'var(--space-8)' }}>
-          <span style={{ fontSize: '13px', color: '#64748b', fontWeight: 600 }}>Popular:</span>
+          <span className="hero-popular-label" style={{ fontSize: '13px', color: '#64748b', fontWeight: 600 }}>Popular:</span>
           {quickSearches.map((item) => (
             <button
               key={item}
               type="button"
+              className="hero-quick-chip"
               onClick={() => {
                 setQuery(item);
                 handleSearch(item);

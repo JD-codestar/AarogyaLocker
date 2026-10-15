@@ -1,29 +1,26 @@
 /**
- * Footer.tsx — Site footer with navigation, contact, legal links, and disclaimer.
- *
- * Includes:
- * • Brand with description
- * • Quick links (mirroring the navigation)
- * • Services links
- * • Contact placeholders
- * • Legal links (Privacy, Terms, Accessibility)
- * • Demo disclaimer
+ * Footer.tsx — Site footer with interactive navigation, legal links, and disclaimer.
  */
+import { Link } from 'react-router-dom';
 import { AarogyaLockerLogo } from '../Icons';
 
 const currentYear = new Date().getFullYear();
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="footer" id="footer" role="contentinfo">
       <div className="container">
         <div className="footer-grid">
           {/* Brand Column */}
           <div>
-            <div className="footer-brand">
+            <Link to="/" onClick={scrollToTop} className="footer-brand" style={{ textDecoration: 'none', color: 'inherit' }}>
               <AarogyaLockerLogo size={32} />
               <span>AarogyaLocker</span>
-            </div>
+            </Link>
             <p className="footer-description">
               Your trusted platform for secure health record storage, ABHA integration,
               verified Tricity doctors, and hospital OPD passes. Making healthcare
@@ -34,21 +31,21 @@ export default function Footer() {
           {/* Quick Links */}
           <div className="footer-column">
             <h4>Quick Links</h4>
-            <a href="#home">Home</a>
-            <a href="#doctors">Find Doctors</a>
-            <a href="#services">Online Consultation</a>
-            <a href="#services">Lab Tests</a>
-            <a href="#footer">About Us</a>
+            <Link to="/" onClick={scrollToTop}>Home</Link>
+            <Link to="/doctors" onClick={scrollToTop}>Find Doctors</Link>
+            <Link to="/consultation" onClick={scrollToTop}>Online Consultation</Link>
+            <Link to="/lab-tests" onClick={scrollToTop}>Lab Tests</Link>
+            <Link to="/about" onClick={scrollToTop}>About Us</Link>
           </div>
 
           {/* Services */}
           <div className="footer-column">
             <h4>Services</h4>
-            <a href="#services">Find a Doctor</a>
-            <a href="#services">Video Consultation</a>
-            <a href="#services">Diagnostic Tests</a>
-            <a href="#services">Health Checkups</a>
-            <a href="#how-it-works">How It Works</a>
+            <Link to="/doctors" onClick={scrollToTop}>Find a Doctor</Link>
+            <Link to="/consultation" onClick={scrollToTop}>Video Consultation</Link>
+            <Link to="/lab-tests" onClick={scrollToTop}>Diagnostic Tests</Link>
+            <Link to="/lab-tests" onClick={scrollToTop}>Health Checkups</Link>
+            <Link to="/#how-it-works">How It Works</Link>
           </div>
 
           {/* Contact */}
@@ -68,9 +65,9 @@ export default function Footer() {
           <p>© {currentYear} AarogyaLocker. All rights reserved.</p>
 
           <div className="footer-bottom-links">
-            <a href="#footer">Privacy Policy</a>
-            <a href="#footer">Terms of Service</a>
-            <a href="#footer">Accessibility</a>
+            <Link to="/privacy" onClick={scrollToTop}>Privacy Policy</Link>
+            <Link to="/terms" onClick={scrollToTop}>Terms of Service</Link>
+            <Link to="/accessibility" onClick={scrollToTop}>Accessibility</Link>
           </div>
 
           {/* Demo Disclaimer */}

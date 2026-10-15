@@ -288,6 +288,10 @@ interface AppContextType {
   // Gemini AI Key
   geminiApiKey: string;
   setGeminiApiKey: (key: string) => void;
+
+  // Theme (Dark / Light Mode)
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -351,6 +355,25 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [geminiApiKey, setGeminiApiKeyState] = useState<string>(() => {
     return localStorage.getItem('aarogya_gemini_key') || '';
   });
+
+  // 8. Theme State (Dark / Light Mode)
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('aarogya_theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('aarogya_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   // Sync state to localStorage
   useEffect(() => {
@@ -760,7 +783,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       labBookings,
       createLabBooking,
       geminiApiKey,
-      setGeminiApiKey
+      setGeminiApiKey,
+      theme,
+      toggleTheme
     }}>
       {children}
     </AppContext.Provider>

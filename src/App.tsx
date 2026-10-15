@@ -44,6 +44,10 @@ import LabTests from './pages/LabTests';
 import Pharmacy from './pages/Pharmacy';
 import OnlineConsultation from './pages/OnlineConsultation';
 import LoginPage from './pages/LoginPage';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import Accessibility from './pages/Accessibility';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   const navigate = useNavigate();
@@ -117,7 +121,7 @@ function App() {
           } />
           
           <Route path="/doctors" element={
-            <div style={{ paddingTop: 'var(--space-8)' }}>
+            <div className="doctors-route-container">
               <Doctors
                 doctors={allDoctors}
                 searchQuery={searchQuery}
@@ -129,27 +133,14 @@ function App() {
             </div>
           } />
 
-          <Route path="/dashboard" element={
-            <DashboardLayout>
-              <PatientDashboard isLoggedIn={isLoggedIn} onSignInClick={handleSignIn} />
-            </DashboardLayout>
-          } />
-
-          <Route path="/health-records" element={
-            <DashboardLayout>
-              <HealthRecords isLoggedIn={isLoggedIn} onSignInClick={handleSignIn} />
-            </DashboardLayout>
-          } />
+          <Route path="/dashboard" element={<PatientDashboard isLoggedIn={isLoggedIn} onSignInClick={handleSignIn} />} />
+          <Route path="/health-records" element={<HealthRecords isLoggedIn={isLoggedIn} onSignInClick={handleSignIn} />} />
 
           <Route path="/ai-assistant" element={<AIAssistant />} />
           <Route path="/hospitals" element={<HospitalDirectory />} />
           <Route path="/lab-tests" element={<LabTests />} />
           <Route path="/pharmacy" element={<Pharmacy />} />
-          <Route path="/consultation" element={
-            <DashboardLayout links={[{ name: 'My Consultations', path: '/consultation' }]}>
-              <OnlineConsultation />
-            </DashboardLayout>
-          } />
+          <Route path="/consultation" element={<OnlineConsultation />} />
 
           <Route path="/staff-dashboard" element={
             <DashboardLayout links={[
@@ -181,6 +172,11 @@ function App() {
               <AdminDashboard isLoggedIn={isLoggedIn} onSignInClick={handleSignIn} />
             </DashboardLayout>
           } />
+
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/accessibility" element={<Accessibility />} />
+          <Route path="/about" element={<AboutUs />} />
         </Routes>
       </main>
 

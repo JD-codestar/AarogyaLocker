@@ -38,7 +38,8 @@ export interface Hospital {
 
 export default function HospitalDirectory() {
   const navigate = useNavigate();
-  const { currentUser, bookAppointment, addRecord } = useApp();
+  const { currentUser, bookAppointment, addRecord, theme } = useApp();
+  const isDark = theme === 'dark';
 
   const [search, setSearch] = useState('');
   const [selectedCity, setSelectedCity] = useState<'All' | 'Chandigarh' | 'Mohali'>('All');
@@ -640,18 +641,30 @@ export default function HospitalDirectory() {
   };
 
   return (
-    <section className="hospitals-page" style={{ padding: '36px 16px', background: 'var(--color-bg-light)', minHeight: '85vh' }}>
+    <section className="hospitals-page" style={{ padding: '36px 16px', background: isDark ? '#0b1120' : 'var(--color-bg-light)', minHeight: '85vh', color: isDark ? '#f8fafc' : 'inherit' }}>
       <div className="container" style={{ maxWidth: '1240px', margin: '0 auto' }}>
         
         {/* Header */}
         <div style={{ marginBottom: '28px', textAlign: 'center' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ecfdf5', color: '#047857', padding: '4px 16px', borderRadius: '20px', fontSize: '12px', fontWeight: 700, marginBottom: '12px', border: '1px solid #a7f3d0' }}>
+          <div style={{ 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: '8px', 
+            background: isDark ? 'rgba(16, 185, 129, 0.15)' : '#ecfdf5', 
+            color: isDark ? '#34d399' : '#047857', 
+            padding: '4px 16px', 
+            borderRadius: '20px', 
+            fontSize: '12px', 
+            fontWeight: 700, 
+            marginBottom: '12px', 
+            border: isDark ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid #a7f3d0' 
+          }}>
             <span>📍 Tricity Healthcare Network • Mohali & Chandigarh Exclusively</span>
           </div>
-          <h1 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-dark)', margin: '0 0 10px', letterSpacing: '-0.5px' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: 800, color: isDark ? '#f8fafc' : 'var(--color-dark)', margin: '0 0 10px', letterSpacing: '-0.5px' }}>
             Top Hospitals & Leading Specialists in Mohali & Chandigarh
           </h1>
-          <p style={{ color: 'var(--color-slate)', maxWidth: '720px', margin: '0 auto 24px', fontSize: '15px', lineHeight: 1.6 }}>
+          <p style={{ color: isDark ? '#94a3b8' : 'var(--color-slate)', maxWidth: '720px', margin: '0 auto 24px', fontSize: '15px', lineHeight: 1.6 }}>
             Browse verified multi-speciality hospitals across Chandigarh and Mohali (SAS Nagar). Connect with premier department directors, view OPD days, check bed availability, and book verified digital OPD passes synced instantly to your AarogyaLocker.
           </p>
           
@@ -660,15 +673,15 @@ export default function HospitalDirectory() {
             display: 'flex',
             maxWidth: '720px',
             margin: '0 auto',
-            background: 'white',
-            border: '2px solid #cbd5e1',
+            background: isDark ? '#1e293b' : 'white',
+            border: isDark ? '1px solid #334155' : '2px solid #cbd5e1',
             borderRadius: '14px',
             padding: '8px 18px',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.06)',
             alignItems: 'center',
             gap: '12px'
           }}>
-            <div style={{ color: '#1e40af', display: 'flex', alignItems: 'center' }}>
+            <div style={{ color: isDark ? '#60a5fa' : '#1e40af', display: 'flex', alignItems: 'center' }}>
               <SearchIcon size={20} />
             </div>
             <input 
@@ -677,7 +690,7 @@ export default function HospitalDirectory() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               onKeyDown={e => { if (e.key === 'Escape') setSearch(''); }}
-              style={{ flex: 1, border: 'none', outline: 'none', fontSize: '15px', color: '#1e293b' }}
+              style={{ flex: 1, border: 'none', outline: 'none', fontSize: '15px', color: isDark ? '#f8fafc' : '#1e293b', background: 'transparent' }}
             />
             {search && (
               <button
@@ -685,7 +698,7 @@ export default function HospitalDirectory() {
                 onClick={() => setSearch('')}
                 title="Clear search (Esc)"
                 style={{
-                  background: '#f1f5f9',
+                  background: isDark ? '#334155' : '#f1f5f9',
                   border: 'none',
                   borderRadius: '50%',
                   width: '26px',
@@ -693,7 +706,7 @@ export default function HospitalDirectory() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#64748b',
+                  color: isDark ? '#cbd5e1' : '#64748b',
                   cursor: 'pointer'
                 }}
               >
@@ -704,16 +717,16 @@ export default function HospitalDirectory() {
 
           {/* Quick Hospital Tags */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '12px' }}>
-            <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 600 }}>Quick Search:</span>
+            <span style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', fontWeight: 600 }}>Quick Search:</span>
             {['PGIMER', 'Fortis Mohali', 'Max Super Speciality', 'GMCH 32', 'Ivy Hospital', 'Apex Trauma Level-1', 'Cardiology'].map(chip => (
               <button
                 key={chip}
                 type="button"
                 onClick={() => setSearch(chip)}
                 style={{
-                  background: search === chip ? '#1e3a8a' : '#ffffff',
-                  color: search === chip ? '#ffffff' : '#334155',
-                  border: '1px solid #cbd5e1',
+                  background: search === chip ? '#2563eb' : (isDark ? '#1e293b' : '#ffffff'),
+                  color: search === chip ? '#ffffff' : (isDark ? '#cbd5e1' : '#334155'),
+                  border: isDark ? (search === chip ? '1px solid #2563eb' : '1px solid #334155') : '1px solid #cbd5e1',
                   borderRadius: '14px',
                   padding: '3px 10px',
                   fontSize: '11px',
@@ -729,10 +742,22 @@ export default function HospitalDirectory() {
         </div>
 
         {/* Filter Controls Row */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '20px', background: 'white', padding: '16px 20px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          flexWrap: 'wrap', 
+          gap: '16px', 
+          marginBottom: '20px', 
+          background: isDark ? '#1e293b' : 'white', 
+          padding: '16px 20px', 
+          borderRadius: '16px', 
+          border: isDark ? '1px solid #334155' : '1px solid #e2e8f0', 
+          boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.25)' : '0 2px 8px rgba(0,0,0,0.02)' 
+        }}>
           {/* Region Filter */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: '#334155', marginRight: '4px' }}>Region:</span>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155', marginRight: '4px' }}>Region:</span>
             {(['All', 'Chandigarh', 'Mohali'] as const).map(city => (
               <button
                 key={city}
@@ -743,9 +768,9 @@ export default function HospitalDirectory() {
                   fontSize: '13px',
                   fontWeight: 600,
                   border: '1px solid',
-                  borderColor: selectedCity === city ? '#1e40af' : '#cbd5e1',
-                  background: selectedCity === city ? '#1e40af' : '#f8fafc',
-                  color: selectedCity === city ? 'white' : '#475569',
+                  borderColor: selectedCity === city ? '#2563eb' : (isDark ? '#334155' : '#cbd5e1'),
+                  background: selectedCity === city ? '#2563eb' : (isDark ? '#0f172a' : '#f8fafc'),
+                  color: selectedCity === city ? 'white' : (isDark ? '#cbd5e1' : '#475569'),
                   cursor: 'pointer',
                   transition: 'all 0.15s ease'
                 }}
@@ -757,7 +782,7 @@ export default function HospitalDirectory() {
 
           {/* Specialty Filter */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: '#334155', marginRight: '4px' }}>Specialty:</span>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155', marginRight: '4px' }}>Specialty:</span>
             {['All', 'Cardiology', 'Neurology', 'Oncology', 'Orthopedics', 'Pediatrics', 'Nephrology'].map(spec => (
               <button
                 key={spec}
@@ -768,9 +793,9 @@ export default function HospitalDirectory() {
                   fontSize: '12px',
                   fontWeight: 600,
                   border: '1px solid',
-                  borderColor: selectedSpecialty === spec ? '#047857' : '#e2e8f0',
-                  background: selectedSpecialty === spec ? '#047857' : '#ffffff',
-                  color: selectedSpecialty === spec ? 'white' : '#64748b',
+                  borderColor: selectedSpecialty === spec ? '#059669' : (isDark ? '#334155' : '#e2e8f0'),
+                  background: selectedSpecialty === spec ? '#059669' : (isDark ? '#0f172a' : '#ffffff'),
+                  color: selectedSpecialty === spec ? 'white' : (isDark ? '#94a3b8' : '#64748b'),
                   cursor: 'pointer',
                   whiteSpace: 'nowrap'
                 }}
@@ -783,9 +808,9 @@ export default function HospitalDirectory() {
 
         {/* Results Counter Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', padding: '0 4px' }}>
-          <span style={{ fontSize: '14px', fontWeight: 700, color: '#334155' }}>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155' }}>
             Showing {filtered.length} of {hospitals.length} hospitals {selectedCity !== 'All' ? `in ${selectedCity}` : 'in Tricity'}
-            {search && <span style={{ color: '#1e40af', fontWeight: 500 }}> matching "{search}"</span>}
+            {search && <span style={{ color: isDark ? '#60a5fa' : '#1e40af', fontWeight: 500 }}> matching "{search}"</span>}
           </span>
           {(search || selectedCity !== 'All' || selectedSpecialty !== 'All') && (
             <button
@@ -794,7 +819,7 @@ export default function HospitalDirectory() {
                 setSelectedCity('All');
                 setSelectedSpecialty('All');
               }}
-              style={{ background: 'none', border: 'none', color: '#dc2626', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+              style={{ background: 'none', border: 'none', color: isDark ? '#f87171' : '#dc2626', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
             >
               Reset Filters
             </button>
@@ -809,23 +834,23 @@ export default function HospitalDirectory() {
             return (
               <div
                 key={hospital.id}
-                className="card"
+                className="card hospital-card"
                 style={{
                   padding: '24px',
-                  background: 'white',
+                  background: isDark ? '#1e293b' : 'white',
                   borderRadius: '20px',
-                  border: '1px solid #e2e8f0',
+                  border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '16px',
-                  boxShadow: '0 6px 18px rgba(0,0,0,0.03)',
+                  boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.3)' : '0 6px 18px rgba(0,0,0,0.03)',
                   transition: 'transform 0.2s, box-shadow 0.2s'
                 }}
               >
                 {/* Hospital Header */}
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px', marginBottom: '8px' }}>
-                    <h2 style={{ fontSize: '19px', fontWeight: 800, color: 'var(--color-deep-blue)', margin: 0, lineHeight: 1.3 }}>
+                    <h2 style={{ fontSize: '19px', fontWeight: 800, color: isDark ? '#f8fafc' : 'var(--color-deep-blue)', margin: 0, lineHeight: 1.3 }}>
                       {hospital.name}
                     </h2>
                     <span style={{
@@ -834,29 +859,57 @@ export default function HospitalDirectory() {
                       padding: '4px 10px',
                       borderRadius: '12px',
                       whiteSpace: 'nowrap',
-                      background: hospital.city === 'Chandigarh' ? '#eff6ff' : '#f0fdf4',
-                      color: hospital.city === 'Chandigarh' ? '#1e40af' : '#15803d',
-                      border: `1px solid ${hospital.city === 'Chandigarh' ? '#bfdbfe' : '#bbf7d0'}`
+                      background: hospital.city === 'Chandigarh' 
+                        ? (isDark ? 'rgba(37, 99, 235, 0.25)' : '#eff6ff') 
+                        : (isDark ? 'rgba(16, 185, 129, 0.25)' : '#f0fdf4'),
+                      color: hospital.city === 'Chandigarh' 
+                        ? (isDark ? '#93c5fd' : '#1e40af') 
+                        : (isDark ? '#86efac' : '#15803d'),
+                      border: `1px solid ${hospital.city === 'Chandigarh' ? (isDark ? 'rgba(59, 130, 246, 0.4)' : '#bfdbfe') : (isDark ? 'rgba(34, 197, 94, 0.4)' : '#bbf7d0')}`
                     }}>
                       📍 {hospital.city}
                     </span>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--color-slate)', fontSize: '13px', marginBottom: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: isDark ? '#94a3b8' : 'var(--color-slate)', fontSize: '13px', marginBottom: '8px' }}>
                     <LocationIcon size={14} /> <span>{hospital.location}</span>
                   </div>
 
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: '11px', fontWeight: 700, background: '#fee2e2', color: '#b91c1c', padding: '3px 8px', borderRadius: '6px' }}>
+                    <span style={{ 
+                      fontSize: '11px', 
+                      fontWeight: 700, 
+                      background: isDark ? 'rgba(239, 68, 68, 0.2)' : '#fee2e2', 
+                      color: isDark ? '#fca5a5' : '#b91c1c', 
+                      border: isDark ? '1px solid rgba(239, 68, 68, 0.3)' : 'none',
+                      padding: '3px 8px', 
+                      borderRadius: '6px' 
+                    }}>
                       🚨 {hospital.traumaLevel}
                     </span>
                     {hospital.nabhAccredited && (
-                      <span style={{ fontSize: '11px', fontWeight: 700, background: '#fef3c7', color: '#b45309', padding: '3px 8px', borderRadius: '6px' }}>
+                      <span style={{ 
+                        fontSize: '11px', 
+                        fontWeight: 700, 
+                        background: isDark ? 'rgba(245, 158, 11, 0.2)' : '#fef3c7', 
+                        color: isDark ? '#fcd34d' : '#b45309', 
+                        border: isDark ? '1px solid rgba(245, 158, 11, 0.3)' : 'none',
+                        padding: '3px 8px', 
+                        borderRadius: '6px' 
+                      }}>
                         ✓ NABH Accredited
                       </span>
                     )}
                     {hospital.abdmEnabled && (
-                      <span style={{ fontSize: '11px', fontWeight: 700, background: '#e0e7ff', color: '#4338ca', padding: '3px 8px', borderRadius: '6px' }}>
+                      <span style={{ 
+                        fontSize: '11px', 
+                        fontWeight: 700, 
+                        background: isDark ? 'rgba(99, 102, 241, 0.2)' : '#e0e7ff', 
+                        color: isDark ? '#a5b4fc' : '#4338ca', 
+                        border: isDark ? '1px solid rgba(99, 102, 241, 0.3)' : 'none',
+                        padding: '3px 8px', 
+                        borderRadius: '6px' 
+                      }}>
                         ⚡ ABDM Fast-Track
                       </span>
                     )}
@@ -870,8 +923,9 @@ export default function HospitalDirectory() {
                       key={spec}
                       style={{
                         padding: '3px 8px',
-                        background: 'var(--color-ice-blue)',
-                        color: 'var(--color-deep-blue)',
+                        background: isDark ? '#0f172a' : 'var(--color-ice-blue)',
+                        color: isDark ? '#38bdf8' : 'var(--color-deep-blue)',
+                        border: isDark ? '1px solid #334155' : 'none',
                         borderRadius: '6px',
                         fontSize: '12px',
                         fontWeight: 600
@@ -887,38 +941,39 @@ export default function HospitalDirectory() {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
                   gap: '10px',
-                  background: '#f8fafc',
+                  background: isDark ? '#0f172a' : '#f8fafc',
+                  border: isDark ? '1px solid #334155' : 'none',
                   padding: '12px 14px',
                   borderRadius: '12px',
                   fontSize: '13px'
                 }}>
                   <div>
-                    <span style={{ color: '#64748b', fontSize: '11px', display: 'block', fontWeight: 600, textTransform: 'uppercase' }}>Bed Capacity:</span>
-                    <strong>🛏️ {hospital.beds} ({hospital.icuBeds} ICU)</strong>
+                    <span style={{ color: isDark ? '#94a3b8' : '#64748b', fontSize: '11px', display: 'block', fontWeight: 600, textTransform: 'uppercase' }}>Bed Capacity:</span>
+                    <strong style={{ color: isDark ? '#f8fafc' : 'inherit' }}>🛏️ {hospital.beds} ({hospital.icuBeds} ICU)</strong>
                   </div>
                   <div>
-                    <span style={{ color: '#64748b', fontSize: '11px', display: 'block', fontWeight: 600, textTransform: 'uppercase' }}>Verified Rating:</span>
-                    <strong style={{ color: '#d97706' }}>⭐ {hospital.rating} ({hospital.reviews} reviews)</strong>
+                    <span style={{ color: isDark ? '#94a3b8' : '#64748b', fontSize: '11px', display: 'block', fontWeight: 600, textTransform: 'uppercase' }}>Verified Rating:</span>
+                    <strong style={{ color: isDark ? '#fbbf24' : '#d97706' }}>⭐ {hospital.rating} ({hospital.reviews} reviews)</strong>
                   </div>
-                  <div style={{ gridColumn: '1 / -1', borderTop: '1px solid #e2e8f0', paddingTop: '8px', marginTop: '2px' }}>
-                    <span style={{ color: '#64748b', fontSize: '11px', display: 'block' }}>OPD Timings:</span>
-                    <span style={{ color: '#0f172a', fontWeight: 600, fontSize: '12px' }}>⏱️ {hospital.opdTimings}</span>
+                  <div style={{ gridColumn: '1 / -1', borderTop: isDark ? '1px solid #1e293b' : '1px solid #e2e8f0', paddingTop: '8px', marginTop: '2px' }}>
+                    <span style={{ color: isDark ? '#94a3b8' : '#64748b', fontSize: '11px', display: 'block' }}>OPD Timings:</span>
+                    <span style={{ color: isDark ? '#f8fafc' : '#0f172a', fontWeight: 600, fontSize: '12px' }}>⏱️ {hospital.opdTimings}</span>
                   </div>
                 </div>
 
                 {/* TOP DOCTORS SECTION */}
-                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>
+                <div style={{ borderTop: isDark ? '1px solid #334155' : '1px solid #f1f5f9', paddingTop: '14px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                    <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#1e293b', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <h3 style={{ fontSize: '14px', fontWeight: 800, color: isDark ? '#f8fafc' : '#1e293b', margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <span>👨‍⚕️ Top Doctors & Specialists</span>
-                      <span style={{ background: '#dbeafe', color: '#1e40af', fontSize: '11px', padding: '2px 7px', borderRadius: '10px', fontWeight: 700 }}>
+                      <span style={{ background: isDark ? 'rgba(37, 99, 235, 0.25)' : '#dbeafe', color: isDark ? '#93c5fd' : '#1e40af', fontSize: '11px', padding: '2px 7px', borderRadius: '10px', fontWeight: 700 }}>
                         {hospital.topDoctors.length}
                       </span>
                     </h3>
                     {hospital.topDoctors.length > 2 && (
                       <button
                         onClick={() => setExpandedDoctorsHospitalId(areDoctorsExpanded ? null : hospital.id)}
-                        style={{ background: 'none', border: 'none', color: '#2563eb', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
+                        style={{ background: 'none', border: 'none', color: isDark ? '#60a5fa' : '#2563eb', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
                       >
                         {areDoctorsExpanded ? 'Show Less' : `View All (${hospital.topDoctors.length})`}
                       </button>
@@ -933,8 +988,8 @@ export default function HospitalDirectory() {
                         <div
                           key={doc.id}
                           style={{
-                            background: '#ffffff',
-                            border: '1px solid #e2e8f0',
+                            background: isDark ? '#0f172a' : '#ffffff',
+                            border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
                             borderRadius: '12px',
                             padding: '12px 14px',
                             display: 'flex',
@@ -942,28 +997,28 @@ export default function HospitalDirectory() {
                             alignItems: 'center',
                             gap: '12px',
                             transition: 'border-color 0.15s',
-                            boxShadow: '0 1px 3px rgba(0,0,0,0.02)'
+                            boxShadow: isDark ? '0 2px 6px rgba(0,0,0,0.3)' : '0 1px 3px rgba(0,0,0,0.02)'
                           }}
                         >
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
-                              <strong style={{ fontSize: '14px', color: '#0f172a' }}>{doc.name}</strong>
-                              <span style={{ fontSize: '11px', color: '#d97706', fontWeight: 700 }}>⭐ {doc.rating}</span>
+                              <strong style={{ fontSize: '14px', color: isDark ? '#f8fafc' : '#0f172a' }}>{doc.name}</strong>
+                              <span style={{ fontSize: '11px', color: isDark ? '#fbbf24' : '#d97706', fontWeight: 700 }}>⭐ {doc.rating}</span>
                             </div>
-                            <div style={{ fontSize: '12px', color: '#2563eb', fontWeight: 600, marginTop: '2px' }}>
+                            <div style={{ fontSize: '12px', color: isDark ? '#60a5fa' : '#2563eb', fontWeight: 600, marginTop: '2px' }}>
                               {doc.specialty} • {doc.experience}
                             </div>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
-                              OPD: <strong>{doc.opdDays}</strong> • ₹{doc.fee}
+                            <div style={{ fontSize: '11px', color: isDark ? '#94a3b8' : '#64748b', marginTop: '2px' }}>
+                              OPD: <strong style={{ color: isDark ? '#cbd5e1' : 'inherit' }}>{doc.opdDays}</strong> • ₹{doc.fee}
                             </div>
                           </div>
 
                           <button
                             onClick={() => openOpdModal(hospital, doc.id)}
                             style={{
-                              background: '#eff6ff',
-                              color: '#1e40af',
-                              border: '1px solid #bfdbfe',
+                              background: isDark ? 'rgba(37, 99, 235, 0.25)' : '#eff6ff',
+                              color: isDark ? '#93c5fd' : '#1e40af',
+                              border: isDark ? '1px solid rgba(59, 130, 246, 0.4)' : '1px solid #bfdbfe',
                               borderRadius: '8px',
                               padding: '6px 12px',
                               fontSize: '12px',
@@ -980,11 +1035,21 @@ export default function HospitalDirectory() {
                 </div>
 
                 {/* Card Action Buttons */}
-                <div style={{ display: 'flex', gap: '10px', marginTop: 'auto', paddingTop: '10px', borderTop: '1px solid #f1f5f9' }}>
+                <div style={{ display: 'flex', gap: '10px', marginTop: 'auto', paddingTop: '10px', borderTop: isDark ? '1px solid #334155' : '1px solid #f1f5f9' }}>
                   <a
                     href={`tel:${hospital.phone}`}
                     className="btn btn-secondary"
-                    style={{ flex: 1, padding: '10px', textAlign: 'center', fontSize: '13px', textDecoration: 'none', borderRadius: '10px' }}
+                    style={{ 
+                      flex: 1, 
+                      padding: '10px', 
+                      textAlign: 'center', 
+                      fontSize: '13px', 
+                      textDecoration: 'none', 
+                      borderRadius: '10px',
+                      background: isDark ? '#0f172a' : '#ffffff',
+                      border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
+                      color: isDark ? '#cbd5e1' : '#334155'
+                    }}
                   >
                     📞 Helpdesk
                   </a>
@@ -1002,9 +1067,17 @@ export default function HospitalDirectory() {
         </div>
 
         {filtered.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--color-slate)', background: 'white', borderRadius: '16px', border: '1px solid #e2e8f0', marginTop: '20px' }}>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#334155' }}>No hospitals or doctors found</h3>
-            <p style={{ fontSize: '14px', maxWidth: '400px', margin: '8px auto 16px' }}>
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '60px 20px', 
+            color: isDark ? '#94a3b8' : 'var(--color-slate)', 
+            background: isDark ? '#1e293b' : 'white', 
+            borderRadius: '16px', 
+            border: isDark ? '1px solid #334155' : '1px solid #e2e8f0', 
+            marginTop: '20px' 
+          }}>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, color: isDark ? '#f8fafc' : '#334155' }}>No hospitals or doctors found</h3>
+            <p style={{ fontSize: '14px', maxWidth: '400px', margin: '8px auto 16px', color: isDark ? '#94a3b8' : 'inherit' }}>
               We could not find any healthcare facilities matching "{search}" in {selectedCity === 'All' ? 'Mohali or Chandigarh' : selectedCity}.
             </p>
             <button
@@ -1031,7 +1104,7 @@ export default function HospitalDirectory() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.6)',
+          backgroundColor: 'rgba(0,0,0,0.75)',
           zIndex: 1100,
           display: 'flex',
           alignItems: 'center',
@@ -1039,12 +1112,14 @@ export default function HospitalDirectory() {
           padding: '16px'
         }}>
           <div style={{
-            background: 'white',
+            background: isDark ? '#1e293b' : 'white',
+            border: isDark ? '1px solid #334155' : 'none',
+            color: isDark ? '#f8fafc' : 'inherit',
             width: '100%',
             maxWidth: '560px',
             borderRadius: '24px',
             padding: '24px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
+            boxShadow: isDark ? '0 20px 40px rgba(0,0,0,0.5)' : '0 20px 40px rgba(0,0,0,0.25)',
             maxHeight: '90vh',
             display: 'flex',
             flexDirection: 'column',
@@ -1054,17 +1129,33 @@ export default function HospitalDirectory() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div>
                 <div style={{ display: 'flex', gap: '6px', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#1e40af', background: '#eff6ff', padding: '3px 8px', borderRadius: '4px' }}>
+                  <span style={{ 
+                    fontSize: '11px', 
+                    fontWeight: 700, 
+                    color: isDark ? '#93c5fd' : '#1e40af', 
+                    background: isDark ? 'rgba(30, 64, 175, 0.25)' : '#eff6ff', 
+                    padding: '3px 8px', 
+                    borderRadius: '4px',
+                    border: isDark ? '1px solid rgba(59, 130, 246, 0.3)' : 'none'
+                  }}>
                     ABDM Fast-Track OPD Slot
                   </span>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#047857', background: '#ecfdf5', padding: '3px 8px', borderRadius: '4px' }}>
+                  <span style={{ 
+                    fontSize: '11px', 
+                    fontWeight: 700, 
+                    color: isDark ? '#86efac' : '#047857', 
+                    background: isDark ? 'rgba(16, 185, 129, 0.25)' : '#ecfdf5', 
+                    padding: '3px 8px', 
+                    borderRadius: '4px',
+                    border: isDark ? '1px solid rgba(16, 185, 129, 0.3)' : 'none'
+                  }}>
                     📍 {selectedHospital.city}
                   </span>
                 </div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '4px 0 2px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a', margin: '4px 0 2px' }}>
                   {selectedHospital.name}
                 </h3>
-                <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>
+                <p style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', margin: 0 }}>
                   {selectedHospital.location}
                 </p>
               </div>
@@ -1073,7 +1164,7 @@ export default function HospitalDirectory() {
                   setSelectedHospital(null);
                   setOpdSuccessMsg(null);
                 }}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b' }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#94a3b8' : '#64748b' }}
               >
                 <CloseIcon size={20} />
               </button>
@@ -1082,10 +1173,19 @@ export default function HospitalDirectory() {
             {opdSuccessMsg ? (
               <div style={{ textAlign: 'center', padding: '24px 0' }}>
                 <div style={{ fontSize: '48px', color: '#16a34a', marginBottom: '12px' }}>✓</div>
-                <h4 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '0 0 8px' }}>
+                <h4 style={{ fontSize: '18px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a', margin: '0 0 8px' }}>
                   Hospital OPD Pass Issued!
                 </h4>
-                <p style={{ fontSize: '13px', color: '#166534', background: '#f0fdf4', padding: '14px', borderRadius: '12px', marginBottom: '20px', lineHeight: 1.5, border: '1px solid #bbf7d0' }}>
+                <p style={{ 
+                  fontSize: '13px', 
+                  color: isDark ? '#86efac' : '#166534', 
+                  background: isDark ? 'rgba(21, 128, 61, 0.2)' : '#f0fdf4', 
+                  padding: '14px', 
+                  borderRadius: '12px', 
+                  marginBottom: '20px', 
+                  lineHeight: 1.5, 
+                  border: isDark ? '1px solid rgba(34, 197, 94, 0.3)' : '1px solid #bbf7d0' 
+                }}>
                   {opdSuccessMsg}
                 </p>
                 <div style={{ display: 'flex', gap: '10px' }}>
@@ -1094,7 +1194,16 @@ export default function HospitalDirectory() {
                       setSelectedHospital(null);
                       setOpdSuccessMsg(null);
                     }}
-                    style={{ flex: 1, padding: '12px', background: '#f1f5f9', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 600 }}
+                    style={{ 
+                      flex: 1, 
+                      padding: '12px', 
+                      background: isDark ? '#334155' : '#f1f5f9', 
+                      color: isDark ? '#f8fafc' : 'inherit',
+                      border: 'none', 
+                      borderRadius: '10px', 
+                      cursor: 'pointer', 
+                      fontWeight: 600 
+                    }}
                   >
                     Done
                   </button>
@@ -1115,7 +1224,7 @@ export default function HospitalDirectory() {
                 
                 {/* Select Specific Doctor or General OPD */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155', marginBottom: '6px' }}>
                     Select Doctor or OPD Unit:
                   </label>
                   <select
@@ -1128,7 +1237,15 @@ export default function HospitalDirectory() {
                         if (doc) setSelectedDepartment(doc.specialty);
                       }
                     }}
-                    style={{ width: '100%', padding: '10px', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '13px', background: 'white' }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '10px', 
+                      borderRadius: '10px', 
+                      border: isDark ? '1px solid #334155' : '1px solid #cbd5e1', 
+                      fontSize: '13px', 
+                      background: isDark ? '#0f172a' : 'white',
+                      color: isDark ? '#f8fafc' : 'inherit'
+                    }}
                   >
                     <option value="general">🏢 General Department OPD (Hospital Duty Consultant)</option>
                     {selectedHospital.topDoctors.map(doc => (
@@ -1141,13 +1258,21 @@ export default function HospitalDirectory() {
 
                 {/* Department dropdown */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155', marginBottom: '6px' }}>
                     Clinical Department / Specialty:
                   </label>
                   <select
                     value={selectedDepartment}
                     onChange={e => setSelectedDepartment(e.target.value)}
-                    style={{ width: '100%', padding: '10px', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '13px', background: 'white' }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '10px', 
+                      borderRadius: '10px', 
+                      border: isDark ? '1px solid #334155' : '1px solid #cbd5e1', 
+                      fontSize: '13px', 
+                      background: isDark ? '#0f172a' : 'white',
+                      color: isDark ? '#f8fafc' : 'inherit'
+                    }}
                   >
                     {selectedHospital.specialties.map(s => (
                       <option key={s} value={s}>{s}</option>
@@ -1158,13 +1283,21 @@ export default function HospitalDirectory() {
                 {/* Date & Time Slot */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155', marginBottom: '6px' }}>
                       Date:
                     </label>
                     <select
                       value={selectedDate}
                       onChange={e => setSelectedDate(e.target.value)}
-                      style={{ width: '100%', padding: '10px', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '13px', background: 'white' }}
+                      style={{ 
+                        width: '100%', 
+                        padding: '10px', 
+                        borderRadius: '10px', 
+                        border: isDark ? '1px solid #334155' : '1px solid #cbd5e1', 
+                        fontSize: '13px', 
+                        background: isDark ? '#0f172a' : 'white',
+                        color: isDark ? '#f8fafc' : 'inherit'
+                      }}
                     >
                       <option value="Today">Today (Fast-Track Walk-in)</option>
                       <option value="Tomorrow">Tomorrow</option>
@@ -1172,13 +1305,21 @@ export default function HospitalDirectory() {
                     </select>
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155', marginBottom: '6px' }}>
                       Time Window:
                     </label>
                     <select
                       value={selectedSlot}
                       onChange={e => setSelectedSlot(e.target.value)}
-                      style={{ width: '100%', padding: '10px', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '13px', background: 'white' }}
+                      style={{ 
+                        width: '100%', 
+                        padding: '10px', 
+                        borderRadius: '10px', 
+                        border: isDark ? '1px solid #334155' : '1px solid #cbd5e1', 
+                        fontSize: '13px', 
+                        background: isDark ? '#0f172a' : 'white',
+                        color: isDark ? '#f8fafc' : 'inherit'
+                      }}
                     >
                       <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
                       <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
@@ -1190,7 +1331,17 @@ export default function HospitalDirectory() {
                 </div>
 
                 {/* Patient & ABDM Details Summary */}
-                <div style={{ background: '#f8fafc', padding: '14px', borderRadius: '12px', border: '1px solid #e2e8f0', fontSize: '12px', color: '#475569', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div style={{ 
+                  background: isDark ? '#0f172a' : '#f8fafc', 
+                  padding: '14px', 
+                  borderRadius: '12px', 
+                  border: isDark ? '1px solid #334155' : '1px solid #e2e8f0', 
+                  fontSize: '12px', 
+                  color: isDark ? '#cbd5e1' : '#475569', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  gap: '4px' 
+                }}>
                   <div><strong>Patient:</strong> {currentUser?.name || 'Rahul Sharma'} ({currentUser?.abhaId || 'ABHA: 91-4829-1092-4821'})</div>
                   <div>
                     <strong>Doctor / Unit:</strong> {selectedDoctorId !== 'general' ? selectedHospital.topDoctors.find(d => d.id === selectedDoctorId)?.name : `${selectedDepartment} OPD Unit`}
@@ -1198,7 +1349,7 @@ export default function HospitalDirectory() {
                   <div>
                     <strong>Consultation Fee:</strong> ₹{selectedDoctorId !== 'general' ? selectedHospital.topDoctors.find(d => d.id === selectedDoctorId)?.fee : 800} (Cashless under PM-JAY / ABHA Insurance if eligible)
                   </div>
-                  <div style={{ color: '#059669', fontWeight: 600, marginTop: '2px' }}>
+                  <div style={{ color: isDark ? '#34d399' : '#059669', fontWeight: 600, marginTop: '2px' }}>
                     ⚡ Generates verified ABDM digital QR token for direct entry at hospital reception.
                   </div>
                 </div>

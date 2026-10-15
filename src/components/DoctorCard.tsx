@@ -27,10 +27,7 @@ export default function DoctorCard({ doctor, onViewProfile, onBook }: DoctorCard
         gap: 'var(--space-6)',
         padding: 'var(--space-5)',
         alignItems: 'flex-start',
-        background: 'var(--color-white)',
-        borderRadius: '12px',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-        border: '1px solid var(--color-gray-200)',
+        borderRadius: '12px'
       }}
     >
       {/* Avatar Left */}
@@ -71,22 +68,25 @@ export default function DoctorCard({ doctor, onViewProfile, onBook }: DoctorCard
       </div>
 
       {/* Actions Right */}
-      <div style={{ 
-        flex: '0 0 200px', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
-        height: '100%',
-        borderLeft: '1px dashed var(--color-gray-200)',
-        paddingLeft: 'var(--space-5)'
-      }}>
+      <div 
+        className="doctor-card-right"
+        style={{ 
+          flex: '0 0 200px', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'space-between',
+          alignItems: 'flex-end',
+          height: '100%',
+          borderLeft: '1px dashed var(--color-gray-200)',
+          paddingLeft: 'var(--space-5)'
+        }}
+      >
         <div style={{ textAlign: 'right', marginBottom: 'var(--space-4)' }}>
           <span className={`badge ${badgeClass}`} style={{ display: 'inline-block', marginBottom: 'var(--space-2)' }}>
             ● {doctor.availability}
           </span>
-          <div style={{ fontSize: '14px', color: 'var(--color-slate)' }}>Consultation Fee</div>
-          <div style={{ fontSize: '22px', fontWeight: 700, color: 'var(--color-dark)' }}>₹{doctor.fee}</div>
+          <div className="doctor-fee-title" style={{ fontSize: '14px', color: 'var(--color-slate)' }}>Consultation Fee</div>
+          <div className="doctor-fee-value" style={{ fontSize: '22px', fontWeight: 700, color: 'var(--color-dark)' }}>₹{doctor.fee}</div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>

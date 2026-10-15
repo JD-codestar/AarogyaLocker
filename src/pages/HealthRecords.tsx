@@ -9,7 +9,8 @@ interface HealthRecordsProps {
 }
 
 export default function HealthRecords({ onSignInClick }: HealthRecordsProps) {
-  const { currentUser, isLoggedIn, records, addRecord, deleteRecord } = useApp();
+  const { currentUser, isLoggedIn, records, addRecord, deleteRecord, theme } = useApp();
+  const isDark = theme === 'dark';
 
   const [filterType, setFilterType] = useState<'all' | 'issued' | 'uploaded'>('all');
   const [filterCategory, setFilterCategory] = useState<string>('All Records');
@@ -43,7 +44,7 @@ export default function HealthRecords({ onSignInClick }: HealthRecordsProps) {
 
   if (!isLoggedIn || !currentUser) {
     return (
-      <div style={{ textAlign: 'center', padding: '100px 20px', minHeight: '65vh', background: '#f8fafc' }}>
+      <div style={{ textAlign: 'center', padding: '100px 20px', minHeight: '65vh', background: isDark ? '#0b1120' : '#f8fafc', color: isDark ? '#f8fafc' : 'inherit' }}>
         <div style={{
           width: '80px',
           height: '80px',
@@ -59,10 +60,10 @@ export default function HealthRecords({ onSignInClick }: HealthRecordsProps) {
         }}>
           🔐
         </div>
-        <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#0f172a', marginBottom: '10px' }}>
+        <h2 style={{ fontSize: '28px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a', marginBottom: '10px' }}>
           AarogyaLocker — Digital Healthcare Vault
         </h2>
-        <p style={{ margin: '0 auto 28px', color: '#64748b', maxWidth: '480px', fontSize: '15px', lineHeight: 1.6 }}>
+        <p style={{ margin: '0 auto 28px', color: isDark ? '#94a3b8' : '#64748b', maxWidth: '480px', fontSize: '15px', lineHeight: 1.6 }}>
           Your government-compliant, ABDM-linked digital health locker. Securely access, organize, and share all your medical prescriptions, lab reports, and vaccination certificates in one unified encrypted vault.
         </p>
         <button 
@@ -264,6 +265,26 @@ National Digital Health Mission Compliant
   };
 
   const getCategoryBadgeStyle = (category: RecordCategory) => {
+    if (isDark) {
+      switch (category) {
+        case 'Prescription':
+          return { bg: 'rgba(16, 185, 129, 0.2)', color: '#6ee7b7', border: 'rgba(16, 185, 129, 0.3)', icon: '💊' };
+        case 'Laboratory':
+          return { bg: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd', border: 'rgba(59, 130, 246, 0.3)', icon: '🧪' };
+        case 'Imaging':
+          return { bg: 'rgba(168, 85, 247, 0.2)', color: '#d8b4fe', border: 'rgba(168, 85, 247, 0.3)', icon: '🩻' };
+        case 'Vaccination':
+          return { bg: 'rgba(249, 115, 22, 0.2)', color: '#fdba74', border: 'rgba(249, 115, 22, 0.3)', icon: '💉' };
+        case 'Discharge':
+          return { bg: 'rgba(239, 68, 68, 0.2)', color: '#fca5a5', border: 'rgba(239, 68, 68, 0.3)', icon: '🏥' };
+        case 'IdentityCard':
+          return { bg: 'rgba(34, 197, 94, 0.2)', color: '#86efac', border: 'rgba(34, 197, 94, 0.3)', icon: '🪪' };
+        case 'Invoice':
+          return { bg: 'rgba(20, 184, 166, 0.2)', color: '#5eead4', border: 'rgba(20, 184, 166, 0.3)', icon: '🧾' };
+        default:
+          return { bg: '#0f172a', color: '#cbd5e1', border: '#334155', icon: '📄' };
+      }
+    }
     switch (category) {
       case 'Prescription':
         return { bg: '#ecfdf5', color: '#047857', border: '#a7f3d0', icon: '💊' };
@@ -285,17 +306,18 @@ National Digital Health Mission Compliant
   };
 
   return (
-    <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '24px 20px', fontFamily: 'var(--font-family)' }}>
+    <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '24px 20px', fontFamily: 'var(--font-family)', color: isDark ? '#f8fafc' : 'inherit' }}>
       <style>{`
         .al-hero-banner {
-          background: linear-gradient(135deg, #0b1e48 0%, #173878 50%, #1e5ba0 100%);
+          background: ${isDark ? 'linear-gradient(135deg, #091e42 0%, #0f172a 100%)' : 'linear-gradient(135deg, #0b1e48 0%, #173878 50%, #1e5ba0 100%)'};
           color: white;
           border-radius: 20px;
           padding: 28px 32px;
           margin-bottom: 24px;
-          box-shadow: 0 12px 36px rgba(11, 30, 72, 0.22);
+          box-shadow: ${isDark ? '0 12px 36px rgba(0,0,0,0.5)' : '0 12px 36px rgba(11, 30, 72, 0.22)'};
           position: relative;
           overflow: hidden;
+          border: ${isDark ? '1px solid #334155' : 'none'};
         }
         .al-hero-banner::after {
           content: '';
@@ -315,33 +337,35 @@ National Digital Health Mission Compliant
           margin-bottom: 28px;
         }
         .al-stat-card {
-          background: white;
-          border: 1px solid #e2e8f0;
+          background: ${isDark ? '#1e293b' : 'white'};
+          border: 1px solid ${isDark ? '#334155' : '#e2e8f0'};
           border-radius: 16px;
           padding: 18px 20px;
           display: flex;
           align-items: center;
           gap: 16px;
           transition: transform 0.2s, box-shadow 0.2s;
+          box-shadow: ${isDark ? '0 4px 16px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.03)'};
         }
         .al-stat-card:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+          box-shadow: ${isDark ? '0 8px 24px rgba(0,0,0,0.5)' : '0 8px 20px rgba(0,0,0,0.06)'};
         }
         .al-card {
-          background: white;
-          border: 1px solid #e2e8f0;
+          background: ${isDark ? '#1e293b' : 'white'};
+          border: 1px solid ${isDark ? '#334155' : '#e2e8f0'};
           border-radius: 16px;
           padding: 20px;
           transition: all 0.2s;
           display: flex;
           flex-direction: column;
-          justifyContent: space-between;
+          justify-content: space-between;
           position: relative;
+          box-shadow: ${isDark ? '0 4px 16px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.03)'};
         }
         .al-card:hover {
           border-color: #3b82f6;
-          box-shadow: 0 10px 24px rgba(30, 58, 138, 0.08);
+          box-shadow: ${isDark ? '0 10px 24px rgba(0,0,0,0.6)' : '0 10px 24px rgba(30, 58, 138, 0.08)'};
           transform: translateY(-2px);
         }
         .al-tab-btn {
@@ -357,15 +381,16 @@ National Digital Health Mission Compliant
         .al-tab-btn.active {
           background: #1e3a8a;
           color: white;
+          border-color: #3b82f6;
         }
         .al-tab-btn:not(.active) {
-          background: white;
-          color: #64748b;
-          border-color: #e2e8f0;
+          background: ${isDark ? '#0f172a' : 'white'};
+          color: ${isDark ? '#cbd5e1' : '#64748b'};
+          border-color: ${isDark ? '#334155' : '#e2e8f0'};
         }
         .al-tab-btn:not(.active):hover {
-          color: #1e3a8a;
-          border-color: #cbd5e1;
+          color: ${isDark ? '#38bdf8' : '#1e3a8a'};
+          border-color: ${isDark ? '#38bdf8' : '#cbd5e1'};
         }
       `}</style>
 
@@ -498,8 +523,8 @@ National Digital Health Mission Compliant
             width: '46px',
             height: '46px',
             borderRadius: '12px',
-            background: '#eff6ff',
-            color: '#1d4ed8',
+            background: isDark ? 'rgba(59, 130, 246, 0.2)' : '#eff6ff',
+            color: isDark ? '#60a5fa' : '#1d4ed8',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -508,8 +533,8 @@ National Digital Health Mission Compliant
             📁
           </div>
           <div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a' }}>{totalDocs}</div>
-            <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>Secured Documents</div>
+            <div style={{ fontSize: '22px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a' }}>{totalDocs}</div>
+            <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', fontWeight: 500 }}>Secured Documents</div>
           </div>
         </div>
 
@@ -518,8 +543,8 @@ National Digital Health Mission Compliant
             width: '46px',
             height: '46px',
             borderRadius: '12px',
-            background: '#ecfdf5',
-            color: '#047857',
+            background: isDark ? 'rgba(16, 185, 129, 0.2)' : '#ecfdf5',
+            color: isDark ? '#34d399' : '#047857',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -528,8 +553,8 @@ National Digital Health Mission Compliant
             💊
           </div>
           <div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a' }}>{totalPrescriptions}</div>
-            <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>Digital Prescriptions</div>
+            <div style={{ fontSize: '22px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a' }}>{totalPrescriptions}</div>
+            <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', fontWeight: 500 }}>Digital Prescriptions</div>
           </div>
         </div>
 
@@ -538,8 +563,8 @@ National Digital Health Mission Compliant
             width: '46px',
             height: '46px',
             borderRadius: '12px',
-            background: '#f0fdf4',
-            color: '#16a34a',
+            background: isDark ? 'rgba(22, 163, 74, 0.2)' : '#f0fdf4',
+            color: isDark ? '#4ade80' : '#16a34a',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -548,8 +573,8 @@ National Digital Health Mission Compliant
             🧪
           </div>
           <div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a' }}>{totalLabReports}</div>
-            <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>Diagnostic Lab Reports</div>
+            <div style={{ fontSize: '22px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a' }}>{totalLabReports}</div>
+            <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', fontWeight: 500 }}>Diagnostic Lab Reports</div>
           </div>
         </div>
 
@@ -558,8 +583,8 @@ National Digital Health Mission Compliant
             width: '46px',
             height: '46px',
             borderRadius: '12px',
-            background: '#faf5ff',
-            color: '#7e22ce',
+            background: isDark ? 'rgba(168, 85, 247, 0.2)' : '#faf5ff',
+            color: isDark ? '#c084fc' : '#7e22ce',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -568,26 +593,27 @@ National Digital Health Mission Compliant
             🛡️
           </div>
           <div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a' }}>{totalGovtCertificates}</div>
-            <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>Govt ID & Vaccines</div>
+            <div style={{ fontSize: '22px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a' }}>{totalGovtCertificates}</div>
+            <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', fontWeight: 500 }}>Govt ID & Vaccines</div>
           </div>
         </div>
       </div>
 
       {/* --- DIGILOCKER CONTROLS & FILTER ROW --- */}
       <div style={{
-        background: 'white',
-        border: '1px solid #e2e8f0',
+        background: isDark ? '#1e293b' : 'white',
+        border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
         borderRadius: '16px',
         padding: '16px 20px',
         marginBottom: '24px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '16px'
+        gap: '16px',
+        boxShadow: isDark ? '0 4px 16px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.03)'
       }}>
         {/* Top filter row: Issued vs Uploaded & Search */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <button
               className={`al-tab-btn ${filterType === 'all' ? 'active' : ''}`}
               onClick={() => setFilterType('all')}
@@ -621,17 +647,18 @@ National Digital Health Mission Compliant
                   width: '100%',
                   padding: '8px 12px 8px 34px',
                   borderRadius: '20px',
-                  border: '1px solid #e2e8f0',
+                  border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
                   fontSize: '13px',
                   outline: 'none',
-                  background: '#f8fafc'
+                  background: isDark ? '#0f172a' : '#f8fafc',
+                  color: isDark ? '#f8fafc' : '#0f172a'
                 }}
               />
-              <span style={{ position: 'absolute', left: '12px', top: '9px', fontSize: '13px', color: '#94a3b8' }}>🔍</span>
+              <span style={{ position: 'absolute', left: '12px', top: '9px', fontSize: '13px', color: isDark ? '#94a3b8' : '#94a3b8' }}>🔍</span>
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  style={{ position: 'absolute', right: '10px', top: '7px', background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', fontSize: '12px' }}
+                  style={{ position: 'absolute', right: '10px', top: '7px', background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#cbd5e1' : '#94a3b8', fontSize: '12px' }}
                 >
                   ✕
                 </button>
@@ -639,19 +666,19 @@ National Digital Health Mission Compliant
             </div>
 
             {/* View Mode Toggle */}
-            <div style={{ display: 'flex', background: '#f1f5f9', borderRadius: '10px', padding: '2px' }}>
+            <div style={{ display: 'flex', background: isDark ? '#0f172a' : '#f1f5f9', borderRadius: '10px', padding: '2px', border: isDark ? '1px solid #334155' : 'none' }}>
               <button
                 onClick={() => setViewMode('grid')}
                 style={{
-                  background: viewMode === 'grid' ? 'white' : 'transparent',
+                  background: viewMode === 'grid' ? (isDark ? '#1e293b' : 'white') : 'transparent',
                   border: 'none',
                   borderRadius: '8px',
                   padding: '6px 10px',
                   cursor: 'pointer',
                   fontSize: '13px',
                   fontWeight: 600,
-                  color: viewMode === 'grid' ? '#1e3a8a' : '#64748b',
-                  boxShadow: viewMode === 'grid' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
+                  color: viewMode === 'grid' ? (isDark ? '#60a5fa' : '#1e3a8a') : (isDark ? '#94a3b8' : '#64748b'),
+                  boxShadow: viewMode === 'grid' ? (isDark ? '0 1px 3px rgba(0,0,0,0.4)' : '0 1px 3px rgba(0,0,0,0.1)') : 'none'
                 }}
                 title="Grid View"
               >
@@ -660,15 +687,15 @@ National Digital Health Mission Compliant
               <button
                 onClick={() => setViewMode('table')}
                 style={{
-                  background: viewMode === 'table' ? 'white' : 'transparent',
+                  background: viewMode === 'table' ? (isDark ? '#1e293b' : 'white') : 'transparent',
                   border: 'none',
                   borderRadius: '8px',
                   padding: '6px 10px',
                   cursor: 'pointer',
                   fontSize: '13px',
                   fontWeight: 600,
-                  color: viewMode === 'table' ? '#1e3a8a' : '#64748b',
-                  boxShadow: viewMode === 'table' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
+                  color: viewMode === 'table' ? (isDark ? '#60a5fa' : '#1e3a8a') : (isDark ? '#94a3b8' : '#64748b'),
+                  boxShadow: viewMode === 'table' ? (isDark ? '0 1px 3px rgba(0,0,0,0.4)' : '0 1px 3px rgba(0,0,0,0.1)') : 'none'
                 }}
                 title="Table View"
               >
@@ -697,9 +724,15 @@ National Digital Health Mission Compliant
                 padding: '6px 14px',
                 borderRadius: '16px',
                 border: '1px solid',
-                borderColor: filterCategory === cat.value ? '#1e3a8a' : '#e2e8f0',
-                background: filterCategory === cat.value ? '#eff6ff' : '#ffffff',
-                color: filterCategory === cat.value ? '#1e3a8a' : '#475569',
+                borderColor: filterCategory === cat.value 
+                  ? (isDark ? '#38bdf8' : '#1e3a8a') 
+                  : (isDark ? '#334155' : '#e2e8f0'),
+                background: filterCategory === cat.value 
+                  ? (isDark ? 'rgba(56, 189, 248, 0.15)' : '#eff6ff') 
+                  : (isDark ? '#0f172a' : '#ffffff'),
+                color: filterCategory === cat.value 
+                  ? (isDark ? '#38bdf8' : '#1e3a8a') 
+                  : (isDark ? '#cbd5e1' : '#475569'),
                 cursor: 'pointer',
                 fontWeight: filterCategory === cat.value ? 700 : 500,
                 fontSize: '12.5px',
@@ -716,17 +749,17 @@ National Digital Health Mission Compliant
       {/* --- DOCUMENTS DISPLAY --- */}
       {filteredRecords.length === 0 ? (
         <div style={{
-          background: 'white',
+          background: isDark ? '#1e293b' : 'white',
           borderRadius: '16px',
-          border: '1px solid #e2e8f0',
+          border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
           padding: '60px 20px',
           textAlign: 'center'
         }}>
           <div style={{ fontSize: '48px', marginBottom: '12px' }}>📂</div>
-          <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', marginBottom: '6px' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: 700, color: isDark ? '#f8fafc' : '#0f172a', marginBottom: '6px' }}>
             No records found
           </h3>
-          <p style={{ color: '#64748b', fontSize: '14px', maxWidth: '400px', margin: '0 auto 20px' }}>
+          <p style={{ color: isDark ? '#94a3b8' : '#64748b', fontSize: '14px', maxWidth: '400px', margin: '0 auto 20px' }}>
             {searchQuery 
               ? `No health documents matched "${searchQuery}". Try a different keyword.` 
               : 'Your health locker has no documents in this specific category yet.'}
@@ -771,7 +804,7 @@ National Digital Health Mission Compliant
                     {record.isIssued ? (
                       <span style={{
                         fontSize: '11px',
-                        color: '#059669',
+                        color: isDark ? '#34d399' : '#059669',
                         fontWeight: 700,
                         display: 'flex',
                         alignItems: 'center',
@@ -780,7 +813,7 @@ National Digital Health Mission Compliant
                         <span style={{ fontSize: '13px' }}>🛡️</span> ABDM Verified
                       </span>
                     ) : (
-                      <span style={{ fontSize: '11px', color: '#64748b' }}>
+                      <span style={{ fontSize: '11px', color: isDark ? '#94a3b8' : '#64748b' }}>
                         Self-Uploaded
                       </span>
                     )}
@@ -790,7 +823,7 @@ National Digital Health Mission Compliant
                   <h3 style={{
                     fontSize: '16px',
                     fontWeight: 700,
-                    color: '#0f172a',
+                    color: isDark ? '#f8fafc' : '#0f172a',
                     margin: '0 0 6px',
                     lineHeight: 1.3
                   }}>
@@ -798,12 +831,12 @@ National Digital Health Mission Compliant
                   </h3>
 
                   {/* Issuer & Date */}
-                  <div style={{ fontSize: '12.5px', color: '#64748b', marginBottom: '12px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                  <div style={{ fontSize: '12.5px', color: isDark ? '#cbd5e1' : '#64748b', marginBottom: '12px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                     <div>👨‍⚕️ <strong>{record.doctor}</strong></div>
                     {record.hospitalOrLab && (
-                      <div style={{ color: '#0369a1' }}>🏥 {record.hospitalOrLab}</div>
+                      <div style={{ color: isDark ? '#38bdf8' : '#0369a1' }}>🏥 {record.hospitalOrLab}</div>
                     )}
-                    <div style={{ color: '#94a3b8', fontSize: '11.5px', marginTop: '2px' }}>
+                    <div style={{ color: isDark ? '#94a3b8' : '#94a3b8', fontSize: '11.5px', marginTop: '2px' }}>
                       📅 Issued: {record.date} • {record.fileSize}
                     </div>
                   </div>
@@ -811,25 +844,25 @@ National Digital Health Mission Compliant
                   {/* Preview snippet for Prescription / Lab / Note */}
                   {record.medicines && record.medicines.length > 0 && (
                     <div style={{
-                      background: '#f8fafc',
+                      background: isDark ? '#0f172a' : '#f8fafc',
                       borderRadius: '8px',
                       padding: '10px 12px',
-                      border: '1px solid #f1f5f9',
+                      border: isDark ? '1px solid #334155' : '1px solid #f1f5f9',
                       marginBottom: '14px'
                     }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#475569', textTransform: 'uppercase' }}>
                           Prescribed Medicines ({record.medicines.length}):
                         </span>
-                        <span style={{ fontSize: '10px', color: '#be123c', fontWeight: 700 }}>
+                        <span style={{ fontSize: '10px', color: isDark ? '#fda4af' : '#be123c', fontWeight: 700 }}>
                           🔴 Tata 1mg Sync
                         </span>
                       </div>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                         {record.medicines.slice(0, 3).map((m, idx) => (
                           <span key={idx} style={{
-                            background: '#e0f2fe',
-                            color: '#0369a1',
+                            background: isDark ? 'rgba(56, 189, 248, 0.15)' : '#e0f2fe',
+                            color: isDark ? '#38bdf8' : '#0369a1',
                             fontSize: '11px',
                             fontWeight: 600,
                             padding: '2px 8px',
@@ -839,7 +872,7 @@ National Digital Health Mission Compliant
                           </span>
                         ))}
                         {record.medicines.length > 3 && (
-                          <span style={{ fontSize: '11px', color: '#64748b', alignSelf: 'center' }}>
+                          <span style={{ fontSize: '11px', color: isDark ? '#94a3b8' : '#64748b', alignSelf: 'center' }}>
                             +{record.medicines.length - 3} more
                           </span>
                         )}
@@ -856,9 +889,9 @@ National Digital Health Mission Compliant
                           marginTop: '8px',
                           width: '100%',
                           padding: '6px 10px',
-                          background: '#fff1f2',
-                          color: '#be123c',
-                          border: '1px solid #fecdd3',
+                          background: isDark ? 'rgba(225, 29, 72, 0.15)' : '#fff1f2',
+                          color: isDark ? '#fda4af' : '#be123c',
+                          border: isDark ? '1px solid rgba(225, 29, 72, 0.3)' : '1px solid #fecdd3',
                           borderRadius: '6px',
                           fontSize: '11.5px',
                           fontWeight: 700,
@@ -877,20 +910,20 @@ National Digital Health Mission Compliant
 
                   {record.labResults && record.labResults.length > 0 && (
                     <div style={{
-                      background: '#f8fafc',
+                      background: isDark ? '#0f172a' : '#f8fafc',
                       borderRadius: '8px',
                       padding: '10px 12px',
-                      border: '1px solid #f1f5f9',
+                      border: isDark ? '1px solid #334155' : '1px solid #f1f5f9',
                       marginBottom: '14px'
                     }}>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#475569', textTransform: 'uppercase', marginBottom: '6px' }}>
+                      <div style={{ fontSize: '11px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#475569', textTransform: 'uppercase', marginBottom: '6px' }}>
                         Key Lab Findings:
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
                         {record.labResults.slice(0, 2).map((l, idx) => (
                           <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px' }}>
-                            <span style={{ color: '#334155' }}>{l.parameter}:</span>
-                            <span style={{ fontWeight: 700, color: l.status === 'Normal' ? '#15803d' : '#b91c1c' }}>
+                            <span style={{ color: isDark ? '#cbd5e1' : '#334155' }}>{l.parameter}:</span>
+                            <span style={{ fontWeight: 700, color: l.status === 'Normal' ? (isDark ? '#4ade80' : '#15803d') : (isDark ? '#f87171' : '#b91c1c') }}>
                               {l.value} {l.unit}
                             </span>
                           </div>
@@ -902,7 +935,7 @@ National Digital Health Mission Compliant
                   {!record.medicines && !record.labResults && record.notes && (
                     <p style={{
                       fontSize: '12.5px',
-                      color: '#475569',
+                      color: isDark ? '#cbd5e1' : '#475569',
                       margin: '0 0 14px',
                       lineHeight: 1.4,
                       display: '-webkit-box',
@@ -920,7 +953,7 @@ National Digital Health Mission Compliant
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  borderTop: '1px solid #f1f5f9',
+                  borderTop: isDark ? '1px solid #334155' : '1px solid #f1f5f9',
                   paddingTop: '12px',
                   marginTop: '10px'
                 }}>
@@ -944,9 +977,9 @@ National Digital Health Mission Compliant
                     <button
                       onClick={() => handleDownload(record)}
                       style={{
-                        background: '#f1f5f9',
-                        color: '#1e293b',
-                        border: '1px solid #e2e8f0',
+                        background: isDark ? '#0f172a' : '#f1f5f9',
+                        color: isDark ? '#f8fafc' : '#1e293b',
+                        border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
                         padding: '6px 12px',
                         borderRadius: '8px',
                         fontSize: '12px',
@@ -961,9 +994,9 @@ National Digital Health Mission Compliant
                     <button
                       onClick={() => setShareSuccessRecord(record)}
                       style={{
-                        background: '#f1f5f9',
-                        color: '#0284c7',
-                        border: '1px solid #e2e8f0',
+                        background: isDark ? '#0f172a' : '#f1f5f9',
+                        color: isDark ? '#38bdf8' : '#0284c7',
+                        border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
                         padding: '6px 10px',
                         borderRadius: '8px',
                         fontSize: '12px',
@@ -998,33 +1031,33 @@ National Digital Health Mission Compliant
       ) : (
         /* TABLE VIEW */
         <div style={{
-          background: 'white',
+          background: isDark ? '#1e293b' : 'white',
           borderRadius: '16px',
-          border: '1px solid #e2e8f0',
+          border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
           overflow: 'hidden',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.03)'
+          boxShadow: isDark ? '0 4px 16px rgba(0,0,0,0.3)' : '0 4px 16px rgba(0,0,0,0.03)'
         }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-            <thead style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+            <thead style={{ background: isDark ? '#0f172a' : '#f8fafc', borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0' }}>
               <tr>
-                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: '#1e3a8a' }}>Document Title</th>
-                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: '#1e3a8a' }}>Category</th>
-                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: '#1e3a8a' }}>Date</th>
-                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: '#1e3a8a' }}>Issuing Authority</th>
-                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: '#1e3a8a' }}>Verification</th>
-                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: '#1e3a8a', textAlign: 'right' }}>Actions</th>
+                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: isDark ? '#93c5fd' : '#1e3a8a' }}>Document Title</th>
+                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: isDark ? '#93c5fd' : '#1e3a8a' }}>Category</th>
+                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: isDark ? '#93c5fd' : '#1e3a8a' }}>Date</th>
+                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: isDark ? '#93c5fd' : '#1e3a8a' }}>Issuing Authority</th>
+                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: isDark ? '#93c5fd' : '#1e3a8a' }}>Verification</th>
+                <th style={{ padding: '14px 18px', fontWeight: 700, fontSize: '13px', color: isDark ? '#93c5fd' : '#1e3a8a', textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredRecords.map((record) => {
                 const badge = getCategoryBadgeStyle(record.type);
                 return (
-                  <tr key={record.id} style={{ borderBottom: '1px solid #f1f5f9', transition: 'background 0.15s' }}>
+                  <tr key={record.id} style={{ borderBottom: isDark ? '1px solid #334155' : '1px solid #f1f5f9', transition: 'background 0.15s' }}>
                     <td style={{ padding: '14px 18px' }}>
-                      <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '14px' }}>
+                      <div style={{ fontWeight: 700, color: isDark ? '#f8fafc' : '#0f172a', fontSize: '14px' }}>
                         {record.name}
                       </div>
-                      <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '2px' }}>
+                      <div style={{ fontSize: '11.5px', color: isDark ? '#94a3b8' : '#64748b', marginTop: '2px' }}>
                         {record.fileSize} • {record.tags?.slice(0, 2).join(', ') || 'Medical File'}
                       </div>
                     </td>
@@ -1040,34 +1073,34 @@ National Digital Health Mission Compliant
                         {badge.icon} {record.type}
                       </span>
                     </td>
-                    <td style={{ padding: '14px 18px', color: '#64748b', fontSize: '13px' }}>
+                    <td style={{ padding: '14px 18px', color: isDark ? '#94a3b8' : '#64748b', fontSize: '13px' }}>
                       {record.date}
                     </td>
-                    <td style={{ padding: '14px 18px', color: '#334155', fontSize: '13px' }}>
+                    <td style={{ padding: '14px 18px', color: isDark ? '#cbd5e1' : '#334155', fontSize: '13px' }}>
                       <div>{record.doctor}</div>
                       {record.hospitalOrLab && (
-                        <div style={{ fontSize: '11px', color: '#0284c7' }}>{record.hospitalOrLab}</div>
+                        <div style={{ fontSize: '11px', color: isDark ? '#38bdf8' : '#0284c7' }}>{record.hospitalOrLab}</div>
                       )}
                     </td>
                     <td style={{ padding: '14px 18px' }}>
                       {record.isIssued ? (
-                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ fontSize: '11px', color: isDark ? '#34d399' : '#059669', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
                           ✓ ABDM Verified
                         </span>
                       ) : (
-                        <span style={{ fontSize: '11px', color: '#64748b' }}>Self-Uploaded</span>
+                        <span style={{ fontSize: '11px', color: isDark ? '#94a3b8' : '#64748b' }}>Self-Uploaded</span>
                       )}
                     </td>
                     <td style={{ padding: '14px 18px', textAlign: 'right' }}>
                       <button
                         onClick={() => setPreviewRecord(record)}
-                        style={{ color: '#1e3a8a', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 700, marginRight: '14px', fontSize: '13px' }}
+                        style={{ color: isDark ? '#60a5fa' : '#1e3a8a', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 700, marginRight: '14px', fontSize: '13px' }}
                       >
                         View
                       </button>
                       <button
                         onClick={() => handleDownload(record)}
-                        style={{ color: '#0284c7', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, marginRight: '12px', fontSize: '13px' }}
+                        style={{ color: isDark ? '#38bdf8' : '#0284c7', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, marginRight: '12px', fontSize: '13px' }}
                       >
                         Download
                       </button>
@@ -1094,17 +1127,17 @@ National Digital Health Mission Compliant
       {/* --- 1. OFFICIAL ABHA DIGITAL HEALTH CARD MODAL --- */}
       {showAbhaCardModal && (
         <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowAbhaCardModal(false); }}>
-          <div className="modal" style={{ maxWidth: '580px', borderRadius: '24px', overflow: 'hidden' }}>
-            <div className="modal-header" style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+          <div className="modal" style={{ maxWidth: '580px', borderRadius: '24px', overflow: 'hidden', background: isDark ? '#1e293b' : 'white', border: isDark ? '1px solid #334155' : 'none' }}>
+            <div className="modal-header" style={{ background: isDark ? '#0f172a' : '#f8fafc', borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0' }}>
               <div>
-                <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a', margin: 0 }}>
                   Ayushman Bharat Health Card (ABHA)
                 </h2>
-                <div style={{ fontSize: '12px', color: '#64748b', marginTop: '2px' }}>
+                <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', marginTop: '2px' }}>
                   Government of India • National Digital Health Mission
                 </div>
               </div>
-              <button className="modal-close" onClick={() => setShowAbhaCardModal(false)}>
+              <button className="modal-close" onClick={() => setShowAbhaCardModal(false)} style={{ color: isDark ? '#cbd5e1' : undefined }}>
                 <CloseIcon size={20} />
               </button>
             </div>
@@ -1220,7 +1253,13 @@ National Digital Health Mission Compliant
                 <button
                   className="btn btn-secondary"
                   onClick={() => setShowAbhaCardModal(false)}
-                  style={{ flex: 1, borderRadius: '10px' }}
+                  style={{
+                    flex: 1,
+                    borderRadius: '10px',
+                    background: isDark ? '#334155' : undefined,
+                    color: isDark ? '#f8fafc' : undefined,
+                    borderColor: isDark ? '#475569' : undefined
+                  }}
                 >
                   Close
                 </button>
@@ -1243,17 +1282,17 @@ National Digital Health Mission Compliant
       {/* --- 2. UPLOAD / ADD NEW HEALTH RECORD & PRESCRIPTION MODAL --- */}
       {showUploadModal && (
         <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowUploadModal(false); }}>
-          <div className="modal" style={{ maxWidth: '640px', borderRadius: '24px' }}>
-            <div className="modal-header">
+          <div className="modal" style={{ maxWidth: '640px', borderRadius: '24px', background: isDark ? '#1e293b' : 'white', border: isDark ? '1px solid #334155' : 'none' }}>
+            <div className="modal-header" style={{ background: isDark ? '#0f172a' : undefined, borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0' }}>
               <div>
-                <h2 style={{ fontSize: '18px', fontWeight: 800, margin: 0, color: '#0f172a' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 800, margin: 0, color: isDark ? '#f8fafc' : '#0f172a' }}>
                   Add to AarogyaLocker
                 </h2>
-                <div style={{ fontSize: '12px', color: '#64748b' }}>
+                <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b' }}>
                   Index reports, digital e-prescriptions, or medical scan records
                 </div>
               </div>
-              <button className="modal-close" onClick={() => setShowUploadModal(false)}>
+              <button className="modal-close" onClick={() => setShowUploadModal(false)} style={{ color: isDark ? '#cbd5e1' : undefined }}>
                 <CloseIcon size={20} />
               </button>
             </div>
@@ -1268,7 +1307,7 @@ National Digital Health Mission Compliant
               <form onSubmit={handleUploadSubmit}>
                 {/* Category Selection Tabs */}
                 <div style={{ marginBottom: '16px' }}>
-                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
+                  <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: isDark ? '#cbd5e1' : '#334155', marginBottom: '8px' }}>
                     Document Type
                   </label>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
@@ -1288,12 +1327,13 @@ National Digital Health Mission Compliant
                           padding: '10px 8px',
                           borderRadius: '10px',
                           border: '1px solid',
-                          borderColor: docCategory === item.type ? '#1e3a8a' : '#e2e8f0',
-                          background: docCategory === item.type ? '#eff6ff' : 'white',
-                          color: docCategory === item.type ? '#1e3a8a' : '#475569',
+                          borderColor: docCategory === item.type ? (isDark ? '#38bdf8' : '#1e3a8a') : (isDark ? '#334155' : '#e2e8f0'),
+                          background: docCategory === item.type ? (isDark ? 'rgba(56, 189, 248, 0.2)' : '#eff6ff') : (isDark ? '#0f172a' : 'white'),
+                          color: docCategory === item.type ? (isDark ? '#38bdf8' : '#1e3a8a') : (isDark ? '#94a3b8' : '#475569'),
                           fontWeight: docCategory === item.type ? 700 : 500,
                           fontSize: '12.5px',
-                          cursor: 'pointer'
+                          cursor: 'pointer',
+                          transition: 'all 0.2s'
                         }}
                       >
                         {item.label}
@@ -1306,17 +1346,17 @@ National Digital Health Mission Compliant
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   style={{
-                    border: '2px dashed #cbd5e1',
+                    border: isDark ? '2px dashed #475569' : '2px dashed #cbd5e1',
                     borderRadius: '12px',
                     padding: '20px',
                     textAlign: 'center',
                     cursor: 'pointer',
-                    background: '#f8fafc',
+                    background: isDark ? '#0f172a' : '#f8fafc',
                     marginBottom: '16px',
                     transition: 'border-color 0.2s'
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.borderColor = '#1e3a8a'}
-                  onMouseOut={(e) => e.currentTarget.style.borderColor = '#cbd5e1'}
+                  onMouseOver={(e) => e.currentTarget.style.borderColor = isDark ? '#38bdf8' : '#1e3a8a'}
+                  onMouseOut={(e) => e.currentTarget.style.borderColor = isDark ? '#475569' : '#cbd5e1'}
                 >
                   <input
                     type="file"
@@ -1326,17 +1366,17 @@ National Digital Health Mission Compliant
                     accept=".pdf,.png,.jpg,.jpeg,.doc,.docx"
                   />
                   <div style={{ fontSize: '28px', marginBottom: '6px' }}>📄</div>
-                  <div style={{ fontWeight: 600, color: '#1e3a8a', fontSize: '14px' }}>
+                  <div style={{ fontWeight: 600, color: isDark ? '#38bdf8' : '#1e3a8a', fontSize: '14px' }}>
                     {selectedFile ? selectedFile.name : 'Upload file (PDF, JPG, PNG) or continue with digital entry'}
                   </div>
-                  <div style={{ fontSize: '12px', color: '#64748b', marginTop: '2px' }}>
+                  <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', marginTop: '2px' }}>
                     {selectedFile ? `${(selectedFile.size / 1024).toFixed(1)} KB selected` : 'Encrypted with AES-256 upon save'}
                   </div>
                 </div>
 
                 {/* Title */}
                 <div className="booking-form-group" style={{ marginBottom: '14px' }}>
-                  <label htmlFor="docName" style={{ fontWeight: 600, fontSize: '13px' }}>Document Title *</label>
+                  <label htmlFor="docName" style={{ fontWeight: 600, fontSize: '13px', color: isDark ? '#cbd5e1' : undefined }}>Document Title *</label>
                   <input
                     id="docName"
                     type="text"
@@ -1345,13 +1385,18 @@ National Digital Health Mission Compliant
                     value={docName}
                     onChange={(e) => setDocName(e.target.value)}
                     required
+                    style={{
+                      background: isDark ? '#0f172a' : undefined,
+                      color: isDark ? '#f8fafc' : undefined,
+                      borderColor: isDark ? '#334155' : undefined
+                    }}
                   />
                 </div>
 
                 {/* Doctor and Hospital Fields */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
                   <div className="booking-form-group">
-                    <label htmlFor="doctor" style={{ fontWeight: 600, fontSize: '13px' }}>Doctor Name</label>
+                    <label htmlFor="doctor" style={{ fontWeight: 600, fontSize: '13px', color: isDark ? '#cbd5e1' : undefined }}>Doctor Name</label>
                     <input
                       id="doctor"
                       type="text"
@@ -1359,10 +1404,15 @@ National Digital Health Mission Compliant
                       placeholder="e.g. Dr. Priya Sharma"
                       value={issuingDoctor}
                       onChange={(e) => setIssuingDoctor(e.target.value)}
+                      style={{
+                        background: isDark ? '#0f172a' : undefined,
+                        color: isDark ? '#f8fafc' : undefined,
+                        borderColor: isDark ? '#334155' : undefined
+                      }}
                     />
                   </div>
                   <div className="booking-form-group">
-                    <label htmlFor="hospitalOrLab" style={{ fontWeight: 600, fontSize: '13px' }}>Hospital / Diagnostic Lab</label>
+                    <label htmlFor="hospitalOrLab" style={{ fontWeight: 600, fontSize: '13px', color: isDark ? '#cbd5e1' : undefined }}>Hospital / Diagnostic Lab</label>
                     <input
                       id="hospitalOrLab"
                       type="text"
@@ -1370,6 +1420,11 @@ National Digital Health Mission Compliant
                       placeholder="e.g. Apollo / Metropolis Lab"
                       value={hospitalOrLab}
                       onChange={(e) => setHospitalOrLab(e.target.value)}
+                      style={{
+                        background: isDark ? '#0f172a' : undefined,
+                        color: isDark ? '#f8fafc' : undefined,
+                        borderColor: isDark ? '#334155' : undefined
+                      }}
                     />
                   </div>
                 </div>
@@ -1377,23 +1432,23 @@ National Digital Health Mission Compliant
                 {/* If Prescription: Medicine Builder */}
                 {docCategory === 'Prescription' && (
                   <div style={{
-                    background: '#f8fafc',
-                    border: '1px solid #e2e8f0',
+                    background: isDark ? '#0f172a' : '#f8fafc',
+                    border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
                     borderRadius: '12px',
                     padding: '14px',
                     marginBottom: '16px'
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                      <label style={{ fontSize: '13px', fontWeight: 700, color: '#1e3a8a' }}>
+                      <label style={{ fontSize: '13px', fontWeight: 700, color: isDark ? '#38bdf8' : '#1e3a8a' }}>
                         💊 Prescribed Medicines
                       </label>
                       <button
                         type="button"
                         onClick={handleAddMedicineRow}
                         style={{
-                          background: '#eff6ff',
-                          color: '#1d4ed8',
-                          border: '1px solid #bfdbfe',
+                          background: isDark ? '#1e293b' : '#eff6ff',
+                          color: isDark ? '#38bdf8' : '#1d4ed8',
+                          border: isDark ? '1px solid #0284c7' : '1px solid #bfdbfe',
                           padding: '3px 10px',
                           borderRadius: '6px',
                           fontSize: '12px',
@@ -1419,7 +1474,13 @@ National Digital Health Mission Compliant
                           value={med.name}
                           onChange={(e) => handleMedicineChange(idx, 'name', e.target.value)}
                           className="input-field"
-                          style={{ padding: '6px 8px', fontSize: '12px' }}
+                          style={{
+                            padding: '6px 8px',
+                            fontSize: '12px',
+                            background: isDark ? '#1e293b' : undefined,
+                            color: isDark ? '#f8fafc' : undefined,
+                            borderColor: isDark ? '#334155' : undefined
+                          }}
                         />
                         <input
                           type="text"
@@ -1427,13 +1488,25 @@ National Digital Health Mission Compliant
                           value={med.dosage}
                           onChange={(e) => handleMedicineChange(idx, 'dosage', e.target.value)}
                           className="input-field"
-                          style={{ padding: '6px 8px', fontSize: '12px' }}
+                          style={{
+                            padding: '6px 8px',
+                            fontSize: '12px',
+                            background: isDark ? '#1e293b' : undefined,
+                            color: isDark ? '#f8fafc' : undefined,
+                            borderColor: isDark ? '#334155' : undefined
+                          }}
                         />
                         <select
                           value={med.frequency}
                           onChange={(e) => handleMedicineChange(idx, 'frequency', e.target.value)}
                           className="input-field"
-                          style={{ padding: '6px 8px', fontSize: '12px' }}
+                          style={{
+                            padding: '6px 8px',
+                            fontSize: '12px',
+                            background: isDark ? '#1e293b' : undefined,
+                            color: isDark ? '#f8fafc' : undefined,
+                            borderColor: isDark ? '#334155' : undefined
+                          }}
                         >
                           <option value="Once daily (OD)">Once daily (OD)</option>
                           <option value="Twice daily (BD)">Twice daily (BD)</option>
@@ -1446,7 +1519,13 @@ National Digital Health Mission Compliant
                           value={med.duration}
                           onChange={(e) => handleMedicineChange(idx, 'duration', e.target.value)}
                           className="input-field"
-                          style={{ padding: '6px 8px', fontSize: '12px' }}
+                          style={{
+                            padding: '6px 8px',
+                            fontSize: '12px',
+                            background: isDark ? '#1e293b' : undefined,
+                            color: isDark ? '#f8fafc' : undefined,
+                            borderColor: isDark ? '#334155' : undefined
+                          }}
                         />
                         {medicinesList.length > 1 && (
                           <button
@@ -1464,7 +1543,7 @@ National Digital Health Mission Compliant
 
                 {/* Notes */}
                 <div className="booking-form-group" style={{ marginBottom: '14px' }}>
-                  <label htmlFor="notes" style={{ fontWeight: 600, fontSize: '13px' }}>Doctor's Advice / Clinical Observations</label>
+                  <label htmlFor="notes" style={{ fontWeight: 600, fontSize: '13px', color: isDark ? '#cbd5e1' : undefined }}>Doctor's Advice / Clinical Observations</label>
                   <textarea
                     id="notes"
                     className="input-field"
@@ -1472,6 +1551,11 @@ National Digital Health Mission Compliant
                     placeholder="Diagnosis, dietary restrictions, follow-up instructions..."
                     value={docNotes}
                     onChange={(e) => setDocNotes(e.target.value)}
+                    style={{
+                      background: isDark ? '#0f172a' : undefined,
+                      color: isDark ? '#f8fafc' : undefined,
+                      borderColor: isDark ? '#334155' : undefined
+                    }}
                   />
                 </div>
 
@@ -1482,9 +1566,9 @@ National Digital Health Mission Compliant
                   gap: '10px',
                   margin: '14px 0 20px',
                   padding: '10px 14px',
-                  background: '#f0fdf4',
+                  background: isDark ? 'rgba(16, 185, 129, 0.15)' : '#f0fdf4',
                   borderRadius: '10px',
-                  border: '1px solid #bbf7d0',
+                  border: isDark ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid #bbf7d0',
                   fontSize: '13px'
                 }}>
                   <input
@@ -1493,7 +1577,7 @@ National Digital Health Mission Compliant
                     checked={isAbhaLinked}
                     onChange={(e) => setIsAbhaLinked(e.target.checked)}
                   />
-                  <label htmlFor="abhaConsent" style={{ color: '#166534', fontWeight: 600, cursor: 'pointer' }}>
+                  <label htmlFor="abhaConsent" style={{ color: isDark ? '#6ee7b7' : '#166534', fontWeight: 600, cursor: 'pointer' }}>
                     Encrypt & link document to my Universal ABHA Health Locker ID
                   </label>
                 </div>
@@ -1514,20 +1598,20 @@ National Digital Health Mission Compliant
       {/* --- 3. DIGITAL DOCUMENT PREVIEW MODAL --- */}
       {previewRecord && (
         <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setPreviewRecord(null); }}>
-          <div className="modal" style={{ maxWidth: '680px', borderRadius: '24px' }}>
-            <div className="modal-header" style={{ borderBottom: '1px solid #e2e8f0', padding: '18px 24px' }}>
+          <div className="modal" style={{ maxWidth: '680px', borderRadius: '24px', background: isDark ? '#1e293b' : 'white', border: isDark ? '1px solid #334155' : 'none' }}>
+            <div className="modal-header" style={{ borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0', padding: '18px 24px', background: isDark ? '#0f172a' : undefined }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontSize: '18px' }}>{getCategoryBadgeStyle(previewRecord.type).icon}</span>
-                  <h2 style={{ fontSize: '18px', fontWeight: 800, margin: 0, color: '#0f172a' }}>
+                  <h2 style={{ fontSize: '18px', fontWeight: 800, margin: 0, color: isDark ? '#f8fafc' : '#0f172a' }}>
                     {previewRecord.name}
                   </h2>
                 </div>
-                <div style={{ fontSize: '12px', color: '#64748b', marginTop: '3px' }}>
+                <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', marginTop: '3px' }}>
                   Issued on {previewRecord.date} • {previewRecord.doctor} {previewRecord.hospitalOrLab ? `• ${previewRecord.hospitalOrLab}` : ''}
                 </div>
               </div>
-              <button className="modal-close" onClick={() => setPreviewRecord(null)}>
+              <button className="modal-close" onClick={() => setPreviewRecord(null)} style={{ color: isDark ? '#cbd5e1' : undefined }}>
                 <CloseIcon size={20} />
               </button>
             </div>
@@ -1535,35 +1619,35 @@ National Digital Health Mission Compliant
             <div className="modal-body" style={{ padding: '24px', maxHeight: '75vh', overflowY: 'auto' }}>
               {/* Document Certificate Sheet */}
               <div style={{
-                background: '#ffffff',
-                border: '1px solid #cbd5e1',
+                background: isDark ? '#0f172a' : '#ffffff',
+                border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
                 borderRadius: '14px',
                 padding: '24px',
                 marginBottom: '20px',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.04)'
+                boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.4)' : '0 4px 16px rgba(0,0,0,0.04)'
               }}>
                 {/* Official Letterhead */}
                 <div style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'flex-start',
-                  borderBottom: '2px solid #1e3a8a',
+                  borderBottom: isDark ? '2px solid #38bdf8' : '2px solid #1e3a8a',
                   paddingBottom: '14px',
                   marginBottom: '16px'
                 }}>
                   <div>
-                    <div style={{ fontSize: '18px', fontWeight: 800, color: '#1e3a8a', letterSpacing: '-0.3px' }}>
+                    <div style={{ fontSize: '18px', fontWeight: 800, color: isDark ? '#38bdf8' : '#1e3a8a', letterSpacing: '-0.3px' }}>
                       AarogyaLocker Healthcare Vault
                     </div>
-                    <div style={{ fontSize: '12px', color: '#64748b' }}>
+                    <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b' }}>
                       ABDM Certified Medical Document • {previewRecord.hospitalOrLab || 'AarogyaLocker Hospital Network'}
                     </div>
                   </div>
 
                   <span style={{
-                    background: '#ecfdf5',
-                    color: '#059669',
-                    border: '1px solid #a7f3d0',
+                    background: isDark ? 'rgba(16, 185, 129, 0.2)' : '#ecfdf5',
+                    color: isDark ? '#6ee7b7' : '#059669',
+                    border: isDark ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid #a7f3d0',
                     padding: '4px 10px',
                     borderRadius: '12px',
                     fontSize: '11px',
@@ -1578,25 +1662,26 @@ National Digital Health Mission Compliant
                   display: 'grid',
                   gridTemplateColumns: 'repeat(3, 1fr)',
                   gap: '12px',
-                  background: '#f8fafc',
+                  background: isDark ? '#1e293b' : '#f8fafc',
+                  border: isDark ? '1px solid #334155' : 'none',
                   padding: '12px 14px',
                   borderRadius: '10px',
                   fontSize: '12px',
                   marginBottom: '18px'
                 }}>
                   <div>
-                    <span style={{ color: '#64748b' }}>Patient Name:</span>
-                    <div style={{ fontWeight: 700, color: '#0f172a' }}>{currentUser.name}</div>
+                    <span style={{ color: isDark ? '#94a3b8' : '#64748b' }}>Patient Name:</span>
+                    <div style={{ fontWeight: 700, color: isDark ? '#f8fafc' : '#0f172a' }}>{currentUser.name}</div>
                   </div>
                   <div>
-                    <span style={{ color: '#64748b' }}>ABHA Number:</span>
-                    <div style={{ fontWeight: 700, color: '#0284c7', fontFamily: 'monospace' }}>
+                    <span style={{ color: isDark ? '#94a3b8' : '#64748b' }}>ABHA Number:</span>
+                    <div style={{ fontWeight: 700, color: '#38bdf8', fontFamily: 'monospace' }}>
                       {currentUser.abhaId || '91-4521-8932-1104'}
                     </div>
                   </div>
                   <div>
-                    <span style={{ color: '#64748b' }}>Document ID:</span>
-                    <div style={{ fontWeight: 600, color: '#475569' }}>
+                    <span style={{ color: isDark ? '#94a3b8' : '#64748b' }}>Document ID:</span>
+                    <div style={{ fontWeight: 600, color: isDark ? '#cbd5e1' : '#475569' }}>
                       {previewRecord.documentNumber || previewRecord.id}
                     </div>
                   </div>
@@ -1606,7 +1691,7 @@ National Digital Health Mission Compliant
                 {previewRecord.medicines && previewRecord.medicines.length > 0 && (
                   <div style={{ marginBottom: '18px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
-                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#1e3a8a', textTransform: 'uppercase', margin: 0 }}>
+                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: isDark ? '#38bdf8' : '#1e3a8a', textTransform: 'uppercase', margin: 0 }}>
                         Prescribed Medicines & Posology
                       </h4>
                       <button
@@ -1615,9 +1700,9 @@ National Digital Health Mission Compliant
                           window.open(`https://www.1mg.com/search/all?name=${encodeURIComponent(query)}`, '_blank', 'noopener,noreferrer');
                         }}
                         style={{
-                          background: '#fff1f2',
-                          color: '#be123c',
-                          border: '1.5px solid #fecdd3',
+                          background: isDark ? 'rgba(244, 63, 94, 0.15)' : '#fff1f2',
+                          color: isDark ? '#fb7185' : '#be123c',
+                          border: isDark ? '1.5px solid rgba(244, 63, 94, 0.4)' : '1.5px solid #fecdd3',
                           padding: '5px 12px',
                           borderRadius: '8px',
                           fontSize: '12px',
@@ -1635,7 +1720,7 @@ National Digital Health Mission Compliant
 
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px' }}>
                       <thead>
-                        <tr style={{ background: '#f1f5f9', textAlign: 'left', borderBottom: '1px solid #e2e8f0' }}>
+                        <tr style={{ background: isDark ? '#1e293b' : '#f1f5f9', textAlign: 'left', borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0', color: isDark ? '#cbd5e1' : undefined }}>
                           <th style={{ padding: '8px' }}>Medicine</th>
                           <th style={{ padding: '8px' }}>Dosage</th>
                           <th style={{ padding: '8px' }}>Frequency</th>
@@ -1646,19 +1731,19 @@ National Digital Health Mission Compliant
                       </thead>
                       <tbody>
                         {previewRecord.medicines.map((m, idx) => (
-                          <tr key={idx} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                            <td style={{ padding: '8px', fontWeight: 700, color: '#0f172a' }}>{m.name}</td>
-                            <td style={{ padding: '8px', color: '#475569' }}>{m.dosage}</td>
-                            <td style={{ padding: '8px', color: '#0369a1', fontWeight: 600 }}>{m.frequency}</td>
-                            <td style={{ padding: '8px', color: '#475569' }}>{m.duration}</td>
-                            <td style={{ padding: '8px', color: '#64748b', fontSize: '11.5px' }}>{m.instructions || '-'}</td>
+                          <tr key={idx} style={{ borderBottom: isDark ? '1px solid #334155' : '1px solid #f1f5f9' }}>
+                            <td style={{ padding: '8px', fontWeight: 700, color: isDark ? '#f8fafc' : '#0f172a' }}>{m.name}</td>
+                            <td style={{ padding: '8px', color: isDark ? '#cbd5e1' : '#475569' }}>{m.dosage}</td>
+                            <td style={{ padding: '8px', color: '#38bdf8', fontWeight: 600 }}>{m.frequency}</td>
+                            <td style={{ padding: '8px', color: isDark ? '#cbd5e1' : '#475569' }}>{m.duration}</td>
+                            <td style={{ padding: '8px', color: isDark ? '#94a3b8' : '#64748b', fontSize: '11.5px' }}>{m.instructions || '-'}</td>
                             <td style={{ padding: '8px', textAlign: 'center' }}>
                               <button
                                 onClick={() => window.open(`https://www.1mg.com/search/all?name=${encodeURIComponent(m.name)}`, '_blank', 'noopener,noreferrer')}
                                 style={{
-                                  background: '#fff1f2',
-                                  color: '#be123c',
-                                  border: '1px solid #fecdd3',
+                                  background: isDark ? 'rgba(244, 63, 94, 0.15)' : '#fff1f2',
+                                  color: isDark ? '#fb7185' : '#be123c',
+                                  border: isDark ? '1px solid rgba(244, 63, 94, 0.3)' : '1px solid #fecdd3',
                                   padding: '4px 8px',
                                   borderRadius: '6px',
                                   fontSize: '11px',
@@ -1680,12 +1765,12 @@ National Digital Health Mission Compliant
                 {/* Content: Lab Results if Laboratory */}
                 {previewRecord.labResults && previewRecord.labResults.length > 0 && (
                   <div style={{ marginBottom: '18px' }}>
-                    <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#1e3a8a', textTransform: 'uppercase', marginBottom: '8px' }}>
+                    <h4 style={{ fontSize: '13px', fontWeight: 700, color: isDark ? '#38bdf8' : '#1e3a8a', textTransform: 'uppercase', marginBottom: '8px' }}>
                       Laboratory Test Metrics
                     </h4>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px' }}>
                       <thead>
-                        <tr style={{ background: '#f1f5f9', textAlign: 'left', borderBottom: '1px solid #e2e8f0' }}>
+                        <tr style={{ background: isDark ? '#1e293b' : '#f1f5f9', textAlign: 'left', borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0', color: isDark ? '#cbd5e1' : undefined }}>
                           <th style={{ padding: '8px' }}>Test Parameter</th>
                           <th style={{ padding: '8px' }}>Observed Result</th>
                           <th style={{ padding: '8px' }}>Reference Range</th>
@@ -1694,14 +1779,14 @@ National Digital Health Mission Compliant
                       </thead>
                       <tbody>
                         {previewRecord.labResults.map((l, idx) => (
-                          <tr key={idx} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                            <td style={{ padding: '8px', fontWeight: 600, color: '#0f172a' }}>{l.parameter}</td>
-                            <td style={{ padding: '8px', fontWeight: 700 }}>{l.value} {l.unit}</td>
-                            <td style={{ padding: '8px', color: '#64748b' }}>{l.referenceRange}</td>
+                          <tr key={idx} style={{ borderBottom: isDark ? '1px solid #334155' : '1px solid #f1f5f9' }}>
+                            <td style={{ padding: '8px', fontWeight: 600, color: isDark ? '#f8fafc' : '#0f172a' }}>{l.parameter}</td>
+                            <td style={{ padding: '8px', fontWeight: 700, color: isDark ? '#f8fafc' : undefined }}>{l.value} {l.unit}</td>
+                            <td style={{ padding: '8px', color: isDark ? '#94a3b8' : '#64748b' }}>{l.referenceRange}</td>
                             <td style={{ padding: '8px' }}>
                               <span style={{
-                                background: l.status === 'Normal' ? '#dcfce7' : '#fee2e2',
-                                color: l.status === 'Normal' ? '#15803d' : '#b91c1c',
+                                background: l.status === 'Normal' ? (isDark ? 'rgba(16, 185, 129, 0.2)' : '#dcfce7') : (isDark ? 'rgba(239, 68, 68, 0.2)' : '#fee2e2'),
+                                color: l.status === 'Normal' ? (isDark ? '#6ee7b7' : '#15803d') : (isDark ? '#fca5a5' : '#b91c1c'),
                                 padding: '2px 8px',
                                 borderRadius: '6px',
                                 fontSize: '11px',
@@ -1719,17 +1804,17 @@ National Digital Health Mission Compliant
 
                 {/* Clinical Notes / Doctor Advice */}
                 <div style={{ marginBottom: '16px' }}>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#475569', textTransform: 'uppercase', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: isDark ? '#94a3b8' : '#475569', textTransform: 'uppercase', marginBottom: '4px' }}>
                     Clinical Assessment & Observations
                   </div>
                   <div style={{
-                    background: '#f8fafc',
+                    background: isDark ? '#1e293b' : '#f8fafc',
                     padding: '12px',
                     borderRadius: '8px',
                     fontSize: '13px',
-                    color: '#334155',
+                    color: isDark ? '#e2e8f0' : '#334155',
                     lineHeight: 1.5,
-                    border: '1px solid #f1f5f9'
+                    border: isDark ? '1px solid #334155' : '1px solid #f1f5f9'
                   }}>
                     {previewRecord.notes || 'Routine consultation record authenticated in health locker.'}
                   </div>
@@ -1740,17 +1825,17 @@ National Digital Health Mission Compliant
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'flex-end',
-                  borderTop: '1px solid #e2e8f0',
+                  borderTop: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
                   paddingTop: '14px',
                   fontSize: '11.5px',
-                  color: '#64748b'
+                  color: isDark ? '#94a3b8' : '#64748b'
                 }}>
                   <div>
                     <div>SHA-256 Checksum: <span style={{ fontFamily: 'monospace' }}>9d82f7...4b21</span></div>
                     <div>ABDM Security Protocol: AES-256 Bit GCM</div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontWeight: 700, color: '#0f172a' }}>{previewRecord.doctor}</div>
+                    <div style={{ fontWeight: 700, color: isDark ? '#f8fafc' : '#0f172a' }}>{previewRecord.doctor}</div>
                     <div>{previewRecord.verifiedBy || 'Certified Medical Practitioner'}</div>
                   </div>
                 </div>
@@ -1761,7 +1846,14 @@ National Digital Health Mission Compliant
                 <button
                   className="btn btn-secondary"
                   onClick={() => setShareSuccessRecord(previewRecord)}
-                  style={{ flex: 1, borderRadius: '10px', fontWeight: 600 }}
+                  style={{
+                    flex: 1,
+                    borderRadius: '10px',
+                    fontWeight: 600,
+                    background: isDark ? '#334155' : undefined,
+                    color: isDark ? '#f8fafc' : undefined,
+                    borderColor: isDark ? '#475569' : undefined
+                  }}
                 >
                   🔗 Share with Doctor / Hospital
                 </button>
@@ -1781,12 +1873,12 @@ National Digital Health Mission Compliant
       {/* --- 4. ABDM QR CONSENT SHARE MODAL --- */}
       {shareSuccessRecord && (
         <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShareSuccessRecord(null); }}>
-          <div className="modal" style={{ maxWidth: '440px', borderRadius: '24px', textAlign: 'center' }}>
-            <div className="modal-header" style={{ borderBottom: '1px solid #e2e8f0' }}>
-              <h2 style={{ fontSize: '18px', fontWeight: 800, margin: 0, color: '#0f172a' }}>
+          <div className="modal" style={{ maxWidth: '440px', borderRadius: '24px', textAlign: 'center', background: isDark ? '#1e293b' : 'white', border: isDark ? '1px solid #334155' : 'none' }}>
+            <div className="modal-header" style={{ borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0', background: isDark ? '#0f172a' : undefined }}>
+              <h2 style={{ fontSize: '18px', fontWeight: 800, margin: 0, color: isDark ? '#f8fafc' : '#0f172a' }}>
                 ABDM Healthcare Consent Share
               </h2>
-              <button className="modal-close" onClick={() => setShareSuccessRecord(null)}>
+              <button className="modal-close" onClick={() => setShareSuccessRecord(null)} style={{ color: isDark ? '#cbd5e1' : undefined }}>
                 <CloseIcon size={20} />
               </button>
             </div>
@@ -1796,14 +1888,14 @@ National Digital Health Mission Compliant
                 width: '160px',
                 height: '160px',
                 margin: '0 auto 16px',
-                border: '3px solid #1e3a8a',
+                border: isDark ? '3px solid #38bdf8' : '3px solid #1e3a8a',
                 borderRadius: '16px',
                 background: 'white',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 8px 24px rgba(30, 58, 138, 0.12)'
+                boxShadow: isDark ? '0 8px 24px rgba(0, 0, 0, 0.4)' : '0 8px 24px rgba(30, 58, 138, 0.12)'
               }}>
                 <div style={{ fontSize: '64px' }}>📱</div>
                 <div style={{ fontSize: '10px', fontWeight: 800, color: '#1e3a8a', letterSpacing: '1px' }}>
@@ -1811,21 +1903,21 @@ National Digital Health Mission Compliant
                 </div>
               </div>
 
-              <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', marginBottom: '6px' }}>
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a', marginBottom: '6px' }}>
                 {shareSuccessRecord.name}
               </h3>
-              <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>
+              <p style={{ fontSize: '13px', color: isDark ? '#94a3b8' : '#64748b', margin: '0 0 16px', lineHeight: 1.5 }}>
                 Doctors and hospitals registered with Ayushman Bharat (ABDM) can scan this dynamic QR to temporarily view this verified record.
               </p>
 
               <div style={{
-                background: '#eff6ff',
-                border: '1px solid #bfdbfe',
+                background: isDark ? 'rgba(56, 189, 248, 0.15)' : '#eff6ff',
+                border: isDark ? '1px solid rgba(56, 189, 248, 0.3)' : '1px solid #bfdbfe',
                 padding: '10px 14px',
                 borderRadius: '10px',
                 fontSize: '12.5px',
                 fontWeight: 700,
-                color: '#1e3a8a',
+                color: isDark ? '#38bdf8' : '#1e3a8a',
                 marginBottom: '20px'
               }}>
                 ⏱️ Temporary Token: ABDM-{Math.floor(100000 + Math.random() * 900000)} (Expires in 2 Hours)

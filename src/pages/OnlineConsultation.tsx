@@ -158,12 +158,12 @@ export default function OnlineConsultation() {
   if (isCallEnded) {
     return (
       <div style={{ maxWidth: '640px', margin: '40px auto', padding: '0 16px', textAlign: 'center' }}>
-        <div style={{
-          background: 'white',
+        <div className="card consultation-ended-card" style={{
+          background: 'var(--color-white)',
           borderRadius: '24px',
           padding: '36px 24px',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.06)',
-          border: '1px solid #e2e8f0'
+          boxShadow: 'var(--shadow-lg)',
+          border: '1px solid var(--color-gray-200)'
         }}>
           <div style={{
             width: '72px',
@@ -180,14 +180,14 @@ export default function OnlineConsultation() {
             ✓
           </div>
 
-          <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', margin: '0 0 8px' }}>
+          <h2 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-dark-text)', margin: '0 0 8px' }}>
             Consultation Completed
           </h2>
-          <p style={{ fontSize: '15px', color: '#64748b', margin: '0 0 24px' }}>
+          <p style={{ fontSize: '15px', color: 'var(--color-slate)', margin: '0 0 24px' }}>
             Your video session with Dr. Priya Sharma has concluded successfully.
           </p>
 
-          <div style={{
+          <div className="consultation-rx-deposited" style={{
             background: '#f0fdf4',
             border: '1px solid #bbf7d0',
             borderRadius: '16px',
@@ -210,9 +210,9 @@ export default function OnlineConsultation() {
               style={{
                 flex: 1,
                 padding: '12px',
-                background: '#f1f5f9',
-                color: '#334155',
-                border: 'none',
+                background: 'var(--color-gray-100)',
+                color: 'var(--color-dark-text)',
+                border: '1px solid var(--color-gray-300)',
                 borderRadius: '12px',
                 fontWeight: 700,
                 cursor: 'pointer'
@@ -569,20 +569,20 @@ export default function OnlineConsultation() {
 
   // Pre-Call Lobby Screen
   return (
-    <section style={{ padding: '40px 16px', background: 'var(--color-bg-light)', minHeight: '80vh' }}>
-      <div className="container" style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <section className="consultation-lobby-section" style={{ padding: '40px 16px', background: 'var(--color-light-bg)', minHeight: '80vh' }}>
+      <div className="container" style={{ maxWidth: '840px', margin: '0 auto' }}>
         
-        <div style={{ marginBottom: '28px' }}>
-          <h1 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-dark)', margin: '0 0 6px' }}>
+        <div style={{ marginBottom: '28px', textAlign: 'center' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-dark-text)', margin: '0 0 8px' }}>
             Telemedicine & Online Consultations
           </h1>
-          <p style={{ color: 'var(--color-slate)', margin: 0, fontSize: '15px' }}>
+          <p style={{ color: 'var(--color-slate)', margin: '0 auto', maxWidth: '640px', fontSize: '15px', lineHeight: 1.6 }}>
             Connect with verified healthcare practitioners via encrypted WebRTC audio/video calls. Consultation notes and prescriptions sync directly to your AarogyaLocker.
           </p>
         </div>
 
         {/* Scheduled Doctor Card */}
-        <div className="card" style={{ padding: '28px', background: 'white', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', marginBottom: '24px' }}>
+        <div className="card consultation-lobby-card" style={{ padding: '28px', background: 'var(--color-white)', borderRadius: '20px', boxShadow: 'var(--shadow-md)', border: '1px solid var(--color-gray-200)', marginBottom: '24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', borderBottom: '1px solid var(--color-gray-200)', paddingBottom: '20px', marginBottom: '20px' }}>
             <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
               <div style={{
@@ -614,22 +614,22 @@ export default function OnlineConsultation() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
-            <div style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '10px' }}>
-              <div style={{ fontSize: '12px', color: '#64748b' }}>Consultation Date:</div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>Today</div>
+            <div className="consultation-info-pill" style={{ background: 'var(--color-gray-100)', padding: '12px 16px', borderRadius: '10px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--color-slate)' }}>Consultation Date:</div>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-dark-text)' }}>Today</div>
             </div>
-            <div style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '10px' }}>
-              <div style={{ fontSize: '12px', color: '#64748b' }}>Time Slot:</div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>Active Session</div>
+            <div className="consultation-info-pill" style={{ background: 'var(--color-gray-100)', padding: '12px 16px', borderRadius: '10px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--color-slate)' }}>Time Slot:</div>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-dark-text)' }}>Active Session</div>
             </div>
-            <div style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '10px' }}>
-              <div style={{ fontSize: '12px', color: '#64748b' }}>Patient Profile:</div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>{currentUser?.name || 'Rahul Sharma'}</div>
+            <div className="consultation-info-pill" style={{ background: 'var(--color-gray-100)', padding: '12px 16px', borderRadius: '10px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--color-slate)' }}>Patient Profile:</div>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-dark-text)' }}>{currentUser?.name || 'Rahul Sharma'}</div>
             </div>
           </div>
 
           {/* Locker Linking Notice */}
-          <div style={{
+          <div className="consultation-sync-notice" style={{
             background: '#eff6ff',
             border: '1px solid #bfdbfe',
             borderRadius: '12px',

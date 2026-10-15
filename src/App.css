@@ -67,11 +67,82 @@
   gap: var(--space-3);
 }
 
-.navbar-mobile-toggle {
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gray-200);
+  background-color: var(--color-white);
+  color: var(--color-deep-blue);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--color-ice-blue);
+  border-color: var(--color-cyan);
+  transform: translateY(-1px) rotate(12deg);
+  box-shadow: 0 4px 12px rgba(36, 182, 210, 0.25);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.navbar-mobile-controls {
   display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--space-2);
   color: var(--color-dark-text);
   border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-theme-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-light-bg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.mobile-theme-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--color-gray-300);
+  background: var(--color-white);
+  color: var(--color-dark-text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-theme-pill:hover {
+  border-color: var(--color-cyan);
+  background: var(--color-ice-blue);
 }
 
 .navbar-mobile-menu {
@@ -120,7 +191,7 @@
     display: none;
   }
 
-  .navbar-mobile-toggle {
+  .navbar-mobile-controls {
     display: flex;
   }
 }
@@ -496,6 +567,270 @@
 }
 
 /* ============================
+   FIND DOCTORS PAGE & HORIZONTAL CARDS
+   ============================ */
+.doctors-route-container {
+  background-color: var(--color-light-bg);
+  min-height: calc(100vh - var(--nav-height));
+  width: 100%;
+}
+
+.doctors-page {
+  padding: 0 0 var(--space-12);
+  min-height: 85vh;
+  background-color: var(--color-light-bg);
+  color: var(--color-dark-text);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.doctors-search-header {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-light-bg) 100%);
+  border-bottom: 1px solid var(--color-gray-200);
+  padding: 28px 0 24px;
+  margin-bottom: 28px;
+  transition: all var(--transition-fast);
+}
+
+.tricity-network-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ecfdf5;
+  color: #047857;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  border: 1px solid #a7f3d0;
+}
+
+.doctors-page-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--color-dark-text);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.doctors-page-subtitle {
+  color: var(--color-slate);
+  font-size: 14px;
+  margin: 4px 0 0;
+}
+
+.city-selector-tabs {
+  display: flex;
+  background: var(--color-gray-200);
+  padding: 3px;
+  border-radius: 12px;
+  gap: 4px;
+  transition: background-color var(--transition-fast);
+}
+
+.city-tab-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--color-slate);
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.city-tab-btn:hover {
+  color: var(--color-dark-text);
+}
+
+.city-tab-btn.active {
+  background: var(--color-deep-blue);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.doctors-search-box {
+  display: flex;
+  align-items: center;
+  background: var(--color-white);
+  border-radius: 14px;
+  border: 2px solid var(--color-gray-300);
+  padding: 8px 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  gap: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.doctors-search-box:focus-within {
+  border-color: var(--color-cyan);
+  box-shadow: 0 4px 20px rgba(36, 182, 210, 0.15);
+}
+
+.doctors-search-icon {
+  color: var(--color-deep-blue);
+  display: flex;
+  align-items: center;
+}
+
+.doctors-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
+  color: var(--color-dark-text);
+}
+
+.doctors-search-input::placeholder {
+  color: var(--color-slate);
+}
+
+.doctors-search-clear {
+  background: var(--color-gray-100);
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-slate);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.doctors-search-clear:hover {
+  background: var(--color-gray-200);
+  color: var(--color-dark-text);
+}
+
+.doctors-search-hint {
+  font-size: 11px;
+  color: var(--color-slate);
+  border-left: 1px solid var(--color-gray-200);
+  padding-left: 10px;
+}
+
+.specialty-chips-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.specialty-chips-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-slate);
+  white-space: nowrap;
+}
+
+.specialty-chip-btn {
+  padding: 5px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--color-gray-200);
+  background: var(--color-white);
+  color: var(--color-slate);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.specialty-chip-btn:hover {
+  border-color: var(--color-deep-blue);
+  color: var(--color-deep-blue);
+}
+
+.specialty-chip-btn.active {
+  border-color: var(--color-deep-blue);
+  background: var(--color-deep-blue);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.filter-modes-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.mode-filter-pill {
+  padding: 4px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-gray-300);
+  background: transparent;
+  color: var(--color-slate);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mode-filter-pill:hover {
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+.mode-filter-pill.active {
+  border-color: #047857;
+  background: #ecfdf5;
+  color: #047857;
+  font-weight: 700;
+}
+
+.reset-filters-btn {
+  background: none;
+  border: none;
+  color: var(--color-red);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  margin-left: auto;
+  transition: opacity 0.15s;
+}
+
+.reset-filters-btn:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.doctors-empty-state {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 50px 24px;
+  text-align: center;
+  border: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.doctor-card-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-6);
+  padding: var(--space-5);
+  align-items: flex-start;
+  background-color: var(--color-white);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--color-gray-200);
+  transition: all 0.2s ease;
+}
+
+.doctor-card-horizontal:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-cyan);
+}
+
+/* ============================
    HOW IT WORKS
    ============================ */
 .how-it-works {
@@ -800,15 +1135,23 @@
   margin-bottom: var(--space-4);
 }
 
-.footer-column a {
+.footer-column a,
+.footer-column button {
   display: block;
   font-size: var(--font-size-sm);
   color: var(--color-gray-400);
   padding: var(--space-1) 0;
   transition: color var(--transition-fast);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  text-decoration: none;
 }
 
-.footer-column a:hover {
+.footer-column a:hover,
+.footer-column button:hover {
   color: var(--color-white);
 }
 
@@ -831,13 +1174,23 @@
   gap: var(--space-6);
 }
 
-.footer-bottom-links a {
+.footer-bottom-links a,
+.footer-bottom-links button {
   font-size: var(--font-size-xs);
   color: var(--color-gray-400);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-.footer-bottom-links a:hover {
+.footer-bottom-links a:hover,
+.footer-bottom-links button:hover {
   color: var(--color-white);
+  text-decoration: underline;
 }
 
 .footer-disclaimer {
@@ -1222,3 +1575,562 @@
   animation: pulse 1.5s ease-in-out infinite;
   border-radius: var(--radius-md);
 }
+
+/* ============================================================
+   DARK MODE STYLES & OVERRIDES ([data-theme="dark"])
+   ============================================================ */
+[data-theme="dark"] body {
+  background-color: #0b1120;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .navbar {
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .navbar-links a {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .navbar-links a:hover,
+[data-theme="dark"] .navbar-links a.active {
+  color: #60a5fa !important;
+  background-color: rgba(96, 165, 250, 0.12) !important;
+}
+
+[data-theme="dark"] .navbar-brand {
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .navbar-mobile-toggle {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .navbar-mobile-menu {
+  background: #0f172a;
+  border-bottom-color: #334155;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .navbar-mobile-menu a {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .navbar-mobile-menu a:hover {
+  background: #1e293b;
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .services-section,
+[data-theme="dark"] .how-it-works,
+[data-theme="dark"] .testimonials-section {
+  background-color: #0b1120;
+}
+
+[data-theme="dark"] .doctor-card,
+[data-theme="dark"] .service-card,
+[data-theme="dark"] .step-card,
+[data-theme="dark"] .trust-card,
+[data-theme="dark"] .testimonial-card,
+[data-theme="dark"] .modal-card,
+[data-theme="dark"] .profile-modal-card {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .doctor-card h3,
+[data-theme="dark"] .service-card h3,
+[data-theme="dark"] .step-card h3,
+[data-theme="dark"] .trust-card h3 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .doctor-bio,
+[data-theme="dark"] .service-desc,
+[data-theme="dark"] .step-desc,
+[data-theme="dark"] .section-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .section-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .doctor-details {
+  border-top-color: #334155;
+}
+
+[data-theme="dark"] .doctor-fee {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .search-bar {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .search-input-group input {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .search-input-group input::placeholder {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .search-divider {
+  background-color: #334155;
+}
+
+[data-theme="dark"] .filter-chip {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .filter-chip:hover {
+  border-color: #60a5fa;
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .filter-chip.active {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .btn-secondary {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  background-color: #334155;
+  border-color: #60a5fa;
+}
+
+[data-theme="dark"] .privacy-page,
+[data-theme="dark"] .terms-page,
+[data-theme="dark"] .accessibility-page,
+[data-theme="dark"] .about-page {
+  background: #0b1120 !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .privacy-page main,
+[data-theme="dark"] .terms-page main,
+[data-theme="dark"] .accessibility-page main,
+[data-theme="dark"] .about-page main {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .privacy-page h2,
+[data-theme="dark"] .terms-page h2,
+[data-theme="dark"] .accessibility-page h2,
+[data-theme="dark"] .about-page h2 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .privacy-page table,
+[data-theme="dark"] .terms-page table,
+[data-theme="dark"] .accessibility-page table {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .privacy-page tr,
+[data-theme="dark"] .terms-page tr,
+[data-theme="dark"] .accessibility-page tr {
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .privacy-page th,
+[data-theme="dark"] .terms-page th,
+[data-theme="dark"] .accessibility-page th {
+  background: #1e293b !important;
+  color: #f1f5f9 !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .theme-toggle-btn {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #fbbf24;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .theme-toggle-btn:hover {
+  background-color: #334155;
+  border-color: #fbbf24;
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
+}
+
+[data-theme="dark"] .mobile-theme-row {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .mobile-theme-pill {
+  background: #0f172a;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .mobile-theme-pill:hover {
+  background: #334155;
+  border-color: #fbbf24;
+}
+
+[data-theme="dark"] .hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0b1120 100%);
+}
+
+/* Dark Mode Hero Search Bar — subtle, refined border & dark background */
+[data-theme="dark"] .hero-search-wide {
+  border: 1px solid #334155 !important;
+  background-color: #1e293b !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .hero-search-wide:focus-within {
+  border-color: #60a5fa !important;
+  box-shadow: 0 4px 24px rgba(96, 165, 250, 0.2) !important;
+}
+
+[data-theme="dark"] .hero-location-wrap {
+  background-color: #1e293b !important;
+  border-right-color: #334155 !important;
+}
+
+[data-theme="dark"] .hero-location-select {
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .hero-location-select option {
+  background-color: #1e293b;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .hero-query-input {
+  color: #f1f5f9 !important;
+  background-color: transparent !important;
+}
+
+[data-theme="dark"] .hero-query-input::placeholder {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .hero-query-clear {
+  background-color: #334155 !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .hero-search-submit-btn {
+  background-color: #2563eb !important;
+}
+
+[data-theme="dark"] .hero-search-submit-btn:hover {
+  background-color: #3b82f6 !important;
+}
+
+[data-theme="dark"] .hero-popular-label {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .hero-quick-chip {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .hero-quick-chip:hover {
+  background-color: #334155 !important;
+  border-color: #60a5fa !important;
+  color: #60a5fa !important;
+}
+
+[data-theme="dark"] .footer {
+  background: #030712;
+  color: #94a3b8;
+  border-top: 1px solid #1e293b;
+}
+
+/* Dark Mode Overrides for Find Doctors Page */
+[data-theme="dark"] .doctors-route-container,
+[data-theme="dark"] .doctors-page {
+  background-color: #0b1120 !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .doctors-search-header {
+  background: linear-gradient(180deg, #0f172a 0%, #0b1120 100%) !important;
+  border-bottom-color: #1e293b !important;
+}
+
+[data-theme="dark"] .tricity-network-pill {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #34d399 !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+[data-theme="dark"] .doctors-page-title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .doctors-page-subtitle {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .city-selector-tabs {
+  background: #1e293b !important;
+  border: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] .city-tab-btn {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .city-tab-btn:hover {
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .city-tab-btn.active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4) !important;
+}
+
+[data-theme="dark"] .doctors-search-box {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .doctors-search-box:focus-within {
+  border-color: #60a5fa !important;
+  box-shadow: 0 4px 20px rgba(96, 165, 250, 0.25) !important;
+}
+
+[data-theme="dark"] .doctors-search-icon {
+  color: #60a5fa !important;
+}
+
+[data-theme="dark"] .doctors-search-input {
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .doctors-search-input::placeholder {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .doctors-search-clear {
+  background: #334155 !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .doctors-search-clear:hover {
+  background: #475569 !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .doctors-search-hint {
+  color: #94a3b8 !important;
+  border-left-color: #334155 !important;
+}
+
+[data-theme="dark"] .specialty-chips-label {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .specialty-chip-btn {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .specialty-chip-btn:hover {
+  border-color: #60a5fa !important;
+  color: #60a5fa !important;
+}
+
+[data-theme="dark"] .specialty-chip-btn.active {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .mode-filter-pill {
+  border-color: #334155 !important;
+  background: #1e293b !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .mode-filter-pill:hover {
+  border-color: #34d399 !important;
+  color: #34d399 !important;
+}
+
+[data-theme="dark"] .mode-filter-pill.active {
+  border-color: #059669 !important;
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #34d399 !important;
+}
+
+[data-theme="dark"] .doctor-card-horizontal {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .doctor-card-horizontal:hover {
+  border-color: #60a5fa !important;
+  box-shadow: 0 6px 20px rgba(96, 165, 250, 0.15) !important;
+}
+
+[data-theme="dark"] .doctor-card-horizontal h3 {
+  color: #60a5fa !important;
+}
+
+[data-theme="dark"] .doctor-card-horizontal .specialty {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .doctor-card-horizontal .doctor-meta-item {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .doctor-card-horizontal .doctor-card-right {
+  border-left-color: #334155 !important;
+}
+
+[data-theme="dark"] .doctor-card-horizontal .doctor-fee-title {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .doctor-card-horizontal .doctor-fee-value {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .doctors-empty-state {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Dark Mode Overrides for Online Consultation Page */
+[data-theme="dark"] .consultation-lobby-section {
+  background-color: #0b1120 !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .consultation-lobby-card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .consultation-info-pill {
+  background: #0f172a !important;
+  border: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] .consultation-sync-notice {
+  background: rgba(30, 58, 138, 0.25) !important;
+  border-color: #1e3a8a !important;
+}
+
+[data-theme="dark"] .consultation-sync-notice div {
+  color: #93c5fd !important;
+}
+
+[data-theme="dark"] .consultation-ended-card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .consultation-rx-deposited {
+  background: rgba(6, 78, 59, 0.25) !important;
+  border-color: #059669 !important;
+}
+
+[data-theme="dark"] .consultation-rx-deposited div,
+[data-theme="dark"] .consultation-rx-deposited p {
+  color: #34d399 !important;
+}
+
+/* Dark Mode Overrides for Hospital Directory Page */
+[data-theme="dark"] .hospitals-page {
+  background-color: #0b1120 !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .hospital-card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .hospital-card h2 {
+  color: #f8fafc !important;
+}
+
+/* Dark Mode Overrides for General Cards, Modals & Dashboard */
+[data-theme="dark"] .card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .card h3 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .dashboard-content {
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .modal {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .modal-header {
+  border-bottom-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .modal-header h2 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .modal-close {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .modal-close:hover {
+  color: #f8fafc !important;
+  background-color: #334155 !important;
+}
+
+[data-theme="dark"] .input-field {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .input-field:focus {
+  border-color: #60a5fa !important;
+}
+
+[data-theme="dark"] .booking-form-group label {
+  color: #cbd5e1 !important;
+}
+

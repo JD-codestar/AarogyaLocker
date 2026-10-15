@@ -10,8 +10,10 @@ export default function Pharmacy() {
     currentUser, 
     pharmacyMedicines, 
     createPharmacyOrder, 
-    records 
+    records,
+    theme 
   } = useApp();
+  const isDark = theme === 'dark';
 
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
@@ -202,19 +204,21 @@ export default function Pharmacy() {
   ];
 
   return (
-    <div style={{ background: '#f8fafc', minHeight: '90vh', paddingBottom: '60px' }}>
+    <div style={{ background: isDark ? '#0b1120' : '#f8fafc', minHeight: '90vh', paddingBottom: '60px', color: isDark ? '#f8fafc' : 'inherit' }}>
       
       {/* Top Hero Banner */}
       <div style={{
-        background: 'linear-gradient(135deg, #047857 0%, #065f46 100%)',
+        background: isDark 
+          ? 'linear-gradient(135deg, #064e3b 0%, #0f172a 100%)' 
+          : 'linear-gradient(135deg, #047857 0%, #065f46 100%)',
         color: 'white',
         padding: '36px 20px',
-        borderBottom: '1px solid rgba(255,255,255,0.1)'
+        borderBottom: isDark ? '1px solid #334155' : '1px solid rgba(255,255,255,0.1)'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
             <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.15)', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 600, marginBottom: '8px' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.15)', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 600, marginBottom: '8px', border: isDark ? '1px solid #334155' : 'none' }}>
                 <span>💊 100% Genuine Certified Medicines</span>
                 <span>•</span>
                 <span>⚡ Express 2-Hour Delivery Available</span>
@@ -222,7 +226,7 @@ export default function Pharmacy() {
               <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '4px 0', letterSpacing: '-0.5px' }}>
                 AarogyaLocker Online Pharmacy
               </h1>
-              <p style={{ color: '#a7f3d0', fontSize: '15px', margin: 0, maxWidth: '600px' }}>
+              <p style={{ color: isDark ? '#94a3b8' : '#a7f3d0', fontSize: '15px', margin: 0, maxWidth: '600px' }}>
                 Order doctor-prescribed medications with instant verification, automated GST tax invoices, and direct sync with your AarogyaLocker.
               </p>
             </div>
@@ -231,9 +235,9 @@ export default function Pharmacy() {
             <button
               onClick={() => setIsCartOpen(true)}
               style={{
-                background: 'white',
-                color: '#065f46',
-                border: 'none',
+                background: isDark ? '#1e293b' : 'white',
+                color: isDark ? '#34d399' : '#065f46',
+                border: isDark ? '1px solid #334155' : 'none',
                 padding: '12px 24px',
                 borderRadius: '12px',
                 fontWeight: 700,
@@ -242,7 +246,7 @@ export default function Pharmacy() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
-                boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
+                boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.4)' : '0 8px 20px rgba(0,0,0,0.15)',
                 transition: 'transform 0.2s'
               }}
             >
@@ -268,12 +272,13 @@ export default function Pharmacy() {
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              background: 'white',
+              background: isDark ? '#1e293b' : 'white',
+              border: isDark ? '1px solid #334155' : 'none',
               borderRadius: '12px',
               padding: '6px 16px',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.12)'
+              boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.4)' : '0 8px 24px rgba(0,0,0,0.12)'
             }}>
-              <div style={{ color: '#047857', marginRight: '12px' }}>
+              <div style={{ color: isDark ? '#34d399' : '#047857', marginRight: '12px' }}>
                 <SearchIcon size={22} />
               </div>
               <input
@@ -287,7 +292,8 @@ export default function Pharmacy() {
                   border: 'none',
                   outline: 'none',
                   fontSize: '15px',
-                  color: '#1e293b'
+                  color: isDark ? '#f8fafc' : '#1e293b',
+                  background: 'transparent'
                 }}
               />
               {searchQuery && (
@@ -296,7 +302,7 @@ export default function Pharmacy() {
                   onClick={() => setSearchQuery('')}
                   title="Clear search (Esc)"
                   style={{
-                    background: '#f1f5f9',
+                    background: isDark ? '#334155' : '#f1f5f9',
                     border: 'none',
                     borderRadius: '50%',
                     width: '24px',
@@ -305,7 +311,7 @@ export default function Pharmacy() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    color: '#64748b'
+                    color: isDark ? '#cbd5e1' : '#64748b'
                   }}
                 >
                   <CloseIcon size={14} />
@@ -315,16 +321,16 @@ export default function Pharmacy() {
 
             {/* Quick Medicine Chips */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '10px' }}>
-              <span style={{ fontSize: '12px', color: '#a7f3d0', fontWeight: 600 }}>Popular:</span>
+              <span style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#a7f3d0', fontWeight: 600 }}>Popular:</span>
               {['Paracetamol', 'Azithromycin', 'Metformin', 'Vitamin C', 'Omega 3', 'Telmisartan', 'Pan-D'].map(chip => (
                 <button
                   key={chip}
                   type="button"
                   onClick={() => setSearchQuery(chip)}
                   style={{
-                    background: 'rgba(255,255,255,0.18)',
-                    border: '1px solid rgba(255,255,255,0.3)',
-                    color: 'white',
+                    background: searchQuery === chip ? '#047857' : (isDark ? '#0f172a' : 'rgba(255,255,255,0.18)'),
+                    border: isDark ? (searchQuery === chip ? '1px solid #10b981' : '1px solid #334155') : '1px solid rgba(255,255,255,0.3)',
+                    color: searchQuery === chip ? 'white' : (isDark ? '#cbd5e1' : 'white'),
                     borderRadius: '14px',
                     padding: '3px 10px',
                     fontSize: '11px',
@@ -346,8 +352,10 @@ export default function Pharmacy() {
 
         {/* Tata 1mg Official Express Integration Banner */}
         <div style={{
-          background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fef2f2 100%)',
-          border: '1.5px solid #fecdd3',
+          background: isDark 
+            ? 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)' 
+            : 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fef2f2 100%)',
+          border: isDark ? '1.5px solid rgba(225, 29, 72, 0.4)' : '1.5px solid #fecdd3',
           borderRadius: '16px',
           padding: '20px 24px',
           marginBottom: '20px',
@@ -356,7 +364,7 @@ export default function Pharmacy() {
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: '16px',
-          boxShadow: '0 4px 16px rgba(225, 29, 72, 0.06)'
+          boxShadow: isDark ? '0 4px 16px rgba(0,0,0,0.3)' : '0 4px 16px rgba(225, 29, 72, 0.06)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div style={{
@@ -376,18 +384,18 @@ export default function Pharmacy() {
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 800, color: '#be123c', background: '#ffe4e6', padding: '2px 8px', borderRadius: '12px', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '11px', fontWeight: 800, color: isDark ? '#fda4af' : '#be123c', background: isDark ? 'rgba(225, 29, 72, 0.2)' : '#ffe4e6', padding: '2px 8px', borderRadius: '12px', textTransform: 'uppercase' }}>
                   Official Partner
                 </span>
-                <span style={{ fontSize: '12px', color: '#9f1239', fontWeight: 600 }}>
+                <span style={{ fontSize: '12px', color: isDark ? '#fda4af' : '#9f1239', fontWeight: 600 }}>
                   📍 Mohali Express Hub (Sector 82 SAS Nagar)
                 </span>
               </div>
-              <h3 style={{ margin: 0, color: '#881337', fontSize: '17px', fontWeight: 800 }}>
+              <h3 style={{ margin: 0, color: isDark ? '#f8fafc' : '#881337', fontSize: '17px', fontWeight: 800 }}>
                 Direct Tata 1mg Pharmacy Fulfillment & Ordering
               </h3>
-              <p style={{ margin: '3px 0 0', color: '#9f1239', fontSize: '13px' }}>
-                Order medicines directly from <strong>Tata 1mg</strong> or checkout in-app with <strong>20% OFF</strong> using code <code style={{ background: '#fecdd3', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>TATA1MG20</code>. Tax invoices automatically sync to AarogyaLocker!
+              <p style={{ margin: '3px 0 0', color: isDark ? '#cbd5e1' : '#9f1239', fontSize: '13px' }}>
+                Order medicines directly from <strong>Tata 1mg</strong> or checkout in-app with <strong>20% OFF</strong> using code <code style={{ background: isDark ? 'rgba(225, 29, 72, 0.3)' : '#fecdd3', color: isDark ? '#fecdd3' : 'inherit', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>TATA1MG20</code>. Tax invoices automatically sync to AarogyaLocker!
               </p>
             </div>
           </div>
@@ -417,8 +425,10 @@ export default function Pharmacy() {
 
         {/* AarogyaLocker Prescription Sync Banner */}
         <div style={{
-          background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-          border: '1px solid #bfdbfe',
+          background: isDark 
+            ? 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)' 
+            : 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+          border: isDark ? '1px solid rgba(59, 130, 246, 0.4)' : '1px solid #bfdbfe',
           borderRadius: '16px',
           padding: '18px 24px',
           marginBottom: '24px',
@@ -443,10 +453,10 @@ export default function Pharmacy() {
               🔐
             </div>
             <div>
-              <h4 style={{ margin: 0, color: '#1e3a8a', fontSize: '16px', fontWeight: 700 }}>
+              <h4 style={{ margin: 0, color: isDark ? '#f8fafc' : '#1e3a8a', fontSize: '16px', fontWeight: 700 }}>
                 AarogyaLocker Prescription Sync
               </h4>
-              <p style={{ margin: '2px 0 0', color: '#3b82f6', fontSize: '13px' }}>
+              <p style={{ margin: '2px 0 0', color: isDark ? '#93c5fd' : '#3b82f6', fontSize: '13px' }}>
                 Have a doctor prescription saved in your locker? We'll automatically verify and dispense your medicines without manual uploads.
               </p>
             </div>
@@ -488,9 +498,9 @@ export default function Pharmacy() {
                   fontSize: '13px',
                   fontWeight: 600,
                   border: '1px solid',
-                  borderColor: selectedCategory === cat ? '#047857' : '#cbd5e1',
-                  background: selectedCategory === cat ? '#047857' : 'white',
-                  color: selectedCategory === cat ? 'white' : '#475569',
+                  borderColor: selectedCategory === cat ? '#047857' : (isDark ? '#334155' : '#cbd5e1'),
+                  background: selectedCategory === cat ? '#047857' : (isDark ? '#1e293b' : 'white'),
+                  color: selectedCategory === cat ? 'white' : (isDark ? '#cbd5e1' : '#475569'),
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
                   transition: 'all 0.15s'
@@ -501,7 +511,7 @@ export default function Pharmacy() {
             ))}
           </div>
 
-          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '13px', color: '#475569', fontWeight: 600 }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '13px', color: isDark ? '#cbd5e1' : '#475569', fontWeight: 600 }}>
             <input
               type="checkbox"
               checked={showRxOnly}
@@ -514,9 +524,9 @@ export default function Pharmacy() {
 
         {/* Results Counter Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', padding: '0 4px' }}>
-          <span style={{ fontSize: '14px', fontWeight: 700, color: '#334155' }}>
+          <span style={{ fontSize: '14px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155' }}>
             Showing {filteredMedicines.length} of {pharmacyMedicines.length} medicines
-            {searchQuery && <span style={{ color: '#047857', fontWeight: 500 }}> matching "{searchQuery}"</span>}
+            {searchQuery && <span style={{ color: isDark ? '#34d399' : '#047857', fontWeight: 500 }}> matching "{searchQuery}"</span>}
           </span>
           {(searchQuery || selectedCategory !== 'All' || showRxOnly) && (
             <button
@@ -525,7 +535,7 @@ export default function Pharmacy() {
                 setSelectedCategory('All');
                 setShowRxOnly(false);
               }}
-              style={{ background: 'none', border: 'none', color: '#dc2626', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
+              style={{ background: 'none', border: 'none', color: isDark ? '#f87171' : '#dc2626', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}
             >
               Reset Filters
             </button>
@@ -546,14 +556,14 @@ export default function Pharmacy() {
               <div
                 key={med.id}
                 style={{
-                  background: 'white',
+                  background: isDark ? '#1e293b' : 'white',
                   borderRadius: '16px',
-                  border: '1px solid #e2e8f0',
+                  border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
                   padding: '20px',
                   display: 'flex',
                   flexDirection: 'column',
                   position: 'relative',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+                  boxShadow: isDark ? '0 4px 16px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.03)',
                   transition: 'transform 0.2s, box-shadow 0.2s'
                 }}
               >
@@ -564,8 +574,9 @@ export default function Pharmacy() {
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px',
-                    color: '#64748b',
-                    background: '#f1f5f9',
+                    color: isDark ? '#cbd5e1' : '#64748b',
+                    background: isDark ? '#0f172a' : '#f1f5f9',
+                    border: isDark ? '1px solid #334155' : 'none',
                     padding: '3px 8px',
                     borderRadius: '6px'
                   }}>
@@ -576,8 +587,9 @@ export default function Pharmacy() {
                     <span style={{
                       fontSize: '11px',
                       fontWeight: 700,
-                      color: '#b91c1c',
-                      background: '#fee2e2',
+                      color: isDark ? '#fca5a5' : '#b91c1c',
+                      background: isDark ? 'rgba(239, 68, 68, 0.2)' : '#fee2e2',
+                      border: isDark ? '1px solid rgba(239, 68, 68, 0.3)' : 'none',
                       padding: '3px 8px',
                       borderRadius: '6px',
                       display: 'flex',
@@ -590,8 +602,9 @@ export default function Pharmacy() {
                     <span style={{
                       fontSize: '11px',
                       fontWeight: 700,
-                      color: '#047857',
-                      background: '#d1fae5',
+                      color: isDark ? '#86efac' : '#047857',
+                      background: isDark ? 'rgba(16, 185, 129, 0.2)' : '#d1fae5',
+                      border: isDark ? '1px solid rgba(16, 185, 129, 0.3)' : 'none',
                       padding: '3px 8px',
                       borderRadius: '6px'
                     }}>
@@ -604,50 +617,50 @@ export default function Pharmacy() {
                 <h3 style={{
                   fontSize: '16px',
                   fontWeight: 700,
-                  color: '#0f172a',
+                  color: isDark ? '#f8fafc' : '#0f172a',
                   margin: '0 0 4px',
                   lineHeight: 1.3
                 }}>
                   {med.name}
                 </h3>
-                <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 8px' }}>
+                <p style={{ fontSize: '13px', color: isDark ? '#94a3b8' : '#64748b', margin: '0 0 8px' }}>
                   By {med.brand}
                 </p>
 
                 {/* Active Composition */}
                 <div style={{
                   fontSize: '12px',
-                  color: '#475569',
-                  background: '#f8fafc',
+                  color: isDark ? '#cbd5e1' : '#475569',
+                  background: isDark ? '#0f172a' : '#f8fafc',
                   padding: '6px 10px',
                   borderRadius: '6px',
-                  border: '1px solid #f1f5f9',
+                  border: isDark ? '1px solid #334155' : '1px solid #f1f5f9',
                   marginBottom: '12px',
                   lineHeight: 1.4
                 }}>
-                  <strong style={{ color: '#334155' }}>Salt: </strong>
+                  <strong style={{ color: isDark ? '#f8fafc' : '#334155' }}>Salt: </strong>
                   {med.composition}
                 </div>
 
                 {/* Pack Size & Rating */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#64748b', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', marginBottom: '16px' }}>
                   <span>📦 {med.packSize}</span>
                   <span>⭐ {med.rating} ({med.reviewsCount})</span>
                 </div>
 
                 {/* Pricing & Add to Cart footer */}
-                <div style={{ marginTop: 'auto', borderTop: '1px solid #f1f5f9', paddingTop: '16px' }}>
+                <div style={{ marginTop: 'auto', borderTop: isDark ? '1px solid #334155' : '1px solid #f1f5f9', paddingTop: '16px' }}>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '12px' }}>
-                    <span style={{ fontSize: '20px', fontWeight: 800, color: '#047857' }}>
+                    <span style={{ fontSize: '20px', fontWeight: 800, color: isDark ? '#34d399' : '#047857' }}>
                       ₹{med.price}
                     </span>
                     {med.mrp > med.price && (
-                      <span style={{ fontSize: '13px', color: '#94a3b8', textDecoration: 'line-through' }}>
+                      <span style={{ fontSize: '13px', color: isDark ? '#64748b' : '#94a3b8', textDecoration: 'line-through' }}>
                         ₹{med.mrp}
                       </span>
                     )}
                     {discountPct > 0 && (
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#b45309', background: '#fef3c7', padding: '2px 6px', borderRadius: '4px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: isDark ? '#fcd34d' : '#b45309', background: isDark ? 'rgba(245, 158, 11, 0.2)' : '#fef3c7', padding: '2px 6px', borderRadius: '4px' }}>
                         {discountPct}% OFF
                       </span>
                     )}
@@ -658,8 +671,8 @@ export default function Pharmacy() {
                       onClick={() => setSelectedMedicine(med)}
                       style={{
                         padding: '8px 10px',
-                        background: '#f1f5f9',
-                        color: '#475569',
+                        background: isDark ? '#334155' : '#f1f5f9',
+                        color: isDark ? '#f8fafc' : '#475569',
                         border: 'none',
                         borderRadius: '8px',
                         fontSize: '12px',
@@ -675,9 +688,9 @@ export default function Pharmacy() {
                       title="Order directly on Tata 1mg"
                       style={{
                         padding: '8px 10px',
-                        background: '#fff1f2',
-                        color: '#be123c',
-                        border: '1px solid #fecdd3',
+                        background: isDark ? 'rgba(225, 29, 72, 0.15)' : '#fff1f2',
+                        color: isDark ? '#fda4af' : '#be123c',
+                        border: isDark ? '1px solid rgba(225, 29, 72, 0.3)' : '1.5px solid #fecdd3',
                         borderRadius: '8px',
                         fontSize: '12px',
                         fontWeight: 700,
@@ -750,15 +763,15 @@ export default function Pharmacy() {
           <div style={{
             textAlign: 'center',
             padding: '50px 20px',
-            color: '#64748b',
-            background: 'white',
+            color: isDark ? '#cbd5e1' : '#64748b',
+            background: isDark ? '#1e293b' : 'white',
             borderRadius: '16px',
-            border: '1px solid #e2e8f0',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+            border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
+            boxShadow: isDark ? '0 4px 16px rgba(0,0,0,0.3)' : '0 4px 12px rgba(0,0,0,0.03)'
           }}>
             <div style={{ fontSize: '48px', marginBottom: '12px' }}>🔍</div>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1e293b', margin: '0 0 8px' }}>No medications found</h3>
-            <p style={{ maxWidth: '440px', margin: '0 auto 20px', fontSize: '14px', lineHeight: 1.5 }}>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, color: isDark ? '#f8fafc' : '#1e293b', margin: '0 0 8px' }}>No medications found</h3>
+            <p style={{ maxWidth: '440px', margin: '0 auto 20px', fontSize: '14px', lineHeight: 1.5, color: isDark ? '#94a3b8' : 'inherit' }}>
               We could not find any medicine matching "{searchQuery}". You can search the full catalog directly on Tata 1mg or reset your filters.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
@@ -809,34 +822,36 @@ export default function Pharmacy() {
           justifyContent: 'flex-end'
         }}>
           <div style={{
-            background: 'white',
+            background: isDark ? '#1e293b' : 'white',
             width: '100%',
             maxWidth: '460px',
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            boxShadow: '-8px 0 24px rgba(0,0,0,0.2)',
+            boxShadow: isDark ? '-8px 0 24px rgba(0,0,0,0.6)' : '-8px 0 24px rgba(0,0,0,0.2)',
+            borderLeft: isDark ? '1px solid #334155' : 'none',
             animation: 'slideInRight 0.3s'
           }}>
             {/* Cart Header */}
             <div style={{
               padding: '20px',
-              borderBottom: '1px solid #e2e8f0',
+              borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'center'
+              alignItems: 'center',
+              background: isDark ? '#0f172a' : '#f8fafc'
             }}>
               <div>
-                <h2 style={{ fontSize: '18px', fontWeight: 800, margin: 0, color: '#0f172a' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 800, margin: 0, color: isDark ? '#f8fafc' : '#0f172a' }}>
                   Your Pharmacy Cart ({cartTotalItems})
                 </h2>
-                <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#64748b' }}>
+                <p style={{ margin: '2px 0 0', fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b' }}>
                   Fulfilled by AarogyaLocker Licensed Digital Dispensary
                 </p>
               </div>
               <button
                 onClick={() => setIsCartOpen(false)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b' }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#94a3b8' : '#64748b' }}
               >
                 <CloseIcon size={20} />
               </button>
@@ -845,10 +860,10 @@ export default function Pharmacy() {
             {/* Cart Items List */}
             <div style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
               {cart.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '60px 20px', color: '#94a3b8' }}>
+                <div style={{ textAlign: 'center', padding: '60px 20px', color: isDark ? '#64748b' : '#94a3b8' }}>
                   <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛒</div>
-                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#334155' }}>Your cart is empty</h3>
-                  <p style={{ fontSize: '14px', margin: '8px 0 20px' }}>Add generic and prescribed medicines to checkout.</p>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155' }}>Your cart is empty</h3>
+                  <p style={{ fontSize: '14px', margin: '8px 0 20px', color: isDark ? '#94a3b8' : 'inherit' }}>Add generic and prescribed medicines to checkout.</p>
                   <button
                     onClick={() => setIsCartOpen(false)}
                     style={{
@@ -869,12 +884,12 @@ export default function Pharmacy() {
                   {/* Prescription required alert in cart */}
                   {cartRequiresRx && (
                     <div style={{
-                      background: '#fef2f2',
-                      border: '1px solid #fecaca',
+                      background: isDark ? 'rgba(239, 68, 68, 0.2)' : '#fef2f2',
+                      border: isDark ? '1px solid rgba(239, 68, 68, 0.4)' : '1px solid #fecaca',
                       borderRadius: '12px',
                       padding: '12px 16px',
                       fontSize: '13px',
-                      color: '#991b1b',
+                      color: isDark ? '#fca5a5' : '#991b1b',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '10px'
@@ -893,24 +908,24 @@ export default function Pharmacy() {
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'flex-start',
-                        background: '#f8fafc',
+                        background: isDark ? '#0f172a' : '#f8fafc',
                         padding: '12px 14px',
                         borderRadius: '12px',
-                        border: '1px solid #e2e8f0'
+                        border: isDark ? '1px solid #334155' : '1px solid #e2e8f0'
                       }}
                     >
                       <div style={{ flex: 1, marginRight: '12px' }}>
-                        <h4 style={{ margin: '0 0 2px', fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>
+                        <h4 style={{ margin: '0 0 2px', fontSize: '14px', fontWeight: 700, color: isDark ? '#f8fafc' : '#1e293b' }}>
                           {item.medicine.name}
                         </h4>
-                        <p style={{ margin: '0 0 6px', fontSize: '12px', color: '#64748b' }}>
+                        <p style={{ margin: '0 0 6px', fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b' }}>
                           {item.medicine.packSize} • {item.medicine.brand}
                         </p>
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-                          <span style={{ fontSize: '15px', fontWeight: 700, color: '#047857' }}>
+                          <span style={{ fontSize: '15px', fontWeight: 700, color: isDark ? '#34d399' : '#047857' }}>
                             ₹{item.medicine.price * item.quantity}
                           </span>
-                          <span style={{ fontSize: '12px', color: '#94a3b8', textDecoration: 'line-through' }}>
+                          <span style={{ fontSize: '12px', color: isDark ? '#64748b' : '#94a3b8', textDecoration: 'line-through' }}>
                             ₹{item.medicine.mrp * item.quantity}
                           </span>
                         </div>
@@ -920,23 +935,24 @@ export default function Pharmacy() {
                         <div style={{
                           display: 'flex',
                           alignItems: 'center',
-                          border: '1px solid #cbd5e1',
+                          border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
                           borderRadius: '8px',
-                          background: 'white',
+                          background: isDark ? '#1e293b' : 'white',
+                          color: isDark ? '#f8fafc' : 'inherit',
                           overflow: 'hidden'
                         }}>
                           <button
                             onClick={() => updateQuantity(item.medicine.id, -1)}
-                            style={{ padding: '4px 8px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 700 }}
+                            style={{ padding: '4px 8px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 700, color: isDark ? '#f8fafc' : 'inherit' }}
                           >
                             -
                           </button>
-                          <span style={{ padding: '0 6px', fontSize: '13px', fontWeight: 700 }}>
+                          <span style={{ padding: '0 6px', fontSize: '13px', fontWeight: 700, color: isDark ? '#f8fafc' : 'inherit' }}>
                             {item.quantity}
                           </span>
                           <button
                             onClick={() => updateQuantity(item.medicine.id, 1)}
-                            style={{ padding: '4px 8px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 700 }}
+                            style={{ padding: '4px 8px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: 700, color: isDark ? '#f8fafc' : 'inherit' }}
                           >
                             +
                           </button>
@@ -947,7 +963,7 @@ export default function Pharmacy() {
                           style={{
                             background: 'none',
                             border: 'none',
-                            color: '#ef4444',
+                            color: isDark ? '#f87171' : '#ef4444',
                             fontSize: '11px',
                             cursor: 'pointer',
                             padding: '2px 4px'
@@ -960,7 +976,7 @@ export default function Pharmacy() {
                   ))}
 
                   {/* Promo Code Box */}
-                  <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '16px' }}>
+                  <div style={{ borderTop: isDark ? '1px solid #334155' : '1px solid #e2e8f0', paddingTop: '16px' }}>
                     <div style={{ display: 'flex', gap: '8px' }}>
                       <input
                         type="text"
@@ -971,7 +987,9 @@ export default function Pharmacy() {
                           flex: 1,
                           padding: '8px 12px',
                           borderRadius: '8px',
-                          border: '1px solid #cbd5e1',
+                          border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
+                          background: isDark ? '#0f172a' : 'white',
+                          color: isDark ? '#f8fafc' : 'inherit',
                           fontSize: '13px',
                           textTransform: 'uppercase'
                         }}
@@ -993,36 +1011,36 @@ export default function Pharmacy() {
                       </button>
                     </div>
                     {promoMessage && (
-                      <p style={{ margin: '6px 0 0', fontSize: '12px', color: promoDiscount > 0 ? '#047857' : '#ef4444' }}>
+                      <p style={{ margin: '6px 0 0', fontSize: '12px', color: promoDiscount > 0 ? (isDark ? '#34d399' : '#047857') : (isDark ? '#f87171' : '#ef4444') }}>
                         {promoMessage}
                       </p>
                     )}
                   </div>
 
                   {/* Bill Breakdown */}
-                  <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                    <h4 style={{ margin: '0 0 12px', fontSize: '14px', fontWeight: 700, color: '#334155' }}>
+                  <div style={{ background: isDark ? '#0f172a' : '#f8fafc', padding: '16px', borderRadius: '12px', border: isDark ? '1px solid #334155' : '1px solid #e2e8f0' }}>
+                    <h4 style={{ margin: '0 0 12px', fontSize: '14px', fontWeight: 700, color: isDark ? '#cbd5e1' : '#334155' }}>
                       Bill Breakdown
                     </h4>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#64748b', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: isDark ? '#94a3b8' : '#64748b', marginBottom: '8px' }}>
                       <span>Total MRP</span>
                       <span>₹{cartTotalMrp}</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#047857', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: isDark ? '#34d399' : '#047857', marginBottom: '8px' }}>
                       <span>Discount Savings</span>
                       <span>-₹{cartDiscount}</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#64748b', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: isDark ? '#94a3b8' : '#64748b', marginBottom: '8px' }}>
                       <span>Delivery Fee</span>
-                      <span>{deliveryFee === 0 ? <strong style={{ color: '#047857' }}>FREE</strong> : `₹${deliveryFee}`}</span>
+                      <span>{deliveryFee === 0 ? <strong style={{ color: isDark ? '#34d399' : '#047857' }}>FREE</strong> : `₹${deliveryFee}`}</span>
                     </div>
                     <div style={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       fontSize: '16px',
                       fontWeight: 800,
-                      color: '#0f172a',
-                      borderTop: '1px solid #e2e8f0',
+                      color: isDark ? '#f8fafc' : '#0f172a',
+                      borderTop: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
                       paddingTop: '10px',
                       marginTop: '8px'
                     }}>
@@ -1036,7 +1054,7 @@ export default function Pharmacy() {
 
             {/* Cart Footer */}
             {cart.length > 0 && (
-              <div style={{ padding: '20px', borderTop: '1px solid #e2e8f0', background: 'white' }}>
+              <div style={{ padding: '20px', borderTop: isDark ? '1px solid #334155' : '1px solid #e2e8f0', background: isDark ? '#1e293b' : 'white' }}>
                 <button
                   onClick={() => {
                     setIsCartOpen(false);
@@ -1068,9 +1086,9 @@ export default function Pharmacy() {
                     width: '100%',
                     marginTop: '10px',
                     padding: '12px',
-                    background: '#fff1f2',
-                    color: '#be123c',
-                    border: '1.5px solid #fecdd3',
+                    background: isDark ? 'rgba(225, 29, 72, 0.15)' : '#fff1f2',
+                    color: isDark ? '#fda4af' : '#be123c',
+                    border: isDark ? '1.5px solid rgba(225, 29, 72, 0.3)' : '1.5px solid #fecdd3',
                     borderRadius: '12px',
                     fontSize: '13.5px',
                     fontWeight: 700,
@@ -1105,11 +1123,12 @@ export default function Pharmacy() {
           padding: '16px'
         }}>
           <div style={{
-            background: 'white',
+            background: isDark ? '#1e293b' : 'white',
+            border: isDark ? '1px solid #334155' : 'none',
             width: '100%',
             maxWidth: '600px',
             borderRadius: '20px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
+            boxShadow: isDark ? '0 20px 40px rgba(0,0,0,0.6)' : '0 20px 40px rgba(0,0,0,0.25)',
             maxHeight: '90vh',
             display: 'flex',
             flexDirection: 'column',
@@ -1118,38 +1137,38 @@ export default function Pharmacy() {
             {/* Modal Header */}
             <div style={{
               padding: '20px 24px',
-              borderBottom: '1px solid #e2e8f0',
+              borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: '#f8fafc'
+              background: isDark ? '#0f172a' : '#f8fafc'
             }}>
               <div>
-                <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#0f172a' }}>
+                <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a' }}>
                   Secure Medicine Checkout
                 </h3>
-                <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#64748b' }}>
+                <p style={{ margin: '2px 0 0', fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b' }}>
                   AarogyaLocker Express Delivery • GST Verified Billing
                 </p>
               </div>
               <button
                 onClick={() => setIsCheckoutOpen(false)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b' }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#94a3b8' : '#64748b' }}
               >
                 <CloseIcon size={20} />
               </button>
             </div>
 
             {/* Stepper Tabs */}
-            <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', background: 'white' }}>
+            <div style={{ display: 'flex', borderBottom: isDark ? '1px solid #334155' : '1px solid #e2e8f0', background: isDark ? '#1e293b' : 'white' }}>
               <div style={{
                 flex: 1,
                 padding: '12px',
                 textAlign: 'center',
                 fontSize: '13px',
                 fontWeight: 700,
-                color: checkoutStep === 'address' ? '#047857' : '#94a3b8',
-                borderBottom: checkoutStep === 'address' ? '2px solid #047857' : 'none',
+                color: checkoutStep === 'address' ? (isDark ? '#34d399' : '#047857') : (isDark ? '#64748b' : '#94a3b8'),
+                borderBottom: checkoutStep === 'address' ? `2px solid ${isDark ? '#34d399' : '#047857'}` : 'none',
                 cursor: 'pointer'
               }} onClick={() => setCheckoutStep('address')}>
                 1. Delivery Address
@@ -1160,8 +1179,8 @@ export default function Pharmacy() {
                 textAlign: 'center',
                 fontSize: '13px',
                 fontWeight: 700,
-                color: checkoutStep === 'rx' ? '#047857' : '#94a3b8',
-                borderBottom: checkoutStep === 'rx' ? '2px solid #047857' : 'none',
+                color: checkoutStep === 'rx' ? (isDark ? '#34d399' : '#047857') : (isDark ? '#64748b' : '#94a3b8'),
+                borderBottom: checkoutStep === 'rx' ? `2px solid ${isDark ? '#34d399' : '#047857'}` : 'none',
                 cursor: 'pointer'
               }} onClick={() => setCheckoutStep('rx')}>
                 2. Prescription {cartRequiresRx && '⚠️'}
@@ -1172,8 +1191,8 @@ export default function Pharmacy() {
                 textAlign: 'center',
                 fontSize: '13px',
                 fontWeight: 700,
-                color: checkoutStep === 'payment' ? '#047857' : '#94a3b8',
-                borderBottom: checkoutStep === 'payment' ? '2px solid #047857' : 'none',
+                color: checkoutStep === 'payment' ? (isDark ? '#34d399' : '#047857') : (isDark ? '#64748b' : '#94a3b8'),
+                borderBottom: checkoutStep === 'payment' ? `2px solid ${isDark ? '#34d399' : '#047857'}` : 'none',
                 cursor: 'pointer'
               }} onClick={() => setCheckoutStep('payment')}>
                 3. Payment
@@ -1181,76 +1200,116 @@ export default function Pharmacy() {
             </div>
 
             {/* Modal Body */}
-            <div style={{ padding: '24px', overflowY: 'auto', flex: 1 }}>
+            <div style={{ padding: '24px', overflowY: 'auto', flex: 1, background: isDark ? '#1e293b' : 'white' }}>
               {checkoutStep === 'address' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <h4 style={{ margin: 0, fontSize: '15px', color: '#1e293b' }}>Confirm Delivery Address</h4>
+                  <h4 style={{ margin: 0, fontSize: '15px', color: isDark ? '#f8fafc' : '#1e293b' }}>Confirm Delivery Address</h4>
                   
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#475569', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: isDark ? '#cbd5e1' : '#475569', marginBottom: '4px' }}>
                         Full Name
                       </label>
                       <input
                         type="text"
                         value={address.fullName}
                         onChange={e => setAddress({ ...address, fullName: e.target.value })}
-                        style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px',
+                          borderRadius: '8px',
+                          border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
+                          fontSize: '14px',
+                          background: isDark ? '#0f172a' : 'white',
+                          color: isDark ? '#f8fafc' : '#0f172a'
+                        }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#475569', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: isDark ? '#cbd5e1' : '#475569', marginBottom: '4px' }}>
                         Mobile Phone Number
                       </label>
                       <input
                         type="text"
                         value={address.phone}
                         onChange={e => setAddress({ ...address, phone: e.target.value })}
-                        style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px',
+                          borderRadius: '8px',
+                          border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
+                          fontSize: '14px',
+                          background: isDark ? '#0f172a' : 'white',
+                          color: isDark ? '#f8fafc' : '#0f172a'
+                        }}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#475569', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: isDark ? '#cbd5e1' : '#475569', marginBottom: '4px' }}>
                       Street Address & Flat / House No.
                     </label>
                     <input
                       type="text"
                       value={address.street}
                       onChange={e => setAddress({ ...address, street: e.target.value })}
-                      style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
+                      style={{
+                        width: '100%',
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
+                        fontSize: '14px',
+                        background: isDark ? '#0f172a' : 'white',
+                        color: isDark ? '#f8fafc' : '#0f172a'
+                      }}
                     />
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#475569', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: isDark ? '#cbd5e1' : '#475569', marginBottom: '4px' }}>
                         City
                       </label>
                       <input
                         type="text"
                         value={address.city}
                         onChange={e => setAddress({ ...address, city: e.target.value })}
-                        style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px',
+                          borderRadius: '8px',
+                          border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
+                          fontSize: '14px',
+                          background: isDark ? '#0f172a' : 'white',
+                          color: isDark ? '#f8fafc' : '#0f172a'
+                        }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#475569', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: isDark ? '#cbd5e1' : '#475569', marginBottom: '4px' }}>
                         Postal PIN Code
                       </label>
                       <input
                         type="text"
                         value={address.pincode}
                         onChange={e => setAddress({ ...address, pincode: e.target.value })}
-                        style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px' }}
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px',
+                          borderRadius: '8px',
+                          border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
+                          fontSize: '14px',
+                          background: isDark ? '#0f172a' : 'white',
+                          color: isDark ? '#f8fafc' : '#0f172a'
+                        }}
                       />
                     </div>
                   </div>
 
                   {/* Fulfillment Partner Selector */}
                   <div style={{ marginTop: '8px' }}>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#1e293b', marginBottom: '8px' }}>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: isDark ? '#f8fafc' : '#1e293b', marginBottom: '8px' }}>
                       Choose Medicine Fulfillment Partner
                     </label>
 
@@ -1260,8 +1319,12 @@ export default function Pharmacy() {
                         style={{
                           padding: '12px 14px',
                           borderRadius: '12px',
-                          border: fulfillmentPartner === 'Tata 1mg' ? '2px solid #e11d48' : '1px solid #cbd5e1',
-                          background: fulfillmentPartner === 'Tata 1mg' ? '#fff1f2' : 'white',
+                          border: fulfillmentPartner === 'Tata 1mg' 
+                            ? (isDark ? '2px solid #f43f5e' : '2px solid #e11d48') 
+                            : (isDark ? '1px solid #334155' : '1px solid #cbd5e1'),
+                          background: fulfillmentPartner === 'Tata 1mg' 
+                            ? (isDark ? 'rgba(225, 29, 72, 0.15)' : '#fff1f2') 
+                            : (isDark ? '#0f172a' : 'white'),
                           cursor: 'pointer',
                           display: 'flex',
                           alignItems: 'center',
@@ -1285,14 +1348,14 @@ export default function Pharmacy() {
                         </div>
                         <div style={{ flex: 1 }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span style={{ fontWeight: 800, fontSize: '14px', color: '#881337' }}>
+                            <span style={{ fontWeight: 800, fontSize: '14px', color: isDark ? '#fda4af' : '#881337' }}>
                               Tata 1mg Express Fulfillment
                             </span>
-                            <span style={{ fontSize: '10px', background: '#ffe4e6', color: '#be123c', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
+                            <span style={{ fontSize: '10px', background: isDark ? 'rgba(225, 29, 72, 0.3)' : '#ffe4e6', color: isDark ? '#fda4af' : '#be123c', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
                               RECOMMENDED
                             </span>
                           </div>
-                          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#9f1239' }}>
+                          <p style={{ margin: '2px 0 0', fontSize: '12px', color: isDark ? '#fca5a5' : '#9f1239' }}>
                             Dispatched from Tata 1mg Hub, Sector 82 Industrial Area, Mohali • Official Tax Invoice & Live 1mg Tracking
                           </p>
                         </div>
@@ -1300,7 +1363,7 @@ export default function Pharmacy() {
                           width: '18px',
                           height: '18px',
                           borderRadius: '50%',
-                          border: fulfillmentPartner === 'Tata 1mg' ? '5px solid #e11d48' : '2px solid #cbd5e1'
+                          border: fulfillmentPartner === 'Tata 1mg' ? '5px solid #e11d48' : (isDark ? '2px solid #475569' : '2px solid #cbd5e1')
                         }} />
                       </div>
 
@@ -1309,8 +1372,12 @@ export default function Pharmacy() {
                         style={{
                           padding: '12px 14px',
                           borderRadius: '12px',
-                          border: fulfillmentPartner === 'AarogyaLocker Direct' ? '2px solid #047857' : '1px solid #cbd5e1',
-                          background: fulfillmentPartner === 'AarogyaLocker Direct' ? '#f0fdf4' : 'white',
+                          border: fulfillmentPartner === 'AarogyaLocker Direct' 
+                            ? (isDark ? '2px solid #10b981' : '2px solid #047857') 
+                            : (isDark ? '1px solid #334155' : '1px solid #cbd5e1'),
+                          background: fulfillmentPartner === 'AarogyaLocker Direct' 
+                            ? (isDark ? 'rgba(16, 185, 129, 0.15)' : '#f0fdf4') 
+                            : (isDark ? '#0f172a' : 'white'),
                           cursor: 'pointer',
                           display: 'flex',
                           alignItems: 'center',
@@ -1332,10 +1399,10 @@ export default function Pharmacy() {
                           🏥
                         </div>
                         <div style={{ flex: 1 }}>
-                          <span style={{ fontWeight: 800, fontSize: '14px', color: '#065f46' }}>
+                          <span style={{ fontWeight: 800, fontSize: '14px', color: isDark ? '#6ee7b7' : '#065f46' }}>
                             AarogyaLocker Local Chemist Network
                           </span>
-                          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#047857' }}>
+                          <p style={{ margin: '2px 0 0', fontSize: '12px', color: isDark ? '#a7f3d0' : '#047857' }}>
                             Verified local dispensary in Mohali & Chandigarh
                           </p>
                         </div>
@@ -1343,13 +1410,20 @@ export default function Pharmacy() {
                           width: '18px',
                           height: '18px',
                           borderRadius: '50%',
-                          border: fulfillmentPartner === 'AarogyaLocker Direct' ? '5px solid #047857' : '2px solid #cbd5e1'
+                          border: fulfillmentPartner === 'AarogyaLocker Direct' ? '5px solid #047857' : (isDark ? '2px solid #475569' : '2px solid #cbd5e1')
                         }} />
                       </div>
                     </div>
                   </div>
 
-                  <div style={{ background: '#f0fdf4', padding: '12px', borderRadius: '10px', border: '1px solid #bbf7d0', fontSize: '13px', color: '#166534' }}>
+                  <div style={{
+                    background: isDark ? 'rgba(16, 185, 129, 0.1)' : '#f0fdf4',
+                    padding: '12px',
+                    borderRadius: '10px',
+                    border: isDark ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid #bbf7d0',
+                    fontSize: '13px',
+                    color: isDark ? '#6ee7b7' : '#166534'
+                  }}>
                     🚚 <strong>Estimated Delivery:</strong> Today within 2 hours to {address.pincode} via {fulfillmentPartner}.
                   </div>
 
@@ -1376,10 +1450,10 @@ export default function Pharmacy() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <span style={{ fontSize: '24px' }}>📄</span>
                     <div>
-                      <h4 style={{ margin: 0, fontSize: '15px', color: '#1e293b' }}>
+                      <h4 style={{ margin: 0, fontSize: '15px', color: isDark ? '#f8fafc' : '#1e293b' }}>
                         Prescription Verification (AarogyaLocker Linked)
                       </h4>
-                      <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#64748b' }}>
+                      <p style={{ margin: '2px 0 0', fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b' }}>
                         Select any doctor's e-prescription saved in your health vault to auto-verify this order.
                       </p>
                     </div>
@@ -1387,7 +1461,7 @@ export default function Pharmacy() {
 
                   {patientPrescriptions.length > 0 ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <p style={{ fontSize: '13px', fontWeight: 600, color: '#475569', margin: '4px 0' }}>
+                      <p style={{ fontSize: '13px', fontWeight: 600, color: isDark ? '#cbd5e1' : '#475569', margin: '4px 0' }}>
                         Choose from your verified AarogyaLocker records:
                       </p>
                       {patientPrescriptions.map(rx => (
@@ -1397,8 +1471,12 @@ export default function Pharmacy() {
                           style={{
                             padding: '12px 16px',
                             borderRadius: '12px',
-                            border: attachedPrescriptionId === rx.id ? '2px solid #047857' : '1px solid #cbd5e1',
-                            background: attachedPrescriptionId === rx.id ? '#f0fdf4' : 'white',
+                            border: attachedPrescriptionId === rx.id 
+                              ? (isDark ? '2px solid #10b981' : '2px solid #047857') 
+                              : (isDark ? '1px solid #334155' : '1px solid #cbd5e1'),
+                            background: attachedPrescriptionId === rx.id 
+                              ? (isDark ? 'rgba(16, 185, 129, 0.15)' : '#f0fdf4') 
+                              : (isDark ? '#0f172a' : 'white'),
                             cursor: 'pointer',
                             display: 'flex',
                             justifyContent: 'space-between',
@@ -1406,10 +1484,10 @@ export default function Pharmacy() {
                           }}
                         >
                           <div>
-                            <div style={{ fontWeight: 700, fontSize: '14px', color: '#0f172a' }}>
+                            <div style={{ fontWeight: 700, fontSize: '14px', color: isDark ? '#f8fafc' : '#0f172a' }}>
                               {rx.name}
                             </div>
-                            <div style={{ fontSize: '12px', color: '#64748b', marginTop: '2px' }}>
+                            <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b', marginTop: '2px' }}>
                               Prescribed by {rx.doctor} • {rx.date}
                             </div>
                           </div>
@@ -1417,7 +1495,9 @@ export default function Pharmacy() {
                             width: '20px',
                             height: '20px',
                             borderRadius: '50%',
-                            border: attachedPrescriptionId === rx.id ? '6px solid #047857' : '2px solid #cbd5e1'
+                            border: attachedPrescriptionId === rx.id 
+                              ? '6px solid #047857' 
+                              : (isDark ? '2px solid #475569' : '2px solid #cbd5e1')
                           }} />
                         </div>
                       ))}
@@ -1425,12 +1505,12 @@ export default function Pharmacy() {
                   ) : (
                     <div style={{
                       padding: '16px',
-                      background: '#f8fafc',
+                      background: isDark ? '#0f172a' : '#f8fafc',
                       borderRadius: '12px',
-                      border: '1px dashed #cbd5e1',
+                      border: isDark ? '1px dashed #334155' : '1px dashed #cbd5e1',
                       textAlign: 'center'
                     }}>
-                      <p style={{ margin: '0 0 8px', fontSize: '13px', color: '#64748b' }}>
+                      <p style={{ margin: '0 0 8px', fontSize: '13px', color: isDark ? '#94a3b8' : '#64748b' }}>
                         No saved prescriptions found in your AarogyaLocker.
                       </p>
                       <button
@@ -1438,9 +1518,9 @@ export default function Pharmacy() {
                           setAttachedPrescriptionId('PROVISIONAL-CONSULT');
                         }}
                         style={{
-                          background: '#e0f2fe',
-                          color: '#0369a1',
-                          border: 'none',
+                          background: isDark ? 'rgba(56, 189, 248, 0.15)' : '#e0f2fe',
+                          color: isDark ? '#38bdf8' : '#0369a1',
+                          border: isDark ? '1px solid rgba(56, 189, 248, 0.3)' : 'none',
                           padding: '8px 16px',
                           borderRadius: '8px',
                           fontSize: '12px',
@@ -1456,7 +1536,16 @@ export default function Pharmacy() {
                   <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
                     <button
                       onClick={() => setCheckoutStep('address')}
-                      style={{ flex: 1, padding: '12px', background: '#f1f5f9', border: 'none', borderRadius: '10px', fontWeight: 600, cursor: 'pointer' }}
+                      style={{
+                        flex: 1,
+                        padding: '12px',
+                        background: isDark ? '#334155' : '#f1f5f9',
+                        color: isDark ? '#f8fafc' : '#475569',
+                        border: 'none',
+                        borderRadius: '10px',
+                        fontWeight: 600,
+                        cursor: 'pointer'
+                      }}
                     >
                       ← Back
                     </button>
@@ -1472,7 +1561,7 @@ export default function Pharmacy() {
 
               {checkoutStep === 'payment' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <h4 style={{ margin: 0, fontSize: '15px', color: '#1e293b' }}>Select Payment Method</h4>
+                  <h4 style={{ margin: 0, fontSize: '15px', color: isDark ? '#f8fafc' : '#1e293b' }}>Select Payment Method</h4>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {[
@@ -1487,8 +1576,12 @@ export default function Pharmacy() {
                         style={{
                           padding: '14px 16px',
                           borderRadius: '12px',
-                          border: paymentMethod === opt.id ? '2px solid #047857' : '1px solid #cbd5e1',
-                          background: paymentMethod === opt.id ? '#f0fdf4' : 'white',
+                          border: paymentMethod === opt.id 
+                            ? (isDark ? '2px solid #10b981' : '2px solid #047857') 
+                            : (isDark ? '1px solid #334155' : '1px solid #cbd5e1'),
+                          background: paymentMethod === opt.id 
+                            ? (isDark ? 'rgba(16, 185, 129, 0.15)' : '#f0fdf4') 
+                            : (isDark ? '#0f172a' : 'white'),
                           cursor: 'pointer',
                           display: 'flex',
                           alignItems: 'center',
@@ -1497,26 +1590,32 @@ export default function Pharmacy() {
                       >
                         <span style={{ fontSize: '22px' }}>{opt.icon}</span>
                         <div style={{ flex: 1 }}>
-                          <div style={{ fontWeight: 700, fontSize: '14px', color: '#0f172a' }}>{opt.title}</div>
-                          <div style={{ fontSize: '12px', color: '#64748b' }}>{opt.desc}</div>
+                          <div style={{ fontWeight: 700, fontSize: '14px', color: isDark ? '#f8fafc' : '#0f172a' }}>{opt.title}</div>
+                          <div style={{ fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b' }}>{opt.desc}</div>
                         </div>
                         <div style={{
                           width: '18px',
                           height: '18px',
                           borderRadius: '50%',
-                          border: paymentMethod === opt.id ? '5px solid #047857' : '2px solid #cbd5e1'
+                          border: paymentMethod === opt.id ? '5px solid #047857' : (isDark ? '2px solid #475569' : '2px solid #cbd5e1')
                         }} />
                       </div>
                     ))}
                   </div>
 
                   {/* Summary Box */}
-                  <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0', marginTop: '8px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
+                  <div style={{
+                    background: isDark ? '#0f172a' : '#f8fafc',
+                    padding: '16px',
+                    borderRadius: '12px',
+                    border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
+                    marginTop: '8px'
+                  }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: 700, color: isDark ? '#f8fafc' : '#0f172a' }}>
                       <span>Total Amount Payable:</span>
-                      <span style={{ color: '#047857', fontSize: '18px' }}>₹{finalPayable}</span>
+                      <span style={{ color: isDark ? '#34d399' : '#047857', fontSize: '18px' }}>₹{finalPayable}</span>
                     </div>
-                    <p style={{ margin: '8px 0 0', fontSize: '12px', color: '#64748b' }}>
+                    <p style={{ margin: '8px 0 0', fontSize: '12px', color: isDark ? '#94a3b8' : '#64748b' }}>
                       🔒 GST Tax Invoice will be automatically generated and deposited in your <strong>AarogyaLocker</strong>.
                     </p>
                   </div>
@@ -1524,7 +1623,16 @@ export default function Pharmacy() {
                   <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
                     <button
                       onClick={() => setCheckoutStep('rx')}
-                      style={{ flex: 1, padding: '12px', background: '#f1f5f9', border: 'none', borderRadius: '10px', fontWeight: 600, cursor: 'pointer' }}
+                      style={{
+                        flex: 1,
+                        padding: '12px',
+                        background: isDark ? '#334155' : '#f1f5f9',
+                        color: isDark ? '#f8fafc' : '#475569',
+                        border: 'none',
+                        borderRadius: '10px',
+                        fontWeight: 600,
+                        cursor: 'pointer'
+                      }}
                     >
                       ← Back
                     </button>
@@ -1568,20 +1676,21 @@ export default function Pharmacy() {
           padding: '16px'
         }}>
           <div style={{
-            background: 'white',
+            background: isDark ? '#1e293b' : 'white',
+            border: isDark ? '1px solid #334155' : 'none',
             width: '100%',
             maxWidth: '520px',
             borderRadius: '24px',
             padding: '32px 24px',
             textAlign: 'center',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            boxShadow: isDark ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
           }}>
             <div style={{
               width: '72px',
               height: '72px',
               borderRadius: '50%',
-              background: '#dcfce7',
-              color: '#15803d',
+              background: isDark ? 'rgba(16, 185, 129, 0.2)' : '#dcfce7',
+              color: isDark ? '#34d399' : '#15803d',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -1591,33 +1700,33 @@ export default function Pharmacy() {
               ✓
             </div>
 
-            <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', margin: '0 0 8px' }}>
+            <h2 style={{ fontSize: '24px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a', margin: '0 0 8px' }}>
               Order Placed Successfully!
             </h2>
-            <p style={{ fontSize: '14px', color: '#64748b', margin: '0 0 16px' }}>
+            <p style={{ fontSize: '14px', color: isDark ? '#94a3b8' : '#64748b', margin: '0 0 16px' }}>
               Order ID: <strong>#{completedOrderId}</strong> • Estimated Delivery: Today by 6:00 PM
             </p>
 
             {/* Tata 1mg fulfillment info if applicable */}
             {fulfillmentPartner === 'Tata 1mg' && (
               <div style={{
-                background: '#fff1f2',
-                border: '1.5px solid #fecdd3',
+                background: isDark ? 'rgba(225, 29, 72, 0.15)' : '#fff1f2',
+                border: isDark ? '1.5px solid rgba(225, 29, 72, 0.4)' : '1.5px solid #fecdd3',
                 borderRadius: '16px',
                 padding: '16px',
                 textAlign: 'left',
                 marginBottom: '16px'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#be123c', fontWeight: 800, fontSize: '14px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isDark ? '#fda4af' : '#be123c', fontWeight: 800, fontSize: '14px' }}>
                     <span style={{ background: '#e11d48', color: 'white', padding: '2px 6px', borderRadius: '4px', fontSize: '11px' }}>1mg</span>
                     <span>Tata 1mg Express Fulfillment</span>
                   </div>
-                  <span style={{ fontSize: '11px', color: '#9f1239', fontWeight: 700, background: '#ffe4e6', padding: '2px 8px', borderRadius: '10px' }}>
+                  <span style={{ fontSize: '11px', color: isDark ? '#fda4af' : '#9f1239', fontWeight: 700, background: isDark ? 'rgba(225, 29, 72, 0.3)' : '#ffe4e6', padding: '2px 8px', borderRadius: '10px' }}>
                     Sector 82 Mohali Hub
                   </span>
                 </div>
-                <p style={{ margin: '0 0 10px', fontSize: '12.5px', color: '#9f1239' }}>
+                <p style={{ margin: '0 0 10px', fontSize: '12.5px', color: isDark ? '#fca5a5' : '#9f1239' }}>
                   Consignment Token: <strong style={{ letterSpacing: '0.5px' }}>1MG-TRICITY-{completedOrderId}</strong>
                 </p>
                 <button
@@ -1644,18 +1753,18 @@ export default function Pharmacy() {
 
             {/* AarogyaLocker Auto-generation alert */}
             <div style={{
-              background: '#eff6ff',
-              border: '1px solid #bfdbfe',
+              background: isDark ? 'rgba(37, 99, 235, 0.15)' : '#eff6ff',
+              border: isDark ? '1px solid rgba(59, 130, 246, 0.4)' : '1px solid #bfdbfe',
               borderRadius: '16px',
               padding: '16px',
               textAlign: 'left',
               marginBottom: '24px'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#1e40af', fontWeight: 700, fontSize: '14px', marginBottom: '4px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isDark ? '#93c5fd' : '#1e40af', fontWeight: 700, fontSize: '14px', marginBottom: '4px' }}>
                 <span>🔐</span>
                 <span>Saved to your AarogyaLocker!</span>
               </div>
-              <p style={{ margin: 0, fontSize: '13px', color: '#3b82f6', lineHeight: 1.5 }}>
+              <p style={{ margin: 0, fontSize: '13px', color: isDark ? '#bfdbfe' : '#3b82f6', lineHeight: 1.5 }}>
                 Your itemized medical invoice from {fulfillmentPartner === 'Tata 1mg' ? 'Tata 1mg Healthcare Solutions' : 'AarogyaLocker Dispensary'} has been issued with digital GST compliance and linked directly to your <strong>ABHA Universal Health ID</strong>.
               </p>
             </div>
@@ -1669,8 +1778,8 @@ export default function Pharmacy() {
                 style={{
                   flex: 1,
                   padding: '12px',
-                  background: '#f1f5f9',
-                  color: '#475569',
+                  background: isDark ? '#334155' : '#f1f5f9',
+                  color: isDark ? '#f8fafc' : '#475569',
                   border: 'none',
                   borderRadius: '10px',
                   fontWeight: 600,
@@ -1719,50 +1828,64 @@ export default function Pharmacy() {
           padding: '16px'
         }}>
           <div style={{
-            background: 'white',
+            background: isDark ? '#1e293b' : 'white',
+            border: isDark ? '1px solid #334155' : 'none',
             width: '100%',
             maxWidth: '540px',
             borderRadius: '20px',
             padding: '24px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+            boxShadow: isDark ? '0 20px 40px rgba(0,0,0,0.5)' : '0 20px 40px rgba(0,0,0,0.2)'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div>
-                <span style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#047857', background: '#d1fae5', padding: '3px 8px', borderRadius: '4px' }}>
+                <span style={{
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  color: isDark ? '#34d399' : '#047857',
+                  background: isDark ? 'rgba(16, 185, 129, 0.2)' : '#d1fae5',
+                  padding: '3px 8px',
+                  borderRadius: '4px'
+                }}>
                   {selectedMedicine.category}
                 </span>
-                <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px' }}>
+                <h3 style={{ fontSize: '20px', fontWeight: 800, color: isDark ? '#f8fafc' : '#0f172a', margin: '8px 0 2px' }}>
                   {selectedMedicine.name}
                 </h3>
-                <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
+                <p style={{ fontSize: '13px', color: isDark ? '#94a3b8' : '#64748b', margin: 0 }}>
                   By {selectedMedicine.brand} • {selectedMedicine.packSize}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedMedicine(null)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b' }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: isDark ? '#94a3b8' : '#64748b' }}
               >
                 <CloseIcon size={20} />
               </button>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '14px', color: '#334155', lineHeight: 1.5 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '14px', color: isDark ? '#cbd5e1' : '#334155', lineHeight: 1.5 }}>
               <div>
-                <strong style={{ color: '#0f172a', display: 'block', marginBottom: '4px' }}>Clinical Indications:</strong>
+                <strong style={{ color: isDark ? '#f8fafc' : '#0f172a', display: 'block', marginBottom: '4px' }}>Clinical Indications:</strong>
                 {selectedMedicine.description}
               </div>
 
-              <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                <strong style={{ color: '#0f172a', display: 'block', marginBottom: '4px' }}>Active Molecular Composition:</strong>
+              <div style={{
+                background: isDark ? '#0f172a' : '#f8fafc',
+                padding: '12px',
+                borderRadius: '8px',
+                border: isDark ? '1px solid #334155' : '1px solid #e2e8f0'
+              }}>
+                <strong style={{ color: isDark ? '#f8fafc' : '#0f172a', display: 'block', marginBottom: '4px' }}>Active Molecular Composition:</strong>
                 {selectedMedicine.composition}
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '16px', marginTop: '8px', flexWrap: 'wrap', gap: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: isDark ? '1px solid #334155' : '1px solid #f1f5f9', paddingTop: '16px', marginTop: '8px', flexWrap: 'wrap', gap: '10px' }}>
                 <div>
-                  <span style={{ fontSize: '22px', fontWeight: 800, color: '#047857' }}>
+                  <span style={{ fontSize: '22px', fontWeight: 800, color: isDark ? '#34d399' : '#047857' }}>
                     ₹{selectedMedicine.price}
                   </span>
-                  <span style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'line-through', marginLeft: '8px' }}>
+                  <span style={{ fontSize: '14px', color: isDark ? '#64748b' : '#94a3b8', textDecoration: 'line-through', marginLeft: '8px' }}>
                     ₹{selectedMedicine.mrp}
                   </span>
                 </div>
@@ -1771,9 +1894,9 @@ export default function Pharmacy() {
                   <button
                     onClick={() => openTata1mg(selectedMedicine.name)}
                     style={{
-                      background: '#fff1f2',
-                      color: '#be123c',
-                      border: '1.5px solid #fecdd3',
+                      background: isDark ? 'rgba(225, 29, 72, 0.15)' : '#fff1f2',
+                      color: isDark ? '#fda4af' : '#be123c',
+                      border: isDark ? '1px solid rgba(225, 29, 72, 0.3)' : '1.5px solid #fecdd3',
                       padding: '10px 16px',
                       borderRadius: '8px',
                       fontWeight: 700,

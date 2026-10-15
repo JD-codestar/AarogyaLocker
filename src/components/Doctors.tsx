@@ -151,51 +151,32 @@ export default function Doctors({
   }, [doctors, localQuery, activeCity, selectedSpecialty, availabilityFilter]);
 
   return (
-    <section className="doctors-page" aria-labelledby="doctors-heading" style={{ 
-      padding: 'var(--space-4) 0 var(--space-12)', 
-      minHeight: '85vh',
-      backgroundColor: '#f8fafc'
-    }}>
+    <section className="doctors-page" aria-labelledby="doctors-heading">
       
       {/* Top Search & Filter Bar */}
-      <div style={{ 
-        background: 'linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%)',
-        borderBottom: '1px solid #e2e8f0', 
-        padding: '28px 0 24px', 
-        marginBottom: '28px' 
-      }}>
+      <div className="doctors-search-header">
         <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
             <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#ecfdf5', color: '#047857', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 700, marginBottom: '8px', border: '1px solid #a7f3d0' }}>
+              <div className="tricity-network-pill">
                 <LocationIcon size={14} /> <span>Chandigarh & Mohali (Tricity Network)</span>
               </div>
-              <h1 id="doctors-heading" style={{ fontSize: '30px', fontWeight: 800, color: '#0f172a', margin: 0, letterSpacing: '-0.5px' }}>
+              <h1 id="doctors-heading" className="doctors-page-title">
                 Find Top Doctors & Specialists
               </h1>
-              <p style={{ color: '#64748b', fontSize: '14px', margin: '4px 0 0' }}>
+              <p className="doctors-page-subtitle">
                 Consult leading clinicians from PGIMER, Fortis Mohali, Max Hospital, and GMCH 32.
               </p>
             </div>
 
             {/* City Selector Buttons */}
-            <div style={{ display: 'flex', background: '#e2e8f0', padding: '3px', borderRadius: '12px', gap: '4px' }}>
+            <div className="city-selector-tabs">
               {(['All', 'Chandigarh', 'Mohali'] as const).map((city) => (
                 <button
                   key={city}
                   type="button"
                   onClick={() => handleCityChange(city)}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: '10px',
-                    border: 'none',
-                    background: activeCity === city ? '#1e3a8a' : 'transparent',
-                    color: activeCity === city ? '#ffffff' : '#475569',
-                    fontWeight: activeCity === city ? 700 : 500,
-                    fontSize: '13px',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease'
-                  }}
+                  className={`city-tab-btn ${activeCity === city ? 'active' : ''}`}
                 >
                   {city === 'All' ? '🌐 All Tricity' : `📍 ${city}`}
                 </button>
@@ -204,18 +185,8 @@ export default function Doctors({
           </div>
 
           {/* Interactive In-Page Search Box */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            background: '#ffffff',
-            borderRadius: '14px',
-            border: '2px solid #cbd5e1',
-            padding: '8px 18px',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-            gap: '12px',
-            transition: 'border-color 0.2s, box-shadow 0.2s'
-          }}>
-            <div style={{ color: '#1e3a8a', display: 'flex', alignItems: 'center' }}>
+          <div className="doctors-search-box">
+            <div className="doctors-search-icon">
               <SearchIcon size={20} />
             </div>
             <input
@@ -224,62 +195,32 @@ export default function Doctors({
               onChange={(e) => handleQueryChange(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Search doctor name, specialty, hospital, degrees (e.g. Cardiologist, Fortis, PGIMER, MBBS)..."
-              style={{
-                flex: 1,
-                border: 'none',
-                outline: 'none',
-                fontSize: '15px',
-                color: '#1e293b'
-              }}
+              className="doctors-search-input"
             />
             {localQuery && (
               <button
                 type="button"
                 onClick={handleClear}
                 title="Clear search (Esc)"
-                style={{
-                  background: '#f1f5f9',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '26px',
-                  height: '26px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#64748b',
-                  cursor: 'pointer',
-                  transition: 'background 0.15s'
-                }}
+                className="doctors-search-clear"
               >
                 <CloseIcon size={14} />
               </button>
             )}
-            <span style={{ fontSize: '11px', color: '#94a3b8', borderLeft: '1px solid #e2e8f0', paddingLeft: '10px' }}>
+            <span className="doctors-search-hint">
               Press <strong>Esc</strong> to clear
             </span>
           </div>
 
           {/* Specialty Quick Chips */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px', overflowX: 'auto', paddingBottom: '4px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', whiteSpace: 'nowrap' }}>Specialty:</span>
+          <div className="specialty-chips-row">
+            <span className="specialty-chips-label">Specialty:</span>
             {popularSpecialties.map((spec) => (
               <button
                 key={spec}
                 type="button"
                 onClick={() => setSelectedSpecialty(spec)}
-                style={{
-                  padding: '5px 14px',
-                  borderRadius: '16px',
-                  border: '1px solid',
-                  borderColor: selectedSpecialty === spec ? '#1e3a8a' : '#e2e8f0',
-                  background: selectedSpecialty === spec ? '#1e3a8a' : '#ffffff',
-                  color: selectedSpecialty === spec ? '#ffffff' : '#475569',
-                  fontSize: '12px',
-                  fontWeight: selectedSpecialty === spec ? 700 : 500,
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap',
-                  transition: 'all 0.15s ease'
-                }}
+                className={`specialty-chip-btn ${selectedSpecialty === spec ? 'active' : ''}`}
               >
                 {spec}
               </button>
@@ -287,7 +228,7 @@ export default function Doctors({
           </div>
 
           {/* Mode & Availability Filter Badges */}
-          <div style={{ display: 'flex', gap: '8px', marginTop: '10px', flexWrap: 'wrap' }}>
+          <div className="filter-modes-row">
             {[
               { id: 'all', label: 'All Modes' },
               { id: 'today', label: '⚡ Available Today' },
@@ -298,17 +239,7 @@ export default function Doctors({
                 key={pill.id}
                 type="button"
                 onClick={() => setAvailabilityFilter(pill.id as any)}
-                style={{
-                  padding: '4px 12px',
-                  borderRadius: '8px',
-                  border: '1px solid',
-                  borderColor: availabilityFilter === pill.id ? '#047857' : '#cbd5e1',
-                  background: availabilityFilter === pill.id ? '#ecfdf5' : 'transparent',
-                  color: availabilityFilter === pill.id ? '#047857' : '#64748b',
-                  fontSize: '12px',
-                  fontWeight: availabilityFilter === pill.id ? 700 : 500,
-                  cursor: 'pointer'
-                }}
+                className={`mode-filter-pill ${availabilityFilter === pill.id ? 'active' : ''}`}
               >
                 {pill.label}
               </button>
@@ -318,16 +249,7 @@ export default function Doctors({
               <button
                 type="button"
                 onClick={handleResetAll}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#dc2626',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  padding: '4px 8px',
-                  marginLeft: 'auto'
-                }}
+                className="reset-filters-btn"
               >
                 Reset All Filters
               </button>
@@ -339,11 +261,11 @@ export default function Doctors({
       {/* Main Results Column */}
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px' }}>
         <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-          <h2 style={{ fontSize: '17px', fontWeight: 700, color: '#0f172a', margin: 0 }}>
+          <h2 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--color-dark-text)', margin: 0 }}>
             {displayDoctors.length} {displayDoctors.length === 1 ? 'Doctor' : 'Doctors'} available {activeCity !== 'All' ? `in ${activeCity}` : 'in Tricity'}
-            {localQuery && <span style={{ color: '#2563eb', fontWeight: 500, fontSize: '15px' }}> matching "{localQuery}"</span>}
+            {localQuery && <span style={{ color: 'var(--color-deep-blue)', fontWeight: 600, fontSize: '15px' }}> matching "{localQuery}"</span>}
           </h2>
-          <span style={{ color: '#64748b', fontSize: '13px' }}>
+          <span style={{ color: 'var(--color-slate)', fontSize: '13px' }}>
             Verified hospital appointments & video consults
           </span>
         </div>
@@ -360,21 +282,14 @@ export default function Doctors({
             ))}
           </div>
         ) : (
-          <div className="empty-state" style={{ 
-            background: '#ffffff', 
-            borderRadius: '16px', 
-            padding: '50px 24px', 
-            textAlign: 'center',
-            border: '1px solid #e2e8f0',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
-          }}>
-            <div style={{ color: '#94a3b8', display: 'flex', justifyContent: 'center', marginBottom: '12px' }}>
+          <div className="empty-state doctors-empty-state">
+            <div style={{ color: 'var(--color-slate)', display: 'flex', justifyContent: 'center', marginBottom: '12px' }}>
               <SearchIcon size={56} />
             </div>
-            <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#0f172a', margin: '0 0 8px' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--color-dark-text)', margin: '0 0 8px' }}>
               No doctors found matching your criteria
             </h3>
-            <p style={{ color: '#64748b', maxWidth: '480px', margin: '0 auto 20px', fontSize: '14px', lineHeight: 1.5 }}>
+            <p style={{ color: 'var(--color-slate)', maxWidth: '480px', margin: '0 auto 20px', fontSize: '14px', lineHeight: 1.5 }}>
               We couldn't find any doctors matching "{localQuery || selectedSpecialty}". Try broadening your search or resetting filters to view all Tricity hospital doctors.
             </p>
             <button

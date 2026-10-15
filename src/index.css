@@ -19,6 +19,8 @@
   --color-red-light: #fef2f2;
   --color-light-bg: #F5F7FA;
   --color-dark-text: #202938;
+  --color-slate: #64748b;
+  --color-dark: #1e293b;
 
   /* Neutral Palette */
   --color-gray-50: #f9fafb;
@@ -77,6 +79,40 @@
   /* Layout */
   --max-width: 1200px;
   --nav-height: 72px;
+}
+
+/* --- Dark Mode Design Tokens --- */
+[data-theme="dark"] {
+  /* Surfaces & Backgrounds */
+  --color-white: #0f172a;
+  --color-light-bg: #0b1120;
+  --color-ice-blue: #1e293b;
+
+  /* Typography / Text Colors */
+  --color-dark-text: #f1f5f9;
+  --color-slate: #94a3b8;
+  --color-dark: #f8fafc;
+
+  /* Neutrals */
+  --color-gray-50: #172033;
+  --color-gray-100: #1e293b;
+  --color-gray-200: #334155;
+  --color-gray-300: #475569;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #cbd5e1;
+  --color-gray-600: #e2e8f0;
+  --color-gray-700: #f8fafc;
+
+  /* Brand Accents */
+  --color-deep-blue: #60a5fa;
+  --color-deep-blue-hover: #93c5fd;
+  --color-deep-blue-light: #38bdf8;
+
+  /* Shadows for Dark Mode */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
 }
 
 /* --- Reset & Base --- */

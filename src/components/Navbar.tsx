@@ -3,7 +3,7 @@
  */
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { AarogyaLockerLogo, MenuIcon, CloseIcon } from '../Icons';
+import { AarogyaLockerLogo, MenuIcon, CloseIcon, SunIcon, MoonIcon } from '../Icons';
 import { navLinks } from '../data';
 import { useApp } from '../context/AppContext';
 import type { UserRole } from '../types';
@@ -20,7 +20,7 @@ export default function Navbar({ onSignIn }: NavbarProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { currentUser, isLoggedIn, logout, switchRole } = useApp();
+  const { currentUser, isLoggedIn, logout, switchRole, theme, toggleTheme } = useApp();
 
   const toggleMobile = () => setMobileOpen((prev) => !prev);
   const closeMobile = () => setMobileOpen(false);
@@ -66,48 +66,9 @@ export default function Navbar({ onSignIn }: NavbarProps) {
         {/* Desktop links */}
         <div className="navbar-links" role="menubar">
           {navLinks.map((link) => {
-            const isLocker = link.href === '/health-records';
             const isActive = link.href === '/' 
               ? location.pathname === '/' 
               : location.pathname.startsWith(link.href);
-
-            if (isLocker) {
-              return (
-                <Link 
-                  key={link.label} 
-                  to={link.href} 
-                  role="menuitem"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    fontWeight: 700,
-                    color: '#1e3a8a',
-                    background: isActive ? 'rgba(30, 58, 138, 0.12)' : 'rgba(30, 58, 138, 0.05)',
-                    padding: '6px 14px',
-                    borderRadius: '20px',
-                    border: isActive ? '2px solid #1e3a8a' : '1px solid rgba(30, 58, 138, 0.15)',
-                    boxShadow: isActive ? '0 2px 8px rgba(30, 58, 138, 0.12)' : 'none',
-                    transition: 'all 0.15s ease'
-                  }}
-                >
-                  <span>🔐</span>
-                  {link.label}
-                  <span style={{
-                    fontSize: '9px',
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
-                    background: '#10b981',
-                    color: '#ffffff',
-                    padding: '1px 6px',
-                    borderRadius: '10px'
-                  }}>
-                    ABDM
-                  </span>
-                </Link>
-              );
-            }
 
             return (
               <Link 
@@ -116,11 +77,15 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                 role="menuitem"
                 style={{
                   display: 'inline-block',
-                  padding: '6px 12px',
+                  padding: '6px 14px',
                   borderRadius: '20px',
                   fontWeight: isActive ? 700 : 500,
-                  color: isActive ? '#1e3a8a' : 'var(--color-dark)',
-                  background: isActive ? 'rgba(30, 58, 138, 0.08)' : 'transparent',
+                  color: isActive 
+                    ? (theme === 'dark' ? '#60a5fa' : '#1e3a8a') 
+                    : (theme === 'dark' ? '#cbd5e1' : 'var(--color-dark-text)'),
+                  background: isActive 
+                    ? (theme === 'dark' ? 'rgba(96, 165, 250, 0.15)' : 'rgba(30, 58, 138, 0.08)') 
+                    : 'transparent',
                   transition: 'all 0.15s ease'
                 }}
               >
@@ -132,6 +97,21 @@ export default function Navbar({ onSignIn }: NavbarProps) {
 
         {/* Desktop actions */}
         <div className="navbar-actions" ref={dropdownRef} style={{ position: 'relative' }}>
+          {/* Dark / Light Mode Toggle Button */}
+          <button
+            type="button"
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? (
+              <SunIcon size={19} color="#fbbf24" />
+            ) : (
+              <MoonIcon size={19} color="#1e3a8a" />
+            )}
+          </button>
+
           {isLoggedIn && currentUser ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
               <button
@@ -141,8 +121,8 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px',
-                  background: 'var(--color-ice-blue)',
-                  border: '1px solid var(--color-gray-200)',
+                  background: theme === 'dark' ? '#1e293b' : 'var(--color-ice-blue)',
+                  border: `1px solid ${theme === 'dark' ? '#334155' : 'var(--color-gray-200)'}`,
                   borderRadius: '30px',
                   padding: '4px 14px 4px 6px',
                   cursor: 'pointer',
@@ -166,7 +146,7 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                   {currentUser.avatar || currentUser.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div style={{ textAlign: 'left', lineHeight: 1.2 }}>
-                  <div style={{ fontWeight: 600, fontSize: '13px', color: 'var(--color-gray-900)' }}>
+                  <div style={{ fontWeight: 600, fontSize: '13px', color: theme === 'dark' ? '#f1f5f9' : 'var(--color-dark-text)' }}>
                     {currentUser.name}
                   </div>
                   <div style={{ 
@@ -179,7 +159,7 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                     {currentUser.role}
                   </div>
                 </div>
-                <span style={{ fontSize: '10px', color: 'var(--color-slate)', marginLeft: '2px' }}>▼</span>
+                <span style={{ fontSize: '10px', color: theme === 'dark' ? '#94a3b8' : 'var(--color-slate)', marginLeft: '2px' }}>▼</span>
               </button>
 
               {/* User Dropdown Menu */}
@@ -189,16 +169,16 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                   top: '115%',
                   right: 0,
                   width: '260px',
-                  background: 'white',
+                  background: theme === 'dark' ? '#1e293b' : 'white',
                   borderRadius: '14px',
-                  boxShadow: '0 12px 30px rgba(0,0,0,0.12)',
-                  border: '1px solid var(--color-gray-200)',
+                  boxShadow: theme === 'dark' ? '0 12px 30px rgba(0,0,0,0.5)' : '0 12px 30px rgba(0,0,0,0.12)',
+                  border: `1px solid ${theme === 'dark' ? '#334155' : 'var(--color-gray-200)'}`,
                   padding: '12px',
                   zIndex: 1000
                 }}>
-                  <div style={{ padding: '8px 10px', borderBottom: '1px solid var(--color-gray-200)', marginBottom: '8px' }}>
-                    <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--color-deep-blue)' }}>{currentUser.name}</div>
-                    <div style={{ fontSize: '12px', color: 'var(--color-slate)' }}>{currentUser.email}</div>
+                  <div style={{ padding: '8px 10px', borderBottom: `1px solid ${theme === 'dark' ? '#334155' : 'var(--color-gray-200)'}`, marginBottom: '8px' }}>
+                    <div style={{ fontWeight: 700, fontSize: '14px', color: theme === 'dark' ? '#60a5fa' : 'var(--color-deep-blue)' }}>{currentUser.name}</div>
+                    <div style={{ fontSize: '12px', color: theme === 'dark' ? '#94a3b8' : 'var(--color-slate)' }}>{currentUser.email}</div>
                     {currentUser.abhaId && (
                       <div style={{ fontSize: '11px', color: 'var(--color-cyan)', marginTop: '4px', fontWeight: 600 }}>
                         ABHA: {currentUser.abhaId}
@@ -206,7 +186,7 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                     )}
                   </div>
 
-                  <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-slate)', padding: '4px 10px', textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: theme === 'dark' ? '#94a3b8' : 'var(--color-slate)', padding: '4px 10px', textTransform: 'uppercase' }}>
                     Navigation
                   </div>
                   <button
@@ -223,7 +203,7 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                       borderRadius: '6px',
                       cursor: 'pointer',
                       fontSize: '13px',
-                      color: 'var(--color-deep-blue)',
+                      color: theme === 'dark' ? '#f1f5f9' : 'var(--color-deep-blue)',
                       fontWeight: 600,
                       display: 'flex',
                       alignItems: 'center',
@@ -247,19 +227,34 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                       borderRadius: '6px',
                       cursor: 'pointer',
                       fontSize: '13px',
-                      color: 'var(--color-deep-blue)',
+                      color: theme === 'dark' ? '#f1f5f9' : 'var(--color-deep-blue)',
                       fontWeight: 600,
                       display: 'flex',
                       alignItems: 'center',
+                      justifyContent: 'space-between',
                       gap: '8px'
                     }}
                   >
-                    <span>🔐</span> Digital Health Locker
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span>🔐</span> Digital Health Locker
+                    </span>
+                    <span style={{
+                      fontSize: '9px',
+                      fontWeight: 800,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px',
+                      background: '#10b981',
+                      color: '#ffffff',
+                      padding: '2px 6px',
+                      borderRadius: '10px'
+                    }}>
+                      ABDM
+                    </span>
                   </button>
 
-                  <div style={{ margin: '8px 0', borderTop: '1px solid var(--color-gray-200)' }} />
+                  <div style={{ margin: '8px 0', borderTop: `1px solid ${theme === 'dark' ? '#334155' : 'var(--color-gray-200)'}` }} />
 
-                  <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-slate)', padding: '4px 10px', textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: theme === 'dark' ? '#94a3b8' : 'var(--color-slate)', padding: '4px 10px', textTransform: 'uppercase' }}>
                     Switch Demo Persona
                   </div>
                   {(['patient', 'doctor', 'staff', 'admin'] as UserRole[]).map((r) => (
@@ -274,12 +269,16 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                         width: '100%',
                         textAlign: 'left',
                         padding: '6px 10px',
-                        background: currentUser.role === r ? 'var(--color-ice-blue)' : 'none',
+                        background: currentUser.role === r 
+                          ? (theme === 'dark' ? '#334155' : 'var(--color-ice-blue)') 
+                          : 'none',
                         border: 'none',
                         borderRadius: '6px',
                         cursor: 'pointer',
                         fontSize: '12px',
-                        color: currentUser.role === r ? 'var(--color-deep-blue)' : 'var(--color-slate)',
+                        color: currentUser.role === r 
+                          ? (theme === 'dark' ? '#f8fafc' : 'var(--color-deep-blue)') 
+                          : (theme === 'dark' ? '#cbd5e1' : 'var(--color-slate)'),
                         fontWeight: currentUser.role === r ? 700 : 500,
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -296,7 +295,7 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                     </button>
                   ))}
 
-                  <div style={{ margin: '8px 0', borderTop: '1px solid var(--color-gray-200)' }} />
+                  <div style={{ margin: '8px 0', borderTop: `1px solid ${theme === 'dark' ? '#334155' : 'var(--color-gray-200)'}` }} />
 
                   <button
                     onClick={() => {
@@ -329,22 +328,62 @@ export default function Navbar({ onSignIn }: NavbarProps) {
           )}
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          className="navbar-mobile-toggle"
-          type="button"
-          onClick={toggleMobile}
-          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <CloseIcon /> : <MenuIcon />}
-        </button>
+        {/* Mobile controls: theme toggle + hamburger */}
+        <div className="navbar-mobile-controls">
+          <button
+            type="button"
+            className="theme-toggle-btn mobile-theme-toggle"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? (
+              <SunIcon size={18} color="#fbbf24" />
+            ) : (
+              <MoonIcon size={18} color="#1e3a8a" />
+            )}
+          </button>
+
+          <button
+            className="navbar-mobile-toggle"
+            type="button"
+            onClick={toggleMobile}
+            aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
       <div className={`navbar-mobile-menu ${mobileOpen ? 'open' : ''}`} role="menu">
+        {/* Mobile theme switch pill */}
+        <div className="mobile-theme-row">
+          <span style={{ fontSize: '13px', fontWeight: 600, color: theme === 'dark' ? '#f1f5f9' : 'var(--color-dark-text)' }}>
+            Appearance
+          </span>
+          <button
+            type="button"
+            className="mobile-theme-pill"
+            onClick={toggleTheme}
+            aria-label={`Current mode is ${theme}. Click to switch theme.`}
+          >
+            {theme === 'dark' ? (
+              <>
+                <SunIcon size={16} color="#fbbf24" />
+                <span>Dark Mode</span>
+              </>
+            ) : (
+              <>
+                <MoonIcon size={16} color="#1e3a8a" />
+                <span>Light Mode</span>
+              </>
+            )}
+          </button>
+        </div>
+
         {navLinks.map((link) => {
-          const isLocker = link.href === '/health-records';
           const isActive = link.href === '/' 
             ? location.pathname === '/' 
             : location.pathname.startsWith(link.href);
@@ -360,31 +399,21 @@ export default function Navbar({ onSignIn }: NavbarProps) {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 fontWeight: isActive ? 700 : 500,
-                color: isActive ? '#1e3a8a' : 'inherit',
-                background: isActive ? 'rgba(30, 58, 138, 0.08)' : (isLocker ? 'rgba(30, 58, 138, 0.04)' : 'transparent'),
+                color: isActive 
+                  ? (theme === 'dark' ? '#60a5fa' : '#1e3a8a') 
+                  : (theme === 'dark' ? '#cbd5e1' : 'inherit'),
+                background: isActive 
+                  ? (theme === 'dark' ? 'rgba(96, 165, 250, 0.15)' : 'rgba(30, 58, 138, 0.08)') 
+                  : 'transparent',
                 padding: '10px 14px',
                 borderRadius: '8px',
-                borderLeft: isActive ? '3px solid #1e3a8a' : '3px solid transparent',
+                borderLeft: isActive 
+                  ? `3px solid ${theme === 'dark' ? '#60a5fa' : '#1e3a8a'}` 
+                  : '3px solid transparent',
                 transition: 'all 0.15s ease'
               }}
             >
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {isLocker && <span>🔐</span>}
-                {link.label}
-              </span>
-              {isLocker && (
-                <span style={{
-                  fontSize: '9px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  background: '#10b981',
-                  color: '#ffffff',
-                  padding: '2px 6px',
-                  borderRadius: '10px'
-                }}>
-                  ABDM Locker
-                </span>
-              )}
+              <span>{link.label}</span>
             </Link>
           );
         })}
