@@ -2,11 +2,12 @@
  * Doctors.tsx — Featured doctors list with real-time multi-field search and responsive filters.
  * Tricity healthcare network: Chandigarh & Mohali.
  */
-import { useState, useMemo, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState, useMemo, useEffect, useRef } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import type { Doctor } from '../data';
 import DoctorCard from './DoctorCard';
 import { SearchIcon, LocationIcon, CloseIcon } from '../Icons';
+import { getSearchRecommendations, type SearchRecommendation } from '../data/searchRecommendations';
 
 interface DoctorsProps {
   doctors: Doctor[];
@@ -32,6 +33,25 @@ export default function Doctors({
   const [activeCity, setActiveCity] = useState<'All' | 'Chandigarh' | 'Mohali'>('All');
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>('All');
   const [availabilityFilter, setAvailabilityFilter] = useState<'all' | 'today' | 'video' | 'in-person'>('all');
+  const [isFocused, setIsFocused] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+
+  const searchBoxRef = useRef<HTMLDivElement>(null);
+
+  const recommendations = useMemo(() => {
+    return getSearchRecommendations(localQuery);
+  }, [localQuery]);
+
+  // Click outside to dismiss recommendations
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchBoxRef.current && !searchBoxRef.current.contains(e.target as Node)) {
+        setIsFocused(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Sync from URL search params on mount or param changes
   useEffect(() => {
@@ -97,10 +117,37 @@ export default function Doctors({
     setAvailabilityFilter('all');
   };
 
-  // Keyboard shortcut: Escape clears search
+  const navigate = useNavigate();
+
+  const handleSelectRecommendation = (rec: SearchRecommendation) => {
+    setIsFocused(false);
+    setSelectedIndex(-1);
+    if (!rec.targetUrl || rec.targetUrl.startsWith('/doctors')) {
+      handleQueryChange(rec.query || rec.title);
+    } else {
+      navigate(rec.targetUrl);
+    }
+  };
+
+  // Keyboard navigation & Escape
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Escape') {
+      setIsFocused(false);
       handleClear();
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setIsFocused(true);
+      setSelectedIndex((prev) => (prev < recommendations.length - 1 ? prev + 1 : 0));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : recommendations.length - 1));
+    } else if (e.key === 'Enter') {
+      if (selectedIndex >= 0 && selectedIndex < recommendations.length) {
+        e.preventDefault();
+        handleSelectRecommendation(recommendations[selectedIndex]);
+      } else {
+        setIsFocused(false);
+      }
     }
   };
 
@@ -185,14 +232,19 @@ export default function Doctors({
           </div>
 
           {/* Interactive In-Page Search Box */}
-          <div className="doctors-search-box">
+          <div className="doctors-search-box" ref={searchBoxRef} style={{ position: 'relative' }}>
             <div className="doctors-search-icon">
               <SearchIcon size={20} />
             </div>
             <input
               type="text"
               value={localQuery}
-              onChange={(e) => handleQueryChange(e.target.value)}
+              onChange={(e) => {
+                handleQueryChange(e.target.value);
+                setIsFocused(true);
+                setSelectedIndex(-1);
+              }}
+              onFocus={() => setIsFocused(true)}
               onKeyDown={handleKeyDown}
               placeholder="Search doctor name, specialty, hospital, degrees (e.g. Cardiologist, Fortis, PGIMER, MBBS)..."
               className="doctors-search-input"
@@ -210,6 +262,88 @@ export default function Doctors({
             <span className="doctors-search-hint">
               Press <strong>Esc</strong> to clear
             </span>
+
+            {/* Recommendations Dropdown */}
+            {isFocused && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 8px)',
+                  left: 0,
+                  right: 0,
+                  background: 'var(--color-surface, #ffffff)',
+                  borderRadius: '16px',
+                  border: '1px solid var(--color-border, #e2e8f0)',
+                  boxShadow: '0 20px 45px rgba(0,0,0,0.18)',
+                  zIndex: 1000,
+                  overflow: 'hidden',
+                  textAlign: 'left',
+                  animation: 'fadeIn 0.18s ease-out'
+                }}
+              >
+                {/* Header */}
+                <div style={{
+                  padding: '10px 16px',
+                  background: 'var(--color-bg-secondary, #f8fafc)',
+                  borderBottom: '1px solid var(--color-border, #e2e8f0)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-muted, #64748b)' }}>
+                    {localQuery ? '💡 Recommended Matches:' : '🔥 Suggested Searches (Doctors, Hospitals, Symptoms):'}
+                  </span>
+                  <span style={{ fontSize: '11px', color: 'var(--color-muted, #94a3b8)' }}>
+                    Navigate with ↑ / ↓ • Enter to select
+                  </span>
+                </div>
+
+                {/* List of items */}
+                <div style={{ maxHeight: '320px', overflowY: 'auto' }}>
+                  {recommendations.slice(0, 7).map((rec, idx) => (
+                    <div
+                      key={rec.id}
+                      onClick={() => handleSelectRecommendation(rec)}
+                      onMouseEnter={() => setSelectedIndex(idx)}
+                      style={{
+                        padding: '12px 16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        background: selectedIndex === idx ? 'var(--color-hover, rgba(59, 130, 246, 0.08))' : 'transparent',
+                        borderBottom: '1px solid var(--color-border, #f1f5f9)',
+                        transition: 'background 0.1s ease'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <span style={{ fontSize: '18px' }}>{rec.icon}</span>
+                        <div>
+                          <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-dark-text, #0f172a)' }}>
+                            {rec.title}
+                          </div>
+                          <div style={{ fontSize: '12px', color: 'var(--color-muted, #64748b)' }}>
+                            {rec.subtitle}
+                          </div>
+                        </div>
+                      </div>
+                      <span style={{
+                        fontSize: '11px',
+                        padding: '3px 8px',
+                        borderRadius: '12px',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.04em',
+                        background: rec.category === 'specialist' ? '#dbeafe' : rec.category === 'hospital' ? '#dcfce7' : rec.category === 'symptom' ? '#fee2e2' : '#f3e8ff',
+                        color: rec.category === 'specialist' ? '#1e40af' : rec.category === 'hospital' ? '#166534' : rec.category === 'symptom' ? '#991b1b' : '#6b21a8'
+                      }}>
+                        {rec.badge || rec.category}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Specialty Quick Chips */}

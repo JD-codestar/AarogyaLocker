@@ -92,6 +92,12 @@ export interface ChatMessage {
     possibleCauses: string[];
     precautions: string[];
     recommendedSpecialist: string;
+    recommendedSearches?: Array<{
+      label: string;
+      url: string;
+      icon?: string;
+      type?: 'doctor' | 'hospital' | 'test' | 'pharmacy' | 'prompt';
+    }>;
   };
 }
 
