@@ -10,6 +10,7 @@
 [![ABDM Ready](https://img.shields.io/badge/ABDM-ABHA_M1--M3_Ready-0284C7?style=for-the-badge&logo=shield&logoColor=white)](https://abdm.gov.in/)
 [![DPDP Act](https://img.shields.io/badge/Compliance-DPDP_Act_2023-10B981?style=for-the-badge)](https://meity.gov.in/)
 [![WCAG 2.1 AA](https://img.shields.io/badge/Accessibility-WCAG_2.1_AA-8B5CF6?style=for-the-badge)](https://www.w3.org/WAI/standards-guidelines/wcag/)
+[![Theme](https://img.shields.io/badge/Theme-Switchable_Dark_%26_Light-0ea5e9?style=for-the-badge)](https://github.com/JD-codestar/AarogyaLocker)
 
 </div>
 
@@ -23,57 +24,59 @@
 
 ## 📖 Table of Contents
 - [📌 Executive Overview](#-executive-overview)
-- [🔄 How the Website Works (Step-by-Step Flowcharts)](#-how-the-website-works-step-by-step-flowcharts)
-  - [Flowchart 1: Complete Website Navigation & User Journey](#flowchart-1-complete-website-navigation--user-journey)
-  - [Flowchart 2: Doctor Discovery & Slot Booking Flow](#flowchart-2-doctor-discovery--slot-booking-flow)
-  - [Flowchart 3: ABHA Digital Health Locker & Document Vault Flow](#flowchart-3-abha-digital-health-locker--document-vault-flow)
-  - [Flowchart 4: Virtual Consultation & E-Prescription Delivery Flow](#flowchart-4-virtual-consultation--e-prescription-delivery-flow)
-  - [Flowchart 5: Multi-Persona Role Switcher Workflow](#flowchart-5-multi-persona-role-switcher-workflow)
-  - [Flowchart 6: Reactive Dark & Light Theme Engine Flow](#flowchart-6-reactive-dark--light-theme-engine-flow)
+- [🔄 System Architecture & Flowcharts](#-system-architecture--flowcharts)
+  - [Flowchart 1: Complete User Journey & Routing](#flowchart-1-complete-user-journey--routing)
+  - [Flowchart 2: Doctor Discovery & Appointment Booking](#flowchart-2-doctor-discovery--appointment-booking)
+  - [Flowchart 3: ABHA Digital Health Locker & Consent Sharing](#flowchart-3-abha-digital-health-locker--consent-sharing)
+  - [Flowchart 4: HD Teleconsultation & E-Prescription Generation](#flowchart-4-hd-teleconsultation--e-prescription-generation)
+  - [Flowchart 5: Multi-Persona Role Switcher Engine](#flowchart-5-multi-persona-role-switcher-engine)
+  - [Flowchart 6: Switchable Dark & Light Mode Theme Cascade](#flowchart-6-switchable-dark--light-mode-theme-cascade)
 - [📸 Real Website Showcases & Screenshots](#-real-website-showcases--screenshots)
   - [1. Homepage — Dark & Light Mode](#1-homepage--dark--light-mode)
-  - [2. ABHA Digital Health Vault](#2-abha-digital-health-vault)
-  - [3. Find Doctors & Specialists (Practo-Style Directory)](#3-find-doctors--specialists-practo-style-directory)
-  - [4. Top Hospitals & OPD Network (Dark Mode)](#4-top-hospitals--opd-network-dark-mode)
-  - [5. Online Teleconsultation Suite](#5-online-teleconsultation-suite)
-  - [6. Patient Health Dashboard & Telemetry](#6-patient-health-dashboard--telemetry)
-  - [7. AI Health Specialist Triage](#7-ai-health-specialist-triage)
-- [🚀 Core Modules & Features](#-core-modules--features)
-  - [1. 🔐 ABHA Digital Health Locker](#1--abha-digital-health-locker)
-  - [2. 📹 Virtual Teleconsultation & Live Room](#2--virtual-teleconsultation--live-room)
-  - [3. 🩺 Practo-Grade Doctor Search & Scheduling](#3--practo-grade-doctor-search--scheduling)
-  - [4. 🌓 Reactive Dark & Light Theme Engine](#4--reactive-dark--light-theme-engine)
-  - [5. 🤖 AI Health Specialist & Global Widget](#5--ai-health-specialist--global-widget)
-  - [6. ⚖️ Legal, Regulatory & Compliance Suite](#6-️-legal-regulatory--compliance-suite)
-  - [7. 👥 Multi-Persona Management Portals](#7--multi-persona-management-portals)
-- [🗺️ Complete Application Sitemap & Routes](#️-complete-application-sitemap--routes)
+  - [2. AI Health Specialist with Switchable Dark Mode & Clinical Triage](#2-ai-health-specialist-with-switchable-dark-mode--clinical-triage)
+  - [3. ABHA Digital Health Locker Vault](#3-abha-digital-health-locker-vault)
+  - [4. Doctor Discovery Directory (Practo-Style)](#4-doctor-discovery-directory-practo-style)
+  - [5. Hospital & OPD Pass Network (Tricity Coverage)](#5-hospital--opd-pass-network-tricity-coverage)
+  - [6. Telehealth Video Consultation Room](#6-telehealth-video-consultation-room)
+  - [7. Patient Health Dashboard & Telemetry](#7-patient-health-dashboard--telemetry)
+- [🚀 Key Modules & Feature Highlights](#-key-modules--feature-highlights)
+  - [1. 🔐 ABHA Digital Health Vault](#1--abha-digital-health-vault)
+  - [2. 🤖 AI Health Specialist (v5.0 with Gemini API & Smart Autocomplete)](#2--ai-health-specialist-v50-with-gemini-api--smart-autocomplete)
+  - [3. 🌓 Switchable Dark Mode Everywhere](#3--switchable-dark-mode-everywhere)
+  - [4. 🩺 Practo-Grade Doctor Discovery & Scheduling](#4--practo-grade-doctor-discovery--scheduling)
+  - [5. 🏥 Hospital Directory & Digital OPD Passes](#5--hospital-directory--digital-opd-passes)
+  - [6. 📹 Virtual Teleconsultation Room & Live Rx Push](#6--virtual-teleconsultation-room--live-rx-push)
+  - [7. 🧪 Diagnostics & 💊 Online Pharmacy](#7--diagnostics---online-pharmacy)
+  - [8. 👥 4 Multi-Stakeholder Portals](#8--4-multi-stakeholder-portals)
+- [🗺️ Complete Application Sitemap (All 16 Routes)](#️-complete-application-sitemap-all-16-routes)
 - [🎨 UI/UX Design System & Tokens](#-uiux-design-system--tokens)
 - [💻 Tech Stack & Dependencies](#-tech-stack--dependencies)
 - [⚡ Quickstart & Local Installation](#-quickstart--local-installation)
-- [🔒 Regulatory Compliance & Disclaimer](#-regulatory-compliance--disclaimer)
-- [🏆 CU Hackathon Attribution](#-cu-hackathon-attribution)
+- [🚀 Universal Deployment Guide (Vercel, Netlify, GitHub Pages)](#-universal-deployment-guide-vercel-netlify-github-pages)
+- [🔒 Regulatory Compliance & Disclaimers](#-regulatory-compliance--disclaimers)
+- [🏆 Attribution](#-attribution)
 
 ---
 
 ## 📌 Executive Overview
 
-Healthcare data in India is traditionally fragmented across paper prescriptions, physical diagnostic films, hospital OPD receipts, and separate consultation platforms.
+Healthcare in India is traditionally plagued by fragmented paper prescriptions, lost diagnostic films, tedious hospital registration queues, and disconnected consultation platforms.
 
-**AarogyaLocker** unifies the healthcare journey for Indian citizens. Designed specifically for the **CU Hackathon**, it combines:
-1. **ABHA Digital Health Locker**: A secure, ABDM-compliant vault for lifelong health records (Lab Reports, Scans, Prescriptions, Vaccines).
-2. **Practo-Grade Doctor Discovery**: Real-time search across verified doctors in the Tricity (Chandigarh, Mohali, Panchkula) with slot booking.
-3. **Encrypted Teleconsultations**: HD virtual consultation room with live video, patient vital telemetry, in-call messaging, and instant e-prescriptions.
-4. **Doorstep Diagnostics & Pharmacy**: Home sample collection lab tests and digital prescription fulfillment.
-5. **AI Health Specialist**: 24/7 symptom triage assistant with continuous longitudinal health record context.
-6. **Multi-Stakeholder Portals**: Seamless persona switcher for Patients, Clinicians, Hospital Desk Staff, and System Administrators.
+**AarogyaLocker** unifies the end-to-end healthcare journey for Indian citizens into a single, high-performance web platform. Aligned with the **Ayushman Bharat Digital Mission (ABDM)**, it combines:
+
+1. **🔐 Sovereign ABHA Digital Health Locker**: Encrypted, lifelong personal health records vault (Lab Reports, Scans, Prescriptions, Vaccines) with time-bound QR consent sharing (DPDP Act 2023 compliant).
+2. **🤖 AI Health Specialist & Triage Engine (v5.0)**: Conversational triage assistant with structured urgency levels, recommended precautions, 1-click doctor handoffs, and optional live Google Gemini API integration.
+3. **🌓 Switchable Dark Mode Everywhere**: Fully toggleable theme engine in the navbar, inside the AI Chat header, and in the floating widget with zero white-flash across all 16 views.
+4. **🩺 Practo-Grade Doctor Discovery**: Real-time search across verified doctors in the Tricity (Chandigarh, Mohali, Panchkula) with slot-based scheduling.
+5. **🏥 Tricity Hospital Directory & OPD Passes**: Real-time bed availability, emergency trauma levels, and instant paperless OPD pass booking across premier centers (PGIMER, GMCH-32, GMSH-16, Fortis Mohali, Max Super Speciality, Ivy, Sohana, Shalby).
+6. **📹 Encrypted Teleconsultation Suite**: HD virtual consultation room with live video, patient vital telemetry, in-call messaging, and instant digital e-prescriptions.
+7. **👥 Multi-Persona Management Portals**: Instant switcher between Patient, Doctor, Hospital Reception Staff, and System Administrator.
 
 ---
 
-## 🔄 How the Website Works (Step-by-Step Flowcharts)
+## 🔄 System Architecture & Flowcharts
 
-### Flowchart 1: Complete Website Navigation & User Journey
-
-This diagram illustrates how a user enters the AarogyaLocker platform and navigates through all primary modules:
+### Flowchart 1: Complete User Journey & Routing
 
 ```mermaid
 flowchart TD
@@ -113,7 +116,7 @@ flowchart TD
 
     %% Pathway E: AI Health Assistant
     HomeDecision -- "Symptom Triage" --> NavAI["Open AI Assistant (/ai-assistant or Floating Widget)"]
-    NavAI --> ChatAI["Describe Symptoms -> AI Analyzes Red Flags & Recommends Specialist"]
+    NavAI --> ChatAI["Describe Symptoms -> AI Analyzes Urgency & Recommends Specialist"]
     ChatAI --> 1ClickBook["Click 'Book Specialist' -> Handoff to /doctors"]
 
     %% Persona Switcher
@@ -123,9 +126,7 @@ flowchart TD
 
 ---
 
-### Flowchart 2: Doctor Discovery & Slot Booking Flow
-
-How patients discover certified healthcare practitioners, filter by location and clinical specialty, and book time slots:
+### Flowchart 2: Doctor Discovery & Appointment Booking
 
 ```mermaid
 flowchart TD
@@ -150,9 +151,7 @@ flowchart TD
 
 ---
 
-### Flowchart 3: ABHA Digital Health Locker & Document Vault Flow
-
-How personal health records are stored, organized, and shared under ABDM guidelines:
+### Flowchart 3: ABHA Digital Health Locker & Consent Sharing
 
 ```mermaid
 flowchart TD
@@ -185,13 +184,11 @@ flowchart TD
 
 ---
 
-### Flowchart 4: Virtual Consultation & E-Prescription Delivery Flow
-
-The live telehealth consultation cycle from virtual queue to instant electronic prescription:
+### Flowchart 4: HD Teleconsultation & E-Prescription Generation
 
 ```mermaid
 flowchart TD
-    PatientEnters(["Patient visits /consultation"]) --> QueueCheck["View Active Doctor Card (Dr. Priya Sharma) & Consultation Queue #1"]
+    PatientEnters(["Patient visits /consultation"]) --> QueueCheck["View Active Doctor Card & Consultation Queue #1"]
     QueueCheck --> SyncNotice["Verify 'AarogyaLocker Auto-Sync Active' (ABDM Digital Consent)"]
     QueueCheck --> ClickEnter["Click 'Enter Video Consultation Room'"]
     
@@ -216,9 +213,7 @@ flowchart TD
 
 ---
 
-### Flowchart 5: Multi-Persona Role Switcher Workflow
-
-How users can seamlessly test and explore all four stakeholder perspectives:
+### Flowchart 5: Multi-Persona Role Switcher Engine
 
 ```mermaid
 flowchart TD
@@ -245,28 +240,26 @@ flowchart TD
 
 ---
 
-### Flowchart 6: Reactive Dark & Light Theme Engine Flow
-
-How the theme switcher toggles color palettes with zero flicker and full persistence:
+### Flowchart 6: Switchable Dark & Light Mode Theme Cascade
 
 ```mermaid
 flowchart TD
-    ThemeAction(["User clicks Sun / Moon Icon in Header Navigation"]) --> ToggleCall["toggleTheme() invoked in AppContext"]
+    TriggerTheme(["User clicks Theme Toggle (Navbar, AI Chat Header, or Floating Widget)"]) --> ToggleCall["toggleTheme() invoked in AppContext"]
     ToggleCall --> ReadCurrent["Read current theme state ('light' or 'dark')"]
-    ReadCurrent --> FlipTheme["Invert theme state ('light' <--> 'dark')"]
+    ToggleCall --> InvertTheme["Invert theme state ('light' <--> 'dark')"]
     
-    FlipTheme --> StoreStorage["Save 'aarogya_theme' to localStorage"]
-    FlipTheme --> UpdateDOM["Set documentElement.setAttribute('data-theme', newTheme)"]
-    UpdateDOM --> ToggleClass["Add or remove 'dark' class on <html>"]
+    InvertTheme --> SaveStorage["Persist 'aarogya_theme' in localStorage"]
+    InvertTheme --> UpdateAttr["Set documentElement.setAttribute('data-theme', newTheme)"]
+    InvertTheme --> UpdateClass["document.documentElement.classList.toggle('dark', isDark)"]
     
-    subgraph CSSVariableCascade ["Instant Token Re-computation"]
-        ToggleClass --> UpdateBG["--bg-primary: #F8FAFC (Light) <--> #0B1120 (Dark)"]
-        ToggleClass --> UpdateCard["--bg-card: #FFFFFF (Light) <--> #1E293B (Dark)"]
-        ToggleClass --> UpdateText["--text-primary: #0F172A (Light) <--> #F8FAFC (Dark)"]
-        ToggleClass --> UpdateBorder["--border-subtle: #E2E8F0 (Light) <--> #334155 (Dark)"]
+    subgraph CSSVariableCascade ["Instant Global Token Cascade"]
+        UpdateAttr --> VarWhite["--color-white: #FFFFFF (Light) <--> #0F172A (Dark)"]
+        UpdateAttr --> VarBG["--color-light-bg: #F8FAFC (Light) <--> #0B1120 (Dark)"]
+        UpdateAttr --> VarText["--color-dark-text: #0F172A (Light) <--> #F1F5F9 (Dark)"]
+        UpdateAttr --> VarBorder["--color-gray-200: #E2E8F0 (Light) <--> #334155 (Dark)"]
     end
     
-    CSSVariableCascade --> UIComplete["All 16 routes, cards, modals, tables, and inputs re-render without reload"]
+    CSSVariableCascade --> UIComplete["All 16 routes, cards, AI chat bubbles, and modals adapt with zero page reload"]
 ```
 
 ---
@@ -277,7 +270,7 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ### 1. Homepage — Dark & Light Mode
 
-*The homepage features a hero search bar with location selection for the Tricity network, quick service category cards, dynamic dark/light mode toggle in the navigation header, and the floating AI Assistant.*
+*Featuring the intelligent dual search bar with query recommendations, quick healthcare services, live Tricity stats, and the floating AI Assistant.*
 
 <div align="center">
 
@@ -295,7 +288,27 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-### 2. ABHA Digital Health Vault
+### 2. AI Health Specialist with Switchable Dark Mode & Clinical Triage
+
+*Equipped with an in-chat theme switcher button, clinical urgency ratings (Critical, High, Moderate, Low), possible causes, precautions, 1-click doctor routing, and optional Google Gemini API support.*
+
+<div align="center">
+
+**🌙 AI Chat in Full Dark Mode with Structured Triage Card:**
+<p align="center">
+  <img src="docs/images/real_ai_chat_dark.png" alt="AarogyaLocker AI Assistant Triage in Dark Mode" width="95%" style="border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
+</p>
+
+**💬 Floating AI Widget in Dark Mode:**
+<p align="center">
+  <img src="docs/images/real_floating_widget_dark.png" alt="Floating AI Widget in Dark Mode" width="95%" style="border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
+</p>
+
+</div>
+
+---
+
+### 3. ABHA Digital Health Locker Vault
 
 *The patient's digital locker displaying their verified Ayushman Bharat Health Account (ABHA ID), categorized health records (Lab Reports, Scans, Prescriptions, Vaccines), detailed lab findings, and document upload triggers.*
 
@@ -305,7 +318,7 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-### 3. Find Doctors & Specialists (Practo-Style Directory)
+### 4. Doctor Discovery Directory (Practo-Style)
 
 *Search and filter top clinicians across PGIMER, Fortis Mohali, Max Hospital, and GMCH 32. Each doctor card displays verified qualifications, experience, review ratings, consultation fees, and instant booking slots.*
 
@@ -315,7 +328,7 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-### 4. Top Hospitals & OPD Network (Dark Mode)
+### 5. Hospital & OPD Pass Network (Tricity Coverage)
 
 *Search and book verified OPD passes across Chandigarh & Mohali hospitals (PGIMER, GMCH-32, Fortis Mohali). Displays bed capacities, emergency trauma levels, NABH accreditation, and clinician rosters with full Dark & Light mode theme adaptation.*
 
@@ -325,7 +338,7 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-### 5. Online Teleconsultation Suite
+### 6. Telehealth Video Consultation Room
 
 *Distraction-free, full-width telehealth consultation room. Shows the virtual waiting queue position, ABDM auto-sync verification notice, clinician profile, and direct button to enter the HD WebRTC consultation room.*
 
@@ -335,7 +348,7 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-### 6. Patient Health Dashboard & Telemetry
+### 7. Patient Health Dashboard & Telemetry
 
 *Patient dashboard showing real-time vital telemetry cards (Blood Pressure 120/80, Heart Rate 72 bpm, SpO2 98%, Fasting Glucose 95 mg/dL), active medications with dosage schedules, and upcoming appointment countdowns.*
 
@@ -345,19 +358,9 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-### 7. AI Health Specialist Triage
+## 🚀 Key Modules & Feature Highlights
 
-*Interactive AI Family Doctor conversational triage room with quick symptom chips, red flag evaluation, specialist routing, and 1-click booking handoff.*
-
-<p align="center">
-  <img src="docs/images/real_ai_assistant.png" alt="AarogyaLocker AI Assistant" width="95%" style="border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
-</p>
-
----
-
-## 🚀 Core Modules & Features
-
-### 1. 🔐 ABHA Digital Health Locker (`/health-records`)
+### 1. 🔐 ABHA Digital Health Vault (`/health-records`)
 - **Centralized Lifelong Medical Vault**: Store, filter, and preview clinical records across 4 structured categories:
   - 🔬 **Laboratory Diagnostic Reports** (Blood Panels, Lipid Profiles, HbA1c)
   - 🩻 **Radiological Scans & Imaging** (X-Rays, MRIs, CT Scans)
@@ -367,38 +370,69 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 - **ABHA Card Simulation**: 14-digit Ayushman Bharat Health Account (ABHA) ID with QR code verification and Aadhaar linkage indicators.
 - **Granular Consent Management**: Patient-controlled access gates permitting temporary, time-bound view tokens for consulting doctors.
 
-### 2. 📹 Virtual Teleconsultation & Live Room (`/consultation`)
-- **Virtual Waiting Room**: Queue position status ("You are 1st in the queue") with estimated wait times and clinician status badges.
-- **Interactive Call Controls**: Simulated WebRTC HD video interface with microphone mute/unmute, camera toggle, screen sharing, and call termination.
-- **Real-Time In-Call Messaging**: Live textual chat stream between doctor and patient during the appointment.
-- **Instant E-Prescription Generator**: Clinician writes Rx notes, prescribed drugs, dosage frequencies, and duration, which instantly auto-deposits into the patient's Health Locker.
-- **Consultation Ledger**: Historical log of upcoming, completed, and cancelled teleconsultation sessions.
+---
 
-### 3. 🩺 Practo-Grade Doctor Search & Scheduling (`/doctors`)
-- **Real-Time Live Search & Multi-Filters**: Instant filtering by doctor name, medical specialty (Cardiologist, Neurologist, Dermatologist, Orthopedist, General Physician), experience, and consultation fees.
+### 2. 🤖 AI Health Specialist (v5.0 with Gemini API & Smart Autocomplete)
+- **Clinical Urgency Assessment**: Analyzes reported symptoms and classifies urgency:
+  - 🚨 **Critical Emergency**: Immediate 112/108 ambulance prompt & nearest trauma center routing.
+  - ⚠️ **High Priority**: Severe symptoms needing consultation within 4-12 hours.
+  - 🟡 **Moderate**: Routine triage with suggested home precautions and doctor visits.
+  - 🟢 **Low / Informational**: Health guidance, wellness checks, and preventive care.
+- **Intelligent Structured Diagnosis**: Generates potential causes, step-by-step precautions, recommended specialists, and 1-click links to doctors/hospitals/tests.
+- **Switchable Dark Mode**: Dedicated in-chat Sun/Moon toggle for zero-strain nighttime triage.
+- **Live Google Gemini LLM**: Built-in modal to paste your Gemini API key for real-time generative clinical intelligence.
+- **Hero Search Autocomplete**: Recommends top doctors, Tricity hospitals, diagnostic packages, and common symptom queries dynamically as you type.
+
+---
+
+### 3. 🌓 Switchable Dark Mode Everywhere
+- **Three Independent Toggle Points**:
+  1. Main navigation bar (desktop & mobile drawer).
+  2. In-chat header inside the dedicated AI Health Specialist page (`/ai-assistant`).
+  3. Floating AI Widget header on any page.
+- **Zero White-Flash Across Views**: Every component, modal, input, and legal document utilizes CSS custom properties (`var(--color-white)`, `var(--color-dark-text)`, `var(--color-gray-200)`) with synchronized `[data-theme="dark"]` and `.dark` DOM states.
+- **Session Persistence**: Theme preference is remembered across refreshes via `localStorage`.
+
+---
+
+### 4. 🩺 Practo-Grade Doctor Discovery & Scheduling (`/doctors`)
+- **Real-Time Live Search & Multi-Filters**: Instant filtering by doctor name, medical specialty (Cardiology, Neurology, Dermatology, Orthopedics, Pediatrics, General Physician), experience, and consultation fees.
 - **Transparent Clinician Profiles**: Verified medical council registration (MCI/NMC), clinic locations across Tricity, patient review scores, and spoken languages.
 - **Interactive Booking Dialog (`BookingModal.tsx`)**: Slot-based appointment scheduler across 5 upcoming dates with dedicated morning and afternoon time slots.
 - **Clinician Credential Modal (`ProfileModal.tsx`)**: In-depth doctor biography, career milestones, awards, and patient testimonials.
 
-### 4. 🌓 Reactive Dark & Light Theme Engine
-- **Universal Tokenization**: Built on unified CSS custom properties (`--bg-primary`, `--bg-card`, `--text-primary`, `--border-subtle`, `--accent-primary`).
-- **Instant Adaptive Contrast**:
-  - Light Mode: Crisp medical ice-blue backdrop, high-contrast dark slate typography, and clean elevation shadows.
-  - Dark Mode: Premium deep slate surfaces (`#0f172a` & `#1e293b`), soft luminous borders, and eye-friendly text hierarchies.
-- **Accessible Navbar Toggle**: Accessible via header on desktop, mobile drawer, and synchronized across browser sessions.
+---
 
-### 5. 🤖 AI Health Specialist & Global Widget (`/ai-assistant`)
-- **AarogyaAI Doctor (v5.0)**: Conversational health triage providing preliminary symptom analysis, red-flag detection, precautionary home remedies, and specialist referrals.
-- **Categorized Timeline History**: Organized chat history archives (Today, Previous Week, Monthly) for longitudinal symptom tracking.
-- **Persistent Floating Widget (`AIFloatingWidget.tsx`)**: Accessible at the bottom-right corner of all routes for quick triage without navigating away.
+### 5. 🏥 Hospital Directory & Digital OPD Passes (`/hospitals`)
+- **Premier Tricity Network Coverage**:
+  - **PGIMER Chandigarh** (Sector 12) — Level 1 Apex Trauma Center, 1900+ Beds.
+  - **Government Medical College & Hospital (GMCH-32)** — 1000+ Beds, High-Volume OPD.
+  - **Government Multi-Specialty Hospital (GMSH-16)** — Civil Hospital, 24/7 Casualty.
+  - **Fortis Hospital Mohali** (Sector 62) — JCI & NABH Accredited Cardiac & Oncology.
+  - **Max Super Speciality Hospital Mohali** (Sector 56) — Advanced Robotic Surgery.
+  - **Ivy Hospital Mohali** (Sector 71) — Multispeciality & Critical Care.
+  - **Sri Guru Harkrishan Sahib (Sohana) Hospital** — Eyecare, Multispeciality & Super-Speciality.
+  - **Shalby Multi-Specialty Hospital Mohali** — Joint Replacement & Orthopedics.
+- **Instant OPD Pass Generation**: Generates paperless OPD registration slips with QR codes to bypass hospital registration counters.
+- **Department & Bed Telemetry**: Live indicators of available ICU beds, general ward beds, and emergency contact numbers.
 
-### 6. ⚖️ Legal, Regulatory & Compliance Suite
-- **Privacy Policy (`/privacy`)**: Rigorous data governance framework aligned with the **Digital Personal Data Protection Act 2023 (DPDP Act)**, detailing consent lifecycles, data fiduciary duties, purpose limitation, and patient right to erasure.
-- **Terms of Service (`/terms`)**: Binding operational contract grounded in the **Telemedicine Practice Guidelines (2020)** under the National Medical Commission (NMC) Act, emergency red-line clauses, and clinician liability boundaries.
-- **Accessibility Statement (`/accessibility`)**: Comprehensive conformance report adhering to **W3C WCAG 2.1 Level AA**, detailing screen reader compatibility, ARIA attributes, keyboard tab order, and color contrast ratios.
-- **About Us (`/about`)**: Story, mission statement, institutional leadership, and regional integration with Tricity tertiary hospitals (PGIMER Chandigarh, GMCH Sector 32, Fortis Mohali, Max Super Speciality).
+---
 
-### 7. 👥 Multi-Persona Management Portals
+### 6. 📹 Virtual Teleconsultation Room & Live Rx Push (`/consultation`)
+- **Virtual Waiting Room**: Queue position status ("You are 1st in the queue") with estimated wait times and clinician status badges.
+- **Interactive Call Controls**: Simulated WebRTC HD video interface with microphone mute/unmute, camera toggle, screen sharing, and call termination.
+- **Real-Time In-Call Messaging**: Live textual chat stream between doctor and patient during the appointment.
+- **Instant E-Prescription Generator**: Clinician writes Rx notes, prescribed drugs, dosage frequencies, and duration, which instantly auto-deposits into the patient's Health Locker.
+
+---
+
+### 7. 🧪 Diagnostics & 💊 Online Pharmacy
+- **Doorstep Diagnostics (`/lab-tests`)**: Comprehensive health checkup packages (Full Body Health Check, Cardiac Risk Profile, Diabetes Care, Complete Blood Count, Liver Function Test) with certified home sample collection.
+- **Online Medicine Delivery (`/pharmacy`)**: Digital pharmacy catalog with automatic prescription validation and express doorstep delivery.
+
+---
+
+### 8. 👥 4 Multi-Stakeholder Portals
 - **Patient Dashboard (`/dashboard`)**: Personal health metrics, active medications, upcoming visits, emergency contacts, and vital telemetry graphs.
 - **Doctor / Clinician Portal (`/doctor-dashboard`)**: Daily patient queue, consultation status markers (Waiting, In-Progress, Completed), appointment reschedulers, and electronic medical record access.
 - **Hospital Reception & Triage Desk (`/staff-dashboard`)**: OPD counter workflow, patient record lookup by Universal Patient ID, and bed availability updates.
@@ -406,20 +440,20 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-## 🗺️ Complete Application Sitemap & Routes
+## 🗺️ Complete Application Sitemap (All 16 Routes)
 
 | # | Route | Module / View | Key Responsibilities |
 | :-: | :--- | :--- | :--- |
-| 1 | `/` | **Home Page** | Hero dual search bar, services grid, How It Works, Trust metrics, and reviews. |
+| 1 | `/` | **Home Page** | Hero search with recommendation autocomplete, service categories, How It Works, and trust metrics. |
 | 2 | `/doctors` | **Find Doctors** | Practo-style doctor cards, specialty filters, profile modal, and booking dialog. |
-| 3 | `/consultation` | **Online Consultation** | Full-width WebRTC room, waiting queue, live call controls, chat, and Rx generator. |
-| 4 | `/health-records` | **ABHA Health Locker** | Categorized electronic records vault, document upload, ABHA ID card, and consent manager. |
-| 5 | `/ai-assistant` | **AI Health Specialist** | Conversational triage assistant (v5.0), symptom assessment, and past chat archive. |
-| 6 | `/dashboard` | **Patient Dashboard** | Personal health analytics, vitals telemetry, active prescriptions, and visit logs. |
-| 7 | `/doctor-dashboard` | **Doctor Provider Portal** | Clinician schedule, waiting room queue, patient records review, and prescription pad. |
-| 8 | `/staff-dashboard` | **Hospital Staff Desk** | Reception triage desk, patient document lookup by ID, and OPD queue tracker. |
-| 9 | `/admin` | **Platform Administration** | Telehealth metrics, clinician credential verification, and grievance ticketing. |
-| 10 | `/hospitals` | **Hospital Directory** | Searchable Tricity & national hospitals with ICU bed availability and departments. |
+| 3 | `/hospitals` | **Hospital Directory** | Tricity tertiary hospitals, OPD pass booking, ICU bed counts, and trauma levels. |
+| 4 | `/consultation` | **Online Consultation** | Full-width WebRTC room, waiting queue, live call controls, chat, and Rx generator. |
+| 5 | `/health-records` | **ABHA Health Locker** | Categorized electronic records vault, document upload, ABHA ID card, and consent manager. |
+| 6 | `/ai-assistant` | **AI Health Specialist** | Conversational triage assistant (v5.0), in-chat dark mode switch, and Gemini API setup. |
+| 7 | `/dashboard` | **Patient Dashboard** | Personal health analytics, vitals telemetry, active prescriptions, and visit logs. |
+| 8 | `/doctor-dashboard` | **Doctor Provider Portal** | Clinician schedule, waiting room queue, patient records review, and prescription pad. |
+| 9 | `/staff-dashboard` | **Hospital Staff Desk** | Reception triage desk, patient document lookup by ID, and OPD queue tracker. |
+| 10 | `/admin` | **Platform Administration** | Telehealth metrics, clinician credential verification, and grievance ticketing. |
 | 11 | `/lab-tests` | **Lab Tests & Diagnostics** | Diagnostic packages catalog, home sample collection booking, and checkout cart. |
 | 12 | `/pharmacy` | **Online Pharmacy** | Medicine catalog, prescription verification upload banner, and order fulfillment. |
 | 13 | `/privacy` | **Privacy Policy** | DPDP Act 2023 compliance, ABDM privacy directives, data retention, and patient rights. |
@@ -431,37 +465,36 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ## 🎨 UI/UX Design System & Tokens
 
-AarogyaLocker incorporates a bespoke, mathematically balanced color palette and typography system:
+AarogyaLocker uses a unified, mathematically tuned CSS variables system:
 
 ```css
 :root {
-  /* Core Healthcare Palette */
-  --primary-navy: #0F3E6D;
-  --secondary-teal: #14B8A6;
-  --accent-emerald: #10B981;
-  --danger-crimson: #EF4444;
-  --warning-amber: #F59E0B;
-  
-  /* Adaptive Surfaces (Light Mode) */
-  --bg-primary: #F8FAFC;
-  --bg-card: #FFFFFF;
-  --text-primary: #0F172A;
-  --text-secondary: #64748B;
-  --border-subtle: #E2E8F0;
+  /* Core Brand Colors */
+  --color-deep-blue: #0f3e6d;
+  --color-bright-cyan: #2db6fa;
+  --color-vibrant-emerald: #17d9a3;
+  --color-ice-blue: #e8f7fd;
+
+  /* Semantic UI Tokens (Light Mode Default) */
+  --color-white: #ffffff;
+  --color-light-bg: #f8fafc;
+  --color-dark-text: #0f172a;
+  --color-slate: #475569;
+  --color-gray-200: #e2e8f0;
 }
 
 [data-theme='dark'] {
   /* Adaptive Surfaces (Dark Mode) */
-  --bg-primary: #0B1120;
-  --bg-card: #1E293B;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --border-subtle: #334155;
+  --color-white: #0f172a;
+  --color-light-bg: #0b1120;
+  --color-dark-text: #f1f5f9;
+  --color-slate: #94a3b8;
+  --color-gray-200: #334155;
 }
 ```
 
-- **Zero-Dependency SVG Icons**: All icons (`AarogyaLockerLogo`, `SunIcon`, `MoonIcon`, `ShieldIcon`, `CalendarIcon`, `VideoIcon`, `UploadIcon`, etc.) are handcrafted inline SVGs to maintain a sub-100KB zero-bloat runtime.
-- **Glassmorphic Elevations**: Subdued `backdrop-filter: blur(12px)` cards with dynamic border lighting.
+- **Zero-Dependency SVG Icons**: Handcrafted inline SVGs (`AarogyaLockerLogo`, `SunIcon`, `MoonIcon`, `ShieldIcon`, `CalendarIcon`, `VideoIcon`, `UploadIcon`, etc.) maintain a sub-100KB bundle footprint.
+- **Micro-Animations & Responsive Transitions**: Subtle hover lifts, glowing status pills, and backdrop-blur overlays.
 
 ---
 
@@ -472,9 +505,10 @@ AarogyaLocker incorporates a bespoke, mathematically balanced color palette and 
 | **Framework** | [React 19.2.8](https://react.dev/) | Component architecture, Concurrent React features |
 | **Language** | [TypeScript 5.x](https://www.typescriptlang.org/) | Strict static type safety across data models & props |
 | **Routing** | [React Router v7](https://reactrouter.com/) | Client-side routing, route loaders, dynamic params |
-| **Build Tool** | [Vite 8.3](https://vitejs.dev/) | Lightning-fast HMR and optimized production bundles |
-| **Linter** | [Oxlint](https://oxc.rs/) | Rust-powered high-speed static code quality checker |
-| **Styling** | Vanilla CSS3 Custom Properties | Scalable zero-runtime styling with native tokens |
+| **Build Tool** | [Vite 8.3](https://vitejs.dev/) | Fast HMR and production bundle optimization |
+| **Linter** | [Oxlint](https://oxc.rs/) | Static code quality analyzer |
+| **Styling** | Vanilla CSS3 Custom Properties | Zero-runtime styling with native CSS variables |
+| **AI LLM API** | [Google Gemini API](https://ai.google.dev/) | Optional live generative triage intelligence |
 
 ---
 
@@ -505,23 +539,48 @@ AarogyaLocker incorporates a bespoke, mathematically balanced color palette and 
 4. **Access the application:**
    Open [http://localhost:5173](http://localhost:5173) in any modern browser.
 
-### Build & Code Quality Scripts
+### Build & Verification Commands
 - `npm run dev` — Launches Vite local dev server with Hot Module Replacement.
-- `npm run build` — Runs TypeScript compile check (`tsc -b`) and generates production build in `/dist`.
+- `npm run build` — Runs TypeScript compile check (`tsc -b`) and generates production bundle in `/dist`.
 - `npm run lint` — Executes Oxlint for high-speed static linting.
 - `npm run preview` — Spawns local preview server for the compiled distribution bundle.
 
 ---
 
-## 🔒 Regulatory Compliance & Disclaimer
+## 🚀 Universal Deployment Guide (Vercel, Netlify, GitHub Pages)
 
-- **Digital Personal Data Protection (DPDP) Act 2023**: All mock patient records and health lockers operate under explicit consent primitives, data minimization standards, and local processing architectures.
-- **Telemedicine Practice Guidelines (2020)**: Teleconsultation protocols comply with National Medical Commission guidelines regarding patient identification, digital prescription formats, and professional boundaries.
-- **Academic & Hackathon Disclaimer**: *All doctor names, patient files, hospital rosters, and diagnostic results depicted within this prototype are synthetic datasets created for demonstration purposes during the CU Hackathon. The AI assistant is a supportive informational triage aid and does not constitute a substitute for professional clinical medical advice or diagnosis.*
+The repository includes pre-configured SPA routing files (`vercel.json` and `public/_redirects`) and dynamic `basename` handling in `src/main.tsx` to ensure direct page refreshes (e.g. `/ai-assistant` or `/doctors`) work out of the box without 404 errors.
+
+### Option 1: Vercel (Recommended — 1-Click)
+1. Go to [vercel.com](https://vercel.com/) and import the `JD-codestar/AarogyaLocker` repository.
+2. Vercel auto-detects Vite:
+   - **Framework:** `Vite`
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+3. Click **Deploy**. The included [`vercel.json`](vercel.json) handles SPA rewrites automatically.
+
+### Option 2: Netlify
+1. Go to [netlify.com](https://www.netlify.com/) and connect your GitHub repository.
+2. Set build command to `npm run build` and publish directory to `dist`.
+3. Click **Deploy**. The included [`public/_redirects`](public/_redirects) routes all requests to `/index.html`.
+
+### Option 3: Terminal CLI Deployment
+```bash
+# Deploy to Vercel production directly from terminal
+npx vercel --prod
+```
 
 ---
 
-## 🏆 CU Hackathon Attribution
+## 🔒 Regulatory Compliance & Disclaimers
 
-Crafted with dedication by **JD-codestar** for the **CU Hackathon**.
-Empowering citizens with sovereign, seamless, and secure digital healthcare.
+- **Digital Personal Data Protection (DPDP) Act 2023**: All mock patient records and health lockers operate under explicit consent primitives, data minimization standards, and local processing architectures.
+- **Telemedicine Practice Guidelines (2020)**: Teleconsultation protocols comply with National Medical Commission guidelines regarding patient identification, digital prescription formats, and professional boundaries.
+- **Academic & Prototype Disclaimer**: *All doctor profiles, patient files, hospital rosters, and diagnostic results depicted within this prototype are synthetic datasets created for demonstration purposes during the CU Hackathon. The AI assistant is a supportive informational triage aid and does not constitute a substitute for professional clinical medical advice or diagnosis.*
+
+---
+
+## 🏆 Attribution
+
+Crafted with dedication by **JD-codestar** for the **CU Hackathon**.  
+Empowering citizens with sovereign, seamless, and secure digital healthcare across India.
