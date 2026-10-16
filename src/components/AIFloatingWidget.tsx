@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
+import { SunIcon, MoonIcon } from '../Icons';
 
 interface WidgetMessage {
   sender: 'user' | 'ai';
@@ -10,6 +12,9 @@ interface WidgetMessage {
 export default function AIFloatingWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [quickInput, setQuickInput] = useState('');
+  const { theme, toggleTheme } = useApp();
+  const isDark = theme === 'dark';
+
   const [messages, setMessages] = useState<WidgetMessage[]>([
     {
       sender: 'ai',
@@ -90,17 +95,18 @@ export default function AIFloatingWidget() {
           bottom: '70px', 
           right: '0', 
           width: '340px', 
-          background: 'white', 
+          background: isDark ? '#1e293b' : 'white', 
           borderRadius: '16px',
-          boxShadow: '0 12px 36px rgba(0,0,0,0.18)',
-          border: '1px solid var(--color-gray-200)',
+          boxShadow: isDark ? '0 12px 36px rgba(0,0,0,0.5)' : '0 12px 36px rgba(0,0,0,0.18)',
+          border: isDark ? '1px solid #334155' : '1px solid var(--color-gray-200)',
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
-          maxHeight: '500px'
+          maxHeight: '500px',
+          transition: 'background 0.2s ease'
         }}>
           {/* Header */}
-          <div style={{ padding: '14px 16px', background: 'var(--color-deep-blue)', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ padding: '14px 16px', background: isDark ? '#0f172a' : 'var(--color-deep-blue)', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: isDark ? '1px solid #334155' : 'none' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '18px' }}>✨</span>
               <div>
@@ -108,11 +114,34 @@ export default function AIFloatingWidget() {
                 <div style={{ fontSize: '11px', opacity: 0.8 }}>Online • Instant Guidance & Recommendations</div>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: '16px' }}>✖</button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button 
+                type="button" 
+                onClick={toggleTheme} 
+                style={{ 
+                  background: isDark ? '#1e293b' : 'rgba(255,255,255,0.15)', 
+                  border: isDark ? '1px solid #334155' : 'none', 
+                  color: isDark ? '#fbbf24' : '#ffffff', 
+                  cursor: 'pointer', 
+                  borderRadius: '50%', 
+                  width: '28px', 
+                  height: '28px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  padding: 0
+                }}
+                title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              >
+                {isDark ? <SunIcon size={14} color="#fbbf24" /> : <MoonIcon size={14} color="#ffffff" />}
+              </button>
+              <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: '16px' }}>✖</button>
+            </div>
           </div>
 
           {/* Messages */}
-          <div style={{ padding: '14px', flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px', maxHeight: '270px' }}>
+          <div style={{ padding: '14px', flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13px', maxHeight: '270px', background: isDark ? '#111827' : '#ffffff' }}>
             {messages.map((m, idx) => (
               <div 
                 key={idx} 
@@ -126,8 +155,11 @@ export default function AIFloatingWidget() {
               >
                 <div
                   style={{
-                    background: m.sender === 'user' ? 'var(--color-cyan)' : 'var(--color-ice-blue)',
-                    color: m.sender === 'user' ? 'white' : 'var(--color-deep-blue)',
+                    background: m.sender === 'user' 
+                      ? (isDark ? '#2563eb' : 'var(--color-cyan)') 
+                      : (isDark ? '#1e293b' : 'var(--color-ice-blue)'),
+                    color: m.sender === 'user' ? 'white' : (isDark ? '#f1f5f9' : 'var(--color-deep-blue)'),
+                    border: m.sender === 'ai' && isDark ? '1px solid #334155' : 'none',
                     padding: '8px 12px',
                     borderRadius: m.sender === 'user' ? '12px 12px 2px 12px' : '12px 12px 12px 2px',
                     lineHeight: 1.4
@@ -148,24 +180,32 @@ export default function AIFloatingWidget() {
                           navigate(rec.url);
                         }}
                         style={{
-                          background: 'white',
-                          border: '1px solid #93c5fd',
+                          background: isDark ? '#1e293b' : 'white',
+                          border: isDark ? '1px solid #3b82f6' : '1px solid #93c5fd',
                           borderRadius: '12px',
                           padding: '3px 8px',
                           fontSize: '10px',
                           fontWeight: 600,
-                          color: '#1e40af',
+                          color: isDark ? '#93c5fd' : '#1e40af',
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '4px',
                           cursor: 'pointer',
-                          boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                          boxShadow: isDark ? '0 1px 3px rgba(0,0,0,0.3)' : '0 1px 2px rgba(0,0,0,0.05)',
                           transition: 'all 0.15s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = isDark ? '#2563eb' : '#eff6ff';
+                          e.currentTarget.style.color = isDark ? '#ffffff' : '#1e40af';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = isDark ? '#1e293b' : 'white';
+                          e.currentTarget.style.color = isDark ? '#93c5fd' : '#1e40af';
                         }}
                       >
                         <span>{rec.icon || '🔍'}</span>
                         <span>{rec.label}</span>
-                        <span style={{ fontSize: '9px', color: '#60a5fa' }}>↗</span>
+                        <span style={{ fontSize: '9px', color: isDark ? '#60a5fa' : '#60a5fa' }}>↗</span>
                       </button>
                     ))}
                   </div>
@@ -173,14 +213,14 @@ export default function AIFloatingWidget() {
               </div>
             ))}
             {loading && (
-              <div style={{ alignSelf: 'flex-start', background: 'var(--color-ice-blue)', padding: '6px 10px', borderRadius: '8px', fontSize: '12px', color: 'var(--color-slate)' }}>
+              <div style={{ alignSelf: 'flex-start', background: isDark ? '#1e293b' : 'var(--color-ice-blue)', border: isDark ? '1px solid #334155' : 'none', padding: '6px 10px', borderRadius: '8px', fontSize: '12px', color: isDark ? '#94a3b8' : 'var(--color-slate)' }}>
                 Triage analyzing...
               </div>
             )}
           </div>
 
           {/* Quick suggestions pills */}
-          <div style={{ padding: '6px 10px', display: 'flex', gap: '6px', overflowX: 'auto', background: '#fafafa', borderTop: '1px solid #f0f0f0' }}>
+          <div style={{ padding: '6px 10px', display: 'flex', gap: '6px', overflowX: 'auto', background: isDark ? '#0f172a' : '#fafafa', borderTop: isDark ? '1px solid #334155' : '1px solid #f0f0f0' }}>
             {[
               '🌡️ Mild Fever',
               '💓 Chest Pain',
@@ -194,12 +234,12 @@ export default function AIFloatingWidget() {
                 type="button"
                 onClick={() => handleQuickSend(pill.replace(/^[^\s]+\s/, ''))}
                 style={{
-                  background: 'white',
-                  border: '1px solid var(--color-gray-200)',
+                  background: isDark ? '#1e293b' : 'white',
+                  border: isDark ? '1px solid #334155' : '1px solid var(--color-gray-200)',
                   borderRadius: '12px',
                   padding: '3px 8px',
                   fontSize: '11px',
-                  color: 'var(--color-deep-blue)',
+                  color: isDark ? '#93c5fd' : 'var(--color-deep-blue)',
                   whiteSpace: 'nowrap',
                   cursor: 'pointer'
                 }}
@@ -210,7 +250,7 @@ export default function AIFloatingWidget() {
           </div>
 
           {/* Quick Input Bar */}
-          <div style={{ padding: '10px', borderTop: '1px solid var(--color-gray-200)', display: 'flex', gap: '8px' }}>
+          <div style={{ padding: '10px', borderTop: isDark ? '1px solid #334155' : '1px solid var(--color-gray-200)', background: isDark ? '#1e293b' : 'white', display: 'flex', gap: '8px' }}>
             <input
               type="text"
               placeholder="Ask a quick question..."
@@ -221,7 +261,9 @@ export default function AIFloatingWidget() {
                 flex: 1,
                 padding: '8px 10px',
                 borderRadius: '8px',
-                border: '1px solid var(--color-gray-200)',
+                border: isDark ? '1px solid #334155' : '1px solid var(--color-gray-200)',
+                background: isDark ? '#0f172a' : 'white',
+                color: isDark ? '#f1f5f9' : '#0f172a',
                 fontSize: '12px'
               }}
             />
@@ -234,7 +276,7 @@ export default function AIFloatingWidget() {
             </button>
           </div>
 
-          <div style={{ padding: '8px 12px', background: '#f8fafc', borderTop: '1px solid #f0f0f0', textAlign: 'center' }}>
+          <div style={{ padding: '8px 12px', background: isDark ? '#0b1120' : '#f8fafc', borderTop: isDark ? '1px solid #334155' : '1px solid #f0f0f0', textAlign: 'center' }}>
             <button 
               onClick={() => {
                 setIsOpen(false);
@@ -243,7 +285,7 @@ export default function AIFloatingWidget() {
               style={{
                 background: 'none',
                 border: 'none',
-                color: 'var(--color-deep-blue)',
+                color: isDark ? '#60a5fa' : 'var(--color-deep-blue)',
                 fontWeight: 600,
                 fontSize: '12px',
                 cursor: 'pointer',

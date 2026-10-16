@@ -14,7 +14,8 @@ interface SignInModalProps {
 type Mode = 'signin' | 'signup' | 'success';
 
 export default function SignInModal({ onClose, onLoginSuccess }: SignInModalProps) {
-  const { loginAs, users } = useApp();
+  const { loginAs, users, theme } = useApp();
+  const isDark = theme === 'dark';
   const [mode, setMode] = useState<Mode>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -140,8 +141,8 @@ export default function SignInModal({ onClose, onLoginSuccess }: SignInModalProp
                       onClick={() => handleQuickLogin(u)}
                       style={{
                         padding: '8px 10px',
-                        background: 'white',
-                        border: '1px solid var(--color-gray-200)',
+                        background: isDark ? '#1e293b' : 'white',
+                        border: isDark ? '1px solid #334155' : '1px solid var(--color-gray-200)',
                         borderRadius: '8px',
                         cursor: 'pointer',
                         textAlign: 'left',
@@ -151,7 +152,7 @@ export default function SignInModal({ onClose, onLoginSuccess }: SignInModalProp
                         gap: '8px'
                       }}
                       onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--color-cyan)'}
-                      onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--color-gray-200)'}
+                      onMouseOut={(e) => e.currentTarget.style.borderColor = isDark ? '#334155' : 'var(--color-gray-200)'}
                     >
                       <div style={{
                         width: '28px', height: '28px', borderRadius: '50%',
@@ -162,10 +163,10 @@ export default function SignInModal({ onClose, onLoginSuccess }: SignInModalProp
                         {u.avatar}
                       </div>
                       <div style={{ overflow: 'hidden' }}>
-                        <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-deep-blue)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                        <div style={{ fontSize: '12px', fontWeight: 600, color: isDark ? '#93c5fd' : 'var(--color-deep-blue)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                           {u.name}
                         </div>
-                        <div style={{ fontSize: '10px', color: 'var(--color-slate)', textTransform: 'capitalize' }}>
+                        <div style={{ fontSize: '10px', color: isDark ? '#94a3b8' : 'var(--color-slate)', textTransform: 'capitalize' }}>
                           {u.role}
                         </div>
                       </div>

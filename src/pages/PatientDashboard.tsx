@@ -321,7 +321,7 @@ export default function PatientDashboard({ onSignInClick }: PatientDashboardProp
                 padding: '12px',
                 borderRadius: '8px',
                 border: '1px solid var(--color-gray-200)',
-                background: 'white',
+                background: 'var(--color-white)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between'
@@ -337,7 +337,7 @@ export default function PatientDashboard({ onSignInClick }: PatientDashboardProp
                     {rec.doctor} • {rec.date}
                   </div>
                 </div>
-                <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid var(--color-gray-200)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '11px', color: 'var(--color-slate)' }}>{rec.fileSize}</span>
                   <Link to="/health-records" style={{ fontSize: '12px', color: 'var(--color-deep-blue)', fontWeight: 600, textDecoration: 'none' }}>
                     View File

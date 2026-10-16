@@ -103,14 +103,14 @@ export default function PrivacyPolicy() {
         {/* POLICY DOCUMENT CONTENT */}
         <main 
           style={{
-            background: 'white',
+            background: 'var(--color-white)',
             borderRadius: '16px',
             padding: '40px 48px',
             boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-            border: '1px solid #e2e8f0',
+            border: '1px solid var(--color-gray-200)',
             fontSize: '15px',
             lineHeight: 1.8,
-            color: '#334155'
+            color: 'var(--color-dark-text)'
           }}
         >
           {/* Statutory Patient Notice */}

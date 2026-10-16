@@ -2,10 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import type { ChatMessage } from '../types';
+import { SunIcon, MoonIcon } from '../Icons';
 
 export default function AIAssistant() {
   const navigate = useNavigate();
-  const { currentUser, addRecord, geminiApiKey, setGeminiApiKey } = useApp();
+  const { currentUser, addRecord, geminiApiKey, setGeminiApiKey, theme, toggleTheme } = useApp();
+  const isDark = theme === 'dark';
 
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -383,19 +385,29 @@ export default function AIAssistant() {
   };
 
   return (
-    <div style={{ backgroundColor: '#f0f2f5', minHeight: 'calc(100vh - var(--nav-height))', padding: '24px', boxSizing: 'border-box' }}>
+    <div style={{ backgroundColor: isDark ? '#0b1120' : '#f0f2f5', minHeight: 'calc(100vh - var(--nav-height))', padding: '24px', boxSizing: 'border-box', transition: 'background-color 0.2s ease' }}>
       <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', gap: '24px', height: 'calc(100vh - var(--nav-height) - 48px)' }}>
         
         {/* Left Sidebar */}
         <div style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '20px', flexShrink: 0 }}>
           {/* Top Card */}
-          <div style={{ backgroundColor: '#fff', borderRadius: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+          <div style={{ 
+            backgroundColor: isDark ? '#1e293b' : '#ffffff', 
+            borderRadius: '20px', 
+            padding: '20px', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '14px', 
+            boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.3)' : '0 4px 20px rgba(0,0,0,0.03)',
+            border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
+            transition: 'all 0.2s ease'
+          }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '11px', color: '#888', fontWeight: 'bold', letterSpacing: '0.5px' }}>YOUR AI SPECIALIST</span>
-              <span style={{ fontSize: '11px', backgroundColor: '#0f3e6d', color: '#fff', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold' }}>V 5.0</span>
+              <span style={{ fontSize: '11px', color: isDark ? '#94a3b8' : '#888', fontWeight: 'bold', letterSpacing: '0.5px' }}>YOUR AI SPECIALIST</span>
+              <span style={{ fontSize: '11px', backgroundColor: isDark ? '#1e40af' : '#0f3e6d', color: '#fff', padding: '2px 8px', borderRadius: '12px', fontWeight: 'bold' }}>V 5.0</span>
             </div>
-            <h2 style={{ margin: 0, fontSize: '24px', fontWeight: '700', color: 'var(--color-deep-blue)' }}>Family Doctor AI</h2>
-            <p style={{ margin: 0, fontSize: '12px', color: '#666', lineHeight: '1.5' }}>
+            <h2 style={{ margin: 0, fontSize: '24px', fontWeight: '700', color: isDark ? '#60a5fa' : 'var(--color-deep-blue)' }}>Family Doctor AI</h2>
+            <p style={{ margin: 0, fontSize: '12px', color: isDark ? '#94a3b8' : '#666', lineHeight: '1.5' }}>
               Conversational triage & preliminary health insights. Informational only — not a clinical substitute for licensed medical examination.
             </p>
             
@@ -414,9 +426,9 @@ export default function AIAssistant() {
             <button
               onClick={() => setShowApiKeyModal(true)}
               style={{
-                background: 'none',
-                border: '1px solid var(--color-gray-200)',
-                color: 'var(--color-slate)',
+                background: isDark ? '#0f172a' : 'none',
+                border: isDark ? '1px solid #334155' : '1px solid var(--color-gray-200)',
+                color: isDark ? '#cbd5e1' : 'var(--color-slate)',
                 padding: '8px',
                 borderRadius: '8px',
                 fontSize: '12px',
@@ -429,8 +441,20 @@ export default function AIAssistant() {
           </div>
 
           {/* Prompt Templates */}
-          <div style={{ backgroundColor: '#fff', borderRadius: '20px', padding: '20px', flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-            <div style={{ fontSize: '11px', color: '#aaa', fontWeight: 'bold', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+          <div style={{ 
+            backgroundColor: isDark ? '#1e293b' : '#ffffff', 
+            borderRadius: '20px', 
+            padding: '20px', 
+            flex: 1, 
+            overflowY: 'auto', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '12px', 
+            boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.3)' : '0 4px 20px rgba(0,0,0,0.03)',
+            border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
+            transition: 'all 0.2s ease'
+          }}>
+            <div style={{ fontSize: '11px', color: isDark ? '#94a3b8' : '#aaa', fontWeight: 'bold', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
               Common Triage Prompts
             </div>
             {[
@@ -445,16 +469,17 @@ export default function AIAssistant() {
                 key={i}
                 onClick={() => handleSend(p)}
                 style={{
-                  background: 'var(--color-ice-blue)',
-                  border: 'none',
+                  background: isDark ? '#0f172a' : 'var(--color-ice-blue)',
+                  border: isDark ? '1px solid #334155' : 'none',
                   borderRadius: '8px',
                   padding: '8px 10px',
                   textAlign: 'left',
                   fontSize: '12px',
-                  color: 'var(--color-deep-blue)',
+                  color: isDark ? '#93c5fd' : 'var(--color-deep-blue)',
                   fontWeight: 500,
                   cursor: 'pointer',
-                  lineHeight: 1.4
+                  lineHeight: 1.4,
+                  transition: 'background 0.15s'
                 }}
               >
                 {p} →
@@ -464,33 +489,77 @@ export default function AIAssistant() {
         </div>
 
         {/* Center Chat Area */}
-        <div style={{ flex: 1, backgroundColor: '#fff', borderRadius: '24px', display: 'flex', flexDirection: 'column', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-          {/* Header */}
-          <div style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f0f0f0' }}>
+        <div style={{ 
+          flex: 1, 
+          backgroundColor: isDark ? '#1e293b' : '#ffffff', 
+          borderRadius: '24px', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          overflow: 'hidden', 
+          boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.3)' : '0 4px 20px rgba(0,0,0,0.03)',
+          border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
+          transition: 'all 0.2s ease'
+        }}>
+          {/* Header with Switchable Dark Mode Button */}
+          <div style={{ 
+            padding: '16px 24px', 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            borderBottom: isDark ? '1px solid #334155' : '1px solid #f0f0f0',
+            background: isDark ? '#1e293b' : '#ffffff'
+          }}>
             <div>
-              <h2 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: 'var(--color-deep-blue)' }}>
+              <h2 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: isDark ? '#f8fafc' : 'var(--color-deep-blue)' }}>
                 AI Health Specialist Conversation
               </h2>
-              <div style={{ fontSize: '12px', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+              <div style={{ fontSize: '12px', color: isDark ? '#34d399' : '#10b981', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: isDark ? '#34d399' : '#10b981', display: 'inline-block' }} />
                 AI Online & Ready • ABHA Locker Integration Active
               </div>
             </div>
 
-            {saveSuccessMsg && (
-              <span style={{ fontSize: '12px', color: '#047857', fontWeight: 600, background: '#dcfce7', padding: '4px 10px', borderRadius: '8px' }}>
-                {saveSuccessMsg}
-              </span>
-            )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              {saveSuccessMsg && (
+                <span style={{ fontSize: '12px', color: isDark ? '#86efac' : '#047857', fontWeight: 600, background: isDark ? 'rgba(6, 78, 59, 0.4)' : '#dcfce7', padding: '4px 10px', borderRadius: '8px' }}>
+                  {saveSuccessMsg}
+                </span>
+              )}
+
+              {/* Switchable Theme Toggle Button */}
+              <button
+                type="button"
+                onClick={toggleTheme}
+                title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: isDark ? '#0f172a' : '#f1f5f9',
+                  border: isDark ? '1px solid #334155' : '1px solid #cbd5e1',
+                  borderRadius: '20px',
+                  padding: '6px 14px',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  color: isDark ? '#fbbf24' : '#1e3a8a',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                {isDark ? <SunIcon size={16} color="#fbbf24" /> : <MoonIcon size={16} color="#1e3a8a" />}
+                <span>{isDark ? 'Light' : 'Dark'}</span>
+              </button>
+            </div>
           </div>
 
           {/* Chat Messages */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', background: isDark ? '#111827' : '#ffffff' }}>
             {messages.map((m) => (
               <div key={m.id}>
                 {m.sender === 'user' ? (
                   <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
-                    <div style={{ backgroundColor: 'var(--color-deep-blue)', color: 'white', padding: '14px 18px', borderRadius: '16px 4px 16px 16px', maxWidth: '75%', fontSize: '14px', lineHeight: '1.5' }}>
+                    <div style={{ backgroundColor: isDark ? '#2563eb' : 'var(--color-deep-blue)', color: 'white', padding: '14px 18px', borderRadius: '16px 4px 16px 16px', maxWidth: '75%', fontSize: '14px', lineHeight: '1.5' }}>
                       {m.text}
                     </div>
                     <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'var(--color-cyan)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '13px', flexShrink: 0 }}>
@@ -499,18 +568,32 @@ export default function AIAssistant() {
                   </div>
                 ) : (
                   <div style={{ display: 'flex', gap: '12px' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#a6f4e6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#006c5b', fontSize: '12px', flexShrink: 0 }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: isDark ? '#064e3b' : '#a6f4e6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: isDark ? '#6ee7b7' : '#006c5b', fontSize: '12px', flexShrink: 0 }}>
                       AI
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '80%' }}>
-                      <div style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', padding: '16px', borderRadius: '4px 16px 16px 16px', fontSize: '14px', color: '#333', lineHeight: '1.6' }}>
-                        <p style={{ margin: '0 0 10px' }}>{m.text}</p>
+                      <div style={{ 
+                        backgroundColor: isDark ? '#1e293b' : '#f8fafc', 
+                        border: isDark ? '1px solid #334155' : '1px solid #e2e8f0', 
+                        padding: '16px', 
+                        borderRadius: '4px 16px 16px 16px', 
+                        fontSize: '14px', 
+                        color: isDark ? '#f1f5f9' : '#333', 
+                        lineHeight: '1.6' 
+                      }}>
+                        <p style={{ margin: '0 0 10px', color: isDark ? '#e2e8f0' : '#1e293b' }}>{m.text}</p>
 
                         {/* Structured Triage Card */}
                         {m.triageData && (
-                          <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '14px', marginTop: '10px' }}>
+                          <div style={{ 
+                            background: isDark ? '#0f172a' : 'white', 
+                            border: isDark ? '1px solid #334155' : '1px solid #e2e8f0', 
+                            borderRadius: '10px', 
+                            padding: '14px', 
+                            marginTop: '10px' 
+                          }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                              <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-deep-blue)' }}>
+                              <span style={{ fontSize: '12px', fontWeight: 700, color: isDark ? '#60a5fa' : 'var(--color-deep-blue)' }}>
                                 📋 CLINICAL TRIAGE ANALYSIS
                               </span>
                               <span style={{
@@ -518,30 +601,38 @@ export default function AIAssistant() {
                                 fontWeight: 700,
                                 padding: '2px 8px',
                                 borderRadius: '10px',
-                                background: m.triageData.urgency === 'Urgent' ? '#fee2e2' : m.triageData.urgency === 'Moderate' ? '#fef3c7' : '#dcfce7',
-                                color: m.triageData.urgency === 'Urgent' ? '#dc2626' : m.triageData.urgency === 'Moderate' ? '#b45309' : '#16a34a'
+                                background: m.triageData.urgency === 'Urgent' 
+                                  ? (isDark ? 'rgba(239, 68, 68, 0.2)' : '#fee2e2') 
+                                  : m.triageData.urgency === 'Moderate' 
+                                    ? (isDark ? 'rgba(245, 158, 11, 0.2)' : '#fef3c7') 
+                                    : (isDark ? 'rgba(16, 185, 129, 0.2)' : '#dcfce7'),
+                                color: m.triageData.urgency === 'Urgent' 
+                                  ? (isDark ? '#fca5a5' : '#dc2626') 
+                                  : m.triageData.urgency === 'Moderate' 
+                                    ? (isDark ? '#fcd34d' : '#b45309') 
+                                    : (isDark ? '#86efac' : '#16a34a')
                               }}>
                                 Urgency: {m.triageData.urgency}
                               </span>
                             </div>
 
                             {m.triageData.possibleCauses.length > 0 && (
-                              <div style={{ fontSize: '12px', marginBottom: '8px' }}>
-                                <strong>Possible Underlying Factors:</strong>
+                              <div style={{ fontSize: '12px', marginBottom: '8px', color: isDark ? '#cbd5e1' : '#334155' }}>
+                                <strong style={{ color: isDark ? '#f1f5f9' : '#0f172a' }}>Possible Underlying Factors:</strong>
                                 <ul style={{ margin: '4px 0 0 18px', padding: 0 }}>
                                   {m.triageData.possibleCauses.map((c, idx) => (
-                                    <li key={idx}>{c}</li>
+                                    <li key={idx} style={{ color: isDark ? '#cbd5e1' : '#475569' }}>{c}</li>
                                   ))}
                                 </ul>
                               </div>
                             )}
 
                             {m.triageData.precautions.length > 0 && (
-                              <div style={{ fontSize: '12px', marginBottom: '8px' }}>
-                                <strong>Recommended Precautions:</strong>
+                              <div style={{ fontSize: '12px', marginBottom: '8px', color: isDark ? '#cbd5e1' : '#334155' }}>
+                                <strong style={{ color: isDark ? '#f1f5f9' : '#0f172a' }}>Recommended Precautions:</strong>
                                 <ul style={{ margin: '4px 0 0 18px', padding: 0 }}>
                                   {m.triageData.precautions.map((p, idx) => (
-                                    <li key={idx}>{p}</li>
+                                    <li key={idx} style={{ color: isDark ? '#cbd5e1' : '#475569' }}>{p}</li>
                                   ))}
                                 </ul>
                               </div>
@@ -549,8 +640,8 @@ export default function AIAssistant() {
 
                             {/* Recommended Searches & Next Actions */}
                             {m.triageData.recommendedSearches && m.triageData.recommendedSearches.length > 0 && (
-                              <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px dashed #cbd5e1' }}>
-                                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-deep-blue)', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                              <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: isDark ? '1px dashed #334155' : '1px dashed #cbd5e1' }}>
+                                <div style={{ fontSize: '11px', fontWeight: 700, color: isDark ? '#60a5fa' : 'var(--color-deep-blue)', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                                   <span>🔍</span>
                                   <span>RECOMMENDED SEARCHES & TRICITY HEALTH SERVICES:</span>
                                 </div>
@@ -570,46 +661,46 @@ export default function AIAssistant() {
                                         display: 'inline-flex',
                                         alignItems: 'center',
                                         gap: '6px',
-                                        background: '#ffffff',
-                                        border: '1px solid #93c5fd',
+                                        background: isDark ? '#1e293b' : '#ffffff',
+                                        border: isDark ? '1px solid #3b82f6' : '1px solid #93c5fd',
                                         borderRadius: '16px',
                                         padding: '4px 10px',
                                         fontSize: '11px',
                                         fontWeight: 600,
-                                        color: '#1e40af',
+                                        color: isDark ? '#93c5fd' : '#1e40af',
                                         cursor: 'pointer',
                                         transition: 'all 0.15s ease',
-                                        boxShadow: '0 1px 2px rgba(0,0,0,0.04)'
+                                        boxShadow: isDark ? '0 1px 3px rgba(0,0,0,0.3)' : '0 1px 2px rgba(0,0,0,0.04)'
                                       }}
                                       onMouseEnter={(e) => {
-                                        e.currentTarget.style.background = '#eff6ff';
-                                        e.currentTarget.style.borderColor = '#2563eb';
+                                        e.currentTarget.style.background = isDark ? '#2563eb' : '#eff6ff';
+                                        e.currentTarget.style.color = isDark ? '#ffffff' : '#1e40af';
                                       }}
                                       onMouseLeave={(e) => {
-                                        e.currentTarget.style.background = '#ffffff';
-                                        e.currentTarget.style.borderColor = '#93c5fd';
+                                        e.currentTarget.style.background = isDark ? '#1e293b' : '#ffffff';
+                                        e.currentTarget.style.color = isDark ? '#93c5fd' : '#1e40af';
                                       }}
                                     >
                                       <span>{recSearch.icon || '🔍'}</span>
                                       <span>{recSearch.label}</span>
-                                      <span style={{ fontSize: '10px', color: '#60a5fa' }}>↗</span>
+                                      <span style={{ fontSize: '10px', color: isDark ? '#60a5fa' : '#60a5fa' }}>↗</span>
                                     </button>
                                   ))}
                                 </div>
                               </div>
                             )}
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', flexWrap: 'wrap', gap: '8px' }}>
-                              <span style={{ fontSize: '12px', color: 'var(--color-deep-blue)' }}>
-                                🩺 Recommended Specialist: <strong>{m.triageData.recommendedSpecialist}</strong>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', paddingTop: '10px', borderTop: isDark ? '1px solid #334155' : '1px solid #f1f5f9', flexWrap: 'wrap', gap: '8px' }}>
+                              <span style={{ fontSize: '12px', color: isDark ? '#60a5fa' : 'var(--color-deep-blue)' }}>
+                                🩺 Recommended Specialist: <strong style={{ color: isDark ? '#93c5fd' : 'inherit' }}>{m.triageData.recommendedSpecialist}</strong>
                               </span>
                               <div style={{ display: 'flex', gap: '6px' }}>
                                 <button
                                   onClick={() => navigate('/doctors')}
                                   style={{
-                                    background: 'var(--color-ice-blue)',
-                                    border: '1px solid var(--color-cyan)',
-                                    color: 'var(--color-deep-blue)',
+                                    background: isDark ? '#1e293b' : 'var(--color-ice-blue)',
+                                    border: isDark ? '1px solid #3b82f6' : '1px solid var(--color-cyan)',
+                                    color: isDark ? '#93c5fd' : 'var(--color-deep-blue)',
                                     padding: '4px 10px',
                                     borderRadius: '6px',
                                     fontSize: '11px',
@@ -639,7 +730,7 @@ export default function AIAssistant() {
                           </div>
                         )}
                       </div>
-                      <span style={{ fontSize: '11px', color: '#999' }}>{m.timestamp}</span>
+                      <span style={{ fontSize: '11px', color: isDark ? '#64748b' : '#999' }}>{m.timestamp}</span>
                     </div>
                   </div>
                 )}
@@ -648,10 +739,10 @@ export default function AIAssistant() {
 
             {loading && (
               <div style={{ display: 'flex', gap: '12px' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#a6f4e6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#006c5b', fontSize: '12px' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: isDark ? '#064e3b' : '#a6f4e6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: isDark ? '#6ee7b7' : '#006c5b', fontSize: '12px' }}>
                   AI
                 </div>
-                <div style={{ backgroundColor: '#f8fafc', padding: '12px 16px', borderRadius: '4px 16px 16px 16px', fontSize: '13px', color: '#666' }}>
+                <div style={{ backgroundColor: isDark ? '#1e293b' : '#f8fafc', border: isDark ? '1px solid #334155' : 'none', padding: '12px 16px', borderRadius: '4px 16px 16px 16px', fontSize: '13px', color: isDark ? '#94a3b8' : '#666' }}>
                   Analyzing symptoms & formulating clinical triage...
                 </div>
               </div>
@@ -662,14 +753,14 @@ export default function AIAssistant() {
           {/* Quick Recommended Prompt Chips */}
           <div style={{ 
             padding: '8px 20px', 
-            background: '#f8fafc', 
-            borderTop: '1px solid #f1f5f9', 
+            background: isDark ? '#0f172a' : '#f8fafc', 
+            borderTop: isDark ? '1px solid #334155' : '1px solid #f1f5f9', 
             display: 'flex', 
             alignItems: 'center', 
             gap: '8px', 
             overflowX: 'auto' 
           }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: isDark ? '#94a3b8' : '#64748b', whiteSpace: 'nowrap' }}>
               💡 Quick Triage:
             </span>
             {[
@@ -689,21 +780,21 @@ export default function AIAssistant() {
                   whiteSpace: 'nowrap',
                   padding: '5px 12px',
                   borderRadius: '16px',
-                  border: '1px solid #e2e8f0',
-                  background: 'white',
+                  border: isDark ? '1px solid #334155' : '1px solid #e2e8f0',
+                  background: isDark ? '#1e293b' : 'white',
                   fontSize: '12px',
-                  color: '#1e293b',
+                  color: isDark ? '#f1f5f9' : '#1e293b',
                   fontWeight: 500,
                   cursor: 'pointer',
                   transition: 'all 0.15s'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = '#38bdf8';
-                  e.currentTarget.style.background = '#f0f9ff';
+                  e.currentTarget.style.background = isDark ? '#334155' : '#f0f9ff';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#e2e8f0';
-                  e.currentTarget.style.background = 'white';
+                  e.currentTarget.style.borderColor = isDark ? '#334155' : '#e2e8f0';
+                  e.currentTarget.style.background = isDark ? '#1e293b' : 'white';
                 }}
               >
                 {chip}
@@ -712,7 +803,13 @@ export default function AIAssistant() {
           </div>
 
           {/* Input Bar */}
-          <div style={{ padding: '16px 24px', borderTop: '1px solid #f0f0f0', display: 'flex', gap: '12px' }}>
+          <div style={{ 
+            padding: '16px 24px', 
+            borderTop: isDark ? '1px solid #334155' : '1px solid #f0f0f0', 
+            background: isDark ? '#1e293b' : '#ffffff',
+            display: 'flex', 
+            gap: '12px' 
+          }}>
             <input
               type="text"
               placeholder="Describe symptoms, query medications, or ask for healthcare guidance..."
@@ -723,7 +820,9 @@ export default function AIAssistant() {
                 flex: 1,
                 padding: '12px 16px',
                 borderRadius: '12px',
-                border: '1px solid var(--color-gray-200)',
+                border: isDark ? '1px solid #334155' : '1px solid var(--color-gray-200)',
+                background: isDark ? '#0f172a' : '#ffffff',
+                color: isDark ? '#f1f5f9' : '#0f172a',
                 fontSize: '14px',
                 outline: 'none'
               }}
@@ -744,17 +843,17 @@ export default function AIAssistant() {
       {/* --- GEMINI API KEY MODAL --- */}
       {showApiKeyModal && (
         <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowApiKeyModal(false); }}>
-          <div className="modal" style={{ maxWidth: '440px' }}>
-            <div className="modal-header">
-              <h2>Configure Gemini API</h2>
-              <button className="modal-close" onClick={() => setShowApiKeyModal(false)}>✕</button>
+          <div className="modal" style={{ maxWidth: '440px', background: isDark ? '#1e293b' : '#ffffff', border: isDark ? '1px solid #334155' : 'none' }}>
+            <div className="modal-header" style={{ borderBottomColor: isDark ? '#334155' : undefined }}>
+              <h2 style={{ color: isDark ? '#f8fafc' : undefined }}>Configure Gemini API</h2>
+              <button className="modal-close" onClick={() => setShowApiKeyModal(false)} style={{ color: isDark ? '#cbd5e1' : undefined }}>✕</button>
             </div>
             <div className="modal-body">
-              <p style={{ fontSize: '13px', color: 'var(--color-slate)', margin: '0 0 14px' }}>
+              <p style={{ fontSize: '13px', color: isDark ? '#94a3b8' : 'var(--color-slate)', margin: '0 0 14px' }}>
                 Optional: Enter your Google Gemini API key to enable live LLM multimodal responses. If left empty, the intelligent built-in clinical triage engine will be used.
               </p>
               <div className="booking-form-group">
-                <label htmlFor="apiKey">Gemini API Key</label>
+                <label htmlFor="apiKey" style={{ color: isDark ? '#cbd5e1' : undefined }}>Gemini API Key</label>
                 <input
                   id="apiKey"
                   type="password"
@@ -762,6 +861,11 @@ export default function AIAssistant() {
                   placeholder="AIzaSy..."
                   value={apiKeyInput}
                   onChange={(e) => setApiKeyInput(e.target.value)}
+                  style={{
+                    background: isDark ? '#0f172a' : '#ffffff',
+                    border: isDark ? '1px solid #334155' : undefined,
+                    color: isDark ? '#f1f5f9' : undefined
+                  }}
                 />
               </div>
               <button

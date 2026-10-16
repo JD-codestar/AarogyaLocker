@@ -4,7 +4,8 @@ import { useApp } from '../context/AppContext';
 
 export default function OnlineConsultation() {
   const navigate = useNavigate();
-  const { currentUser, addDoctorNotesAndPrescription, appointments, addRecord } = useApp();
+  const { currentUser, addDoctorNotesAndPrescription, appointments, addRecord, theme } = useApp();
+  const isDark = theme === 'dark';
 
   const [isInCall, setIsInCall] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
@@ -188,18 +189,18 @@ export default function OnlineConsultation() {
           </p>
 
           <div className="consultation-rx-deposited" style={{
-            background: '#f0fdf4',
-            border: '1px solid #bbf7d0',
+            background: isDark ? 'rgba(6, 78, 59, 0.3)' : '#f0fdf4',
+            border: isDark ? '1px solid #065f46' : '1px solid #bbf7d0',
             borderRadius: '16px',
             padding: '18px',
             textAlign: 'left',
             marginBottom: '24px'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#166534', fontWeight: 700, fontSize: '14px', marginBottom: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isDark ? '#6ee7b7' : '#166534', fontWeight: 700, fontSize: '14px', marginBottom: '6px' }}>
               <span>🔐</span>
               <span>Official E-Prescription Deposited in AarogyaLocker!</span>
             </div>
-            <p style={{ margin: 0, fontSize: '13px', color: '#15803d', lineHeight: 1.5 }}>
+            <p style={{ margin: 0, fontSize: '13px', color: isDark ? '#a7f3d0' : '#15803d', lineHeight: 1.5 }}>
               Dr. Priya Sharma has generated your digital prescription with clinical notes and registered credentials. It is linked to your <strong>ABHA Universal Health ID</strong> and ready for immediate pharmacy fulfillment.
             </p>
           </div>
@@ -630,8 +631,8 @@ export default function OnlineConsultation() {
 
           {/* Locker Linking Notice */}
           <div className="consultation-sync-notice" style={{
-            background: '#eff6ff',
-            border: '1px solid #bfdbfe',
+            background: isDark ? 'rgba(30, 58, 138, 0.25)' : '#eff6ff',
+            border: isDark ? '1px solid #1e40af' : '1px solid #bfdbfe',
             borderRadius: '12px',
             padding: '14px 16px',
             marginBottom: '24px',
@@ -640,7 +641,7 @@ export default function OnlineConsultation() {
             gap: '12px'
           }}>
             <span style={{ fontSize: '20px' }}>🔐</span>
-            <div style={{ fontSize: '13px', color: '#1e40af' }}>
+            <div style={{ fontSize: '13px', color: isDark ? '#93c5fd' : '#1e40af' }}>
               <strong>AarogyaLocker Auto-Sync Active:</strong> Your medical history and past lab reports are shared securely with the doctor under ABDM digital consent.
             </div>
           </div>
