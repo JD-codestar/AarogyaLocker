@@ -10,20 +10,16 @@
 [![ABDM Ready](https://img.shields.io/badge/ABDM-ABHA_M1--M3_Ready-0284C7?style=for-the-badge&logo=shield&logoColor=white)](https://abdm.gov.in/)
 [![DPDP Act](https://img.shields.io/badge/Compliance-DPDP_Act_2023-10B981?style=for-the-badge)](https://meity.gov.in/)
 [![WCAG 2.1 AA](https://img.shields.io/badge/Accessibility-WCAG_2.1_AA-8B5CF6?style=for-the-badge)](https://www.w3.org/WAI/standards-guidelines/wcag/)
-[![Theme](https://img.shields.io/badge/Theme-Switchable_Dark_%26_Light-0ea5e9?style=for-the-badge)](https://github.com/JD-codestar/AarogyaLocker)
 
 </div>
 
-<div align="center">
+---
 
-### 🌓 Universal Switchable Theme Engine: Dark Mode & Light Mode Side-by-Side
-*Seamlessly switch between High-Contrast Dark Mode and Daylight Clinical Light Mode with zero white-flash and full session persistence.*
+<p align="center">
+  <img src="docs/images/real_home_light.png" alt="AarogyaLocker Real Website Homepage" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0;" />
+</p>
 
-| 🌙 High-Contrast Dark Mode (`#0B1120` Deep Slate) | ☀️ Daylight Clinical Light Mode (`#F8FAFC` Clean) |
-| :---: | :---: |
-| <img src="docs/images/real_home_dark.png" alt="AarogyaLocker Real Homepage (Dark Mode)" width="100%" style="border-radius: 10px; border: 1px solid #334155; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" /> | <img src="docs/images/real_home_light.png" alt="AarogyaLocker Real Homepage (Light Mode)" width="100%" style="border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 8px 24px rgba(0,0,0,0.06);" /> |
-
-</div>
+---
 
 ## 📖 Table of Contents
 - [📌 Executive Overview](#-executive-overview)
@@ -33,25 +29,22 @@
   - [Flowchart 3: ABHA Digital Health Locker & Consent Sharing](#flowchart-3-abha-digital-health-locker--consent-sharing)
   - [Flowchart 4: HD Teleconsultation & E-Prescription Generation](#flowchart-4-hd-teleconsultation--e-prescription-generation)
   - [Flowchart 5: Multi-Persona Role Switcher Engine](#flowchart-5-multi-persona-role-switcher-engine)
-  - [Flowchart 6: Switchable Dark & Light Mode Theme Cascade](#flowchart-6-switchable-dark--light-mode-theme-cascade)
-- [📸 Real Website Showcases: Dark Mode vs. Light Mode](#-real-website-showcases--screenshots-dark-mode-vs-light-mode)
-  - [1. Homepage: Dark Mode vs. Light Mode](#1--homepage--dark-mode-vs-light-mode)
-  - [2. AI Health Specialist: Dark Mode Triage vs. Light Mode](#2--ai-health-specialist--dark-mode-triage-vs-light-mode)
-  - [3. Floating AI Triage Widget: Dark Mode vs. Light Mode](#3--floating-ai-triage-widget--dark-mode-vs-light-mode)
-  - [4. Tricity Hospital Directory: Dark Mode vs. Light Mode](#4--tricity-hospital-directory--opd-passes--dark-mode-vs-light-mode)
-  - [5. ABHA Digital Health Locker Vault](#5--abha-digital-health-locker-vault)
-  - [6. Doctor Discovery Directory (Practo-Style)](#6--doctor-discovery-directory-practo-style)
-  - [7. Telehealth Video Consultation Room](#7--telehealth-video-consultation-room)
-  - [8. Patient Health Dashboard & Telemetry](#8--patient-health-dashboard--telemetry)
+- [📸 Real Website Showcases & Screenshots](#-real-website-showcases--screenshots)
+  - [1. Homepage & Smart Search Autocomplete](#1--homepage--smart-search-autocomplete)
+  - [2. AI Health Specialist & Clinical Triage](#2--ai-health-specialist--clinical-triage)
+  - [3. ABHA Digital Health Locker Vault](#3--abha-digital-health-locker-vault)
+  - [4. Doctor Discovery Directory (Practo-Style)](#4--doctor-discovery-directory-practo-style)
+  - [5. Hospital & OPD Pass Network (Tricity Coverage)](#5--hospital--opd-pass-network-tricity-coverage)
+  - [6. Telehealth Video Consultation Room](#6--telehealth-video-consultation-room)
+  - [7. Patient Health Dashboard & Telemetry](#7--patient-health-dashboard--telemetry)
 - [🚀 Key Modules & Feature Highlights](#-key-modules--feature-highlights)
   - [1. 🔐 ABHA Digital Health Vault](#1--abha-digital-health-vault)
   - [2. 🤖 AI Health Specialist (v5.0 with Gemini API & Smart Autocomplete)](#2--ai-health-specialist-v50-with-gemini-api--smart-autocomplete)
-  - [3. 🌓 Switchable Dark Mode Everywhere](#3--switchable-dark-mode-everywhere)
-  - [4. 🩺 Practo-Grade Doctor Discovery & Scheduling](#4--practo-grade-doctor-discovery--scheduling)
-  - [5. 🏥 Hospital Directory & Digital OPD Passes](#5--hospital-directory--digital-opd-passes)
-  - [6. 📹 Virtual Teleconsultation Room & Live Rx Push](#6--virtual-teleconsultation-room--live-rx-push)
-  - [7. 🧪 Diagnostics & 💊 Online Pharmacy](#7--diagnostics---online-pharmacy)
-  - [8. 👥 4 Multi-Stakeholder Portals](#8--4-multi-stakeholder-portals)
+  - [3. 🩺 Practo-Grade Doctor Discovery & Scheduling](#3--practo-grade-doctor-discovery--scheduling)
+  - [4. 🏥 Hospital Directory & Digital OPD Passes](#4--hospital-directory--digital-opd-passes)
+  - [5. 📹 Virtual Teleconsultation Room & Live Rx Push](#5--virtual-teleconsultation-room--live-rx-push)
+  - [6. 🧪 Diagnostics & 💊 Online Pharmacy](#6--diagnostics---online-pharmacy)
+  - [7. 👥 4 Multi-Stakeholder Portals](#7--4-multi-stakeholder-portals)
 - [🗺️ Complete Application Sitemap (All 16 Routes)](#️-complete-application-sitemap-all-16-routes)
 - [🎨 UI/UX Design System & Tokens](#-uiux-design-system--tokens)
 - [💻 Tech Stack & Dependencies](#-tech-stack--dependencies)
@@ -70,11 +63,10 @@ Healthcare in India is traditionally plagued by fragmented paper prescriptions, 
 
 1. **🔐 Sovereign ABHA Digital Health Locker**: Encrypted, lifelong personal health records vault (Lab Reports, Scans, Prescriptions, Vaccines) with time-bound QR consent sharing (DPDP Act 2023 compliant).
 2. **🤖 AI Health Specialist & Triage Engine (v5.0)**: Conversational triage assistant with structured urgency levels, recommended precautions, 1-click doctor handoffs, and optional live Google Gemini API integration.
-3. **🌓 Switchable Dark Mode Everywhere**: Fully toggleable theme engine in the navbar, inside the AI Chat header, and in the floating widget with zero white-flash across all 16 views.
-4. **🩺 Practo-Grade Doctor Discovery**: Real-time search across verified doctors in the Tricity (Chandigarh, Mohali, Panchkula) with slot-based scheduling.
-5. **🏥 Tricity Hospital Directory & OPD Passes**: Real-time bed availability, emergency trauma levels, and instant paperless OPD pass booking across premier centers (PGIMER, GMCH-32, GMSH-16, Fortis Mohali, Max Super Speciality, Ivy, Sohana, Shalby).
-6. **📹 Encrypted Teleconsultation Suite**: HD virtual consultation room with live video, patient vital telemetry, in-call messaging, and instant digital e-prescriptions.
-7. **👥 Multi-Persona Management Portals**: Instant switcher between Patient, Doctor, Hospital Reception Staff, and System Administrator.
+3. **🩺 Practo-Grade Doctor Discovery**: Real-time search across verified doctors in the Tricity (Chandigarh, Mohali, Panchkula) with slot-based scheduling.
+4. **🏥 Tricity Hospital Directory & OPD Passes**: Real-time bed availability, emergency trauma levels, and instant paperless OPD pass booking across premier centers (PGIMER, GMCH-32, GMSH-16, Fortis Mohali, Max Super Speciality, Ivy, Sohana, Shalby).
+5. **📹 Encrypted Teleconsultation Suite**: HD virtual consultation room with live video, patient vital telemetry, in-call messaging, and instant digital e-prescriptions.
+6. **👥 Multi-Persona Management Portals**: Instant switcher between Patient, Doctor, Hospital Reception Staff, and System Administrator.
 
 ---
 
@@ -244,112 +236,78 @@ flowchart TD
 
 ---
 
-### Flowchart 6: Switchable Dark & Light Mode Theme Cascade
+## 📸 Real Website Showcases & Screenshots
 
-```mermaid
-flowchart TD
-    TriggerTheme(["User clicks Theme Toggle (Navbar, AI Chat Header, or Floating Widget)"]) --> ToggleCall["toggleTheme() invoked in AppContext"]
-    ToggleCall --> ReadCurrent["Read current theme state ('light' or 'dark')"]
-    ToggleCall --> InvertTheme["Invert theme state ('light' <--> 'dark')"]
-    
-    InvertTheme --> SaveStorage["Persist 'aarogya_theme' in localStorage"]
-    InvertTheme --> UpdateAttr["Set documentElement.setAttribute('data-theme', newTheme)"]
-    InvertTheme --> UpdateClass["document.documentElement.classList.toggle('dark', isDark)"]
-    
-    subgraph CSSVariableCascade ["Instant Global Token Cascade"]
-        UpdateAttr --> VarWhite["--color-white: #FFFFFF (Light) <--> #0F172A (Dark)"]
-        UpdateAttr --> VarBG["--color-light-bg: #F8FAFC (Light) <--> #0B1120 (Dark)"]
-        UpdateAttr --> VarText["--color-dark-text: #0F172A (Light) <--> #F1F5F9 (Dark)"]
-        UpdateAttr --> VarBorder["--color-gray-200: #E2E8F0 (Light) <--> #334155 (Dark)"]
-    end
-    
-    CSSVariableCascade --> UIComplete["All 16 routes, cards, AI chat bubbles, and modals adapt with zero page reload"]
-```
+All screenshots below are captured directly from the live running **AarogyaLocker** application:
 
 ---
 
-## 📸 Real Website Showcases & Screenshots: Dark Mode vs. Light Mode
+### 1. 🏠 Homepage & Smart Search Autocomplete
 
-All screenshots below are captured directly from the live running **AarogyaLocker** application, demonstrating our high-contrast clinical theme engine:
+*Featuring the intelligent dual search bar with query recommendations, quick healthcare services, live Tricity stats, and the floating AI Assistant.*
 
----
-
-### 1. 🏠 Homepage: 🌙 Dark Mode vs. ☀️ Light Mode
-
-*Equipped with an intelligent dual search bar with query recommendations, service categories, live Tricity stats, and instant theme toggling.*
-
-| 🌙 Night / Clinical Dark Mode (`#0B1120`) | ☀️ Daylight Clinical Light Mode (`#F8FAFC`) |
-| :---: | :---: |
-| <img src="docs/images/real_home_dark.png" alt="AarogyaLocker Live Homepage (Dark Mode)" width="100%" style="border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" /> | <img src="docs/images/real_home_light.png" alt="AarogyaLocker Live Homepage (Light Mode)" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" /> |
+<p align="center">
+  <img src="docs/images/real_home_light.png" alt="AarogyaLocker Live Homepage" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" />
+</p>
 
 ---
 
-### 2. 🤖 AI Health Specialist: 🌙 Dark Mode Triage vs. ☀️ Light Mode
+### 2. 🤖 AI Health Specialist & Clinical Triage
 
-*Full triage conversational interface with an in-chat theme switcher button, clinical urgency ratings (Critical, High, Moderate, Low), possible causes, precautions, 1-click specialist handoff, and optional Gemini LLM support.*
+*Equipped with clinical urgency ratings (Critical, High, Moderate, Low), possible causes, precautions, 1-click doctor routing, and optional Google Gemini API support.*
 
-| 🌙 Dark Mode Triage Card with Urgency Analysis | ☀️ Light Mode Conversational Triage |
-| :---: | :---: |
-| <img src="docs/images/real_ai_chat_dark.png" alt="AarogyaLocker AI Assistant Triage in Dark Mode" width="100%" style="border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" /> | <img src="docs/images/real_ai_assistant.png" alt="AarogyaLocker AI Assistant (Light Mode)" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" /> |
-
----
-
-### 3. 💬 Floating AI Triage Widget: 🌙 Dark Mode vs. ☀️ Light Mode
-
-*Accessible on every page via the bottom-right corner with its own dedicated theme toggle in the header, instant prompt pills, and quick doctor booking links.*
-
-| 🌙 Floating Widget in Dark Mode | ☀️ Floating Widget in Light Mode |
-| :---: | :---: |
-| <img src="docs/images/real_floating_widget_dark.png" alt="Floating AI Widget (Dark Mode)" width="100%" style="border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" /> | <img src="docs/images/real_floating_widget_light.png" alt="Floating AI Widget (Light Mode)" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" /> |
+<p align="center">
+  <img src="docs/images/real_ai_assistant.png" alt="AarogyaLocker AI Assistant Triage" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" />
+</p>
 
 ---
 
-### 4. 🏥 Tricity Hospital Directory & OPD Passes: 🌙 Dark Mode vs. ☀️ Light Mode
-
-*Comprehensive directory covering PGIMER, GMCH-32, GMSH-16, Fortis Mohali, Max Super Speciality, Ivy, Sohana, and Shalby with real-time bed availability and digital OPD pass generation.*
-
-| 🌙 Hospital Directory (Dark Mode) | ☀️ Hospital Directory (Light Mode) |
-| :---: | :---: |
-| <img src="docs/images/real_hospitals_dark.png" alt="AarogyaLocker Hospital Directory (Dark Mode)" width="100%" style="border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" /> | <img src="docs/images/real_hospitals.png" alt="AarogyaLocker Hospital Directory (Light Mode)" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" /> |
-
----
-
-### 5. 🔐 ABHA Digital Health Locker Vault
+### 3. 🔐 ABHA Digital Health Locker Vault
 
 *The patient's digital locker displaying their verified Ayushman Bharat Health Account (ABHA ID), categorized health records (Lab Reports, Scans, Prescriptions, Vaccines), detailed lab findings, and document upload triggers.*
 
 <p align="center">
-  <img src="docs/images/real_health_locker.png" alt="AarogyaLocker Real Health Locker Vault" width="95%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);" />
+  <img src="docs/images/real_health_locker.png" alt="AarogyaLocker Real Health Locker Vault" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" />
 </p>
 
 ---
 
-### 6. 🩺 Doctor Discovery Directory (Practo-Style)
+### 4. 🩺 Doctor Discovery Directory (Practo-Style)
 
 *Search and filter top clinicians across PGIMER, Fortis Mohali, Max Hospital, and GMCH 32. Each doctor card displays verified qualifications, experience, review ratings, consultation fees, and instant booking slots.*
 
 <p align="center">
-  <img src="docs/images/real_doctors.png" alt="AarogyaLocker Doctor Discovery Directory" width="95%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);" />
+  <img src="docs/images/real_doctors.png" alt="AarogyaLocker Doctor Discovery Directory" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" />
 </p>
 
 ---
 
-### 7. 📹 Telehealth Video Consultation Room
+### 5. 🏥 Hospital & OPD Pass Network (Tricity Coverage)
+
+*Search and book verified OPD passes across Chandigarh & Mohali hospitals (PGIMER, GMCH-32, Fortis Mohali). Displays bed capacities, emergency trauma levels, NABH accreditation, and clinician rosters.*
+
+<p align="center">
+  <img src="docs/images/real_hospitals.png" alt="AarogyaLocker Hospital Directory" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" />
+</p>
+
+---
+
+### 6. 📹 Telehealth Video Consultation Room
 
 *Distraction-free, full-width telehealth consultation room. Shows the virtual waiting queue position, ABDM auto-sync verification notice, clinician profile, and direct button to enter the HD WebRTC consultation room.*
 
 <p align="center">
-  <img src="docs/images/real_consultation.png" alt="AarogyaLocker Teleconsultation Suite" width="95%" style="border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
+  <img src="docs/images/real_consultation.png" alt="AarogyaLocker Teleconsultation Suite" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" />
 </p>
 
 ---
 
-### 8. 📊 Patient Health Dashboard & Telemetry
+### 7. 📊 Patient Health Dashboard & Telemetry
 
 *Patient dashboard showing real-time vital telemetry cards (Blood Pressure 120/80, Heart Rate 72 bpm, SpO2 98%, Fasting Glucose 95 mg/dL), active medications with dosage schedules, and upcoming appointment countdowns.*
 
 <p align="center">
-  <img src="docs/images/real_dashboard.png" alt="AarogyaLocker Patient Dashboard" width="95%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);" />
+  <img src="docs/images/real_dashboard.png" alt="AarogyaLocker Patient Dashboard" width="100%" style="border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.06);" />
 </p>
 
 ---
@@ -375,23 +333,12 @@ All screenshots below are captured directly from the live running **AarogyaLocke
   - 🟡 **Moderate**: Routine triage with suggested home precautions and doctor visits.
   - 🟢 **Low / Informational**: Health guidance, wellness checks, and preventive care.
 - **Intelligent Structured Diagnosis**: Generates potential causes, step-by-step precautions, recommended specialists, and 1-click links to doctors/hospitals/tests.
-- **Switchable Dark Mode**: Dedicated in-chat Sun/Moon toggle for zero-strain nighttime triage.
 - **Live Google Gemini LLM**: Built-in modal to paste your Gemini API key for real-time generative clinical intelligence.
 - **Hero Search Autocomplete**: Recommends top doctors, Tricity hospitals, diagnostic packages, and common symptom queries dynamically as you type.
 
 ---
 
-### 3. 🌓 Switchable Dark Mode Everywhere
-- **Three Independent Toggle Points**:
-  1. Main navigation bar (desktop & mobile drawer).
-  2. In-chat header inside the dedicated AI Health Specialist page (`/ai-assistant`).
-  3. Floating AI Widget header on any page.
-- **Zero White-Flash Across Views**: Every component, modal, input, and legal document utilizes CSS custom properties (`var(--color-white)`, `var(--color-dark-text)`, `var(--color-gray-200)`) with synchronized `[data-theme="dark"]` and `.dark` DOM states.
-- **Session Persistence**: Theme preference is remembered across refreshes via `localStorage`.
-
----
-
-### 4. 🩺 Practo-Grade Doctor Discovery & Scheduling (`/doctors`)
+### 3. 🩺 Practo-Grade Doctor Discovery & Scheduling (`/doctors`)
 - **Real-Time Live Search & Multi-Filters**: Instant filtering by doctor name, medical specialty (Cardiology, Neurology, Dermatology, Orthopedics, Pediatrics, General Physician), experience, and consultation fees.
 - **Transparent Clinician Profiles**: Verified medical council registration (MCI/NMC), clinic locations across Tricity, patient review scores, and spoken languages.
 - **Interactive Booking Dialog (`BookingModal.tsx`)**: Slot-based appointment scheduler across 5 upcoming dates with dedicated morning and afternoon time slots.
@@ -399,7 +346,7 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-### 5. 🏥 Hospital Directory & Digital OPD Passes (`/hospitals`)
+### 4. 🏥 Hospital Directory & Digital OPD Passes (`/hospitals`)
 - **Premier Tricity Network Coverage**:
   - **PGIMER Chandigarh** (Sector 12) — Level 1 Apex Trauma Center, 1900+ Beds.
   - **Government Medical College & Hospital (GMCH-32)** — 1000+ Beds, High-Volume OPD.
@@ -414,7 +361,7 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-### 6. 📹 Virtual Teleconsultation Room & Live Rx Push (`/consultation`)
+### 5. 📹 Virtual Teleconsultation Room & Live Rx Push (`/consultation`)
 - **Virtual Waiting Room**: Queue position status ("You are 1st in the queue") with estimated wait times and clinician status badges.
 - **Interactive Call Controls**: Simulated WebRTC HD video interface with microphone mute/unmute, camera toggle, screen sharing, and call termination.
 - **Real-Time In-Call Messaging**: Live textual chat stream between doctor and patient during the appointment.
@@ -422,13 +369,13 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 
 ---
 
-### 7. 🧪 Diagnostics & 💊 Online Pharmacy
+### 6. 🧪 Diagnostics & 💊 Online Pharmacy
 - **Doorstep Diagnostics (`/lab-tests`)**: Comprehensive health checkup packages (Full Body Health Check, Cardiac Risk Profile, Diabetes Care, Complete Blood Count, Liver Function Test) with certified home sample collection.
 - **Online Medicine Delivery (`/pharmacy`)**: Digital pharmacy catalog with automatic prescription validation and express doorstep delivery.
 
 ---
 
-### 8. 👥 4 Multi-Stakeholder Portals
+### 7. 👥 4 Multi-Stakeholder Portals
 - **Patient Dashboard (`/dashboard`)**: Personal health metrics, active medications, upcoming visits, emergency contacts, and vital telemetry graphs.
 - **Doctor / Clinician Portal (`/doctor-dashboard`)**: Daily patient queue, consultation status markers (Waiting, In-Progress, Completed), appointment reschedulers, and electronic medical record access.
 - **Hospital Reception & Triage Desk (`/staff-dashboard`)**: OPD counter workflow, patient record lookup by Universal Patient ID, and bed availability updates.
@@ -445,7 +392,7 @@ All screenshots below are captured directly from the live running **AarogyaLocke
 | 3 | `/hospitals` | **Hospital Directory** | Tricity tertiary hospitals, OPD pass booking, ICU bed counts, and trauma levels. |
 | 4 | `/consultation` | **Online Consultation** | Full-width WebRTC room, waiting queue, live call controls, chat, and Rx generator. |
 | 5 | `/health-records` | **ABHA Health Locker** | Categorized electronic records vault, document upload, ABHA ID card, and consent manager. |
-| 6 | `/ai-assistant` | **AI Health Specialist** | Conversational triage assistant (v5.0), in-chat dark mode switch, and Gemini API setup. |
+| 6 | `/ai-assistant` | **AI Health Specialist** | Conversational triage assistant (v5.0), symptom assessment, and Gemini API setup. |
 | 7 | `/dashboard` | **Patient Dashboard** | Personal health analytics, vitals telemetry, active prescriptions, and visit logs. |
 | 8 | `/doctor-dashboard` | **Doctor Provider Portal** | Clinician schedule, waiting room queue, patient records review, and prescription pad. |
 | 9 | `/staff-dashboard` | **Hospital Staff Desk** | Reception triage desk, patient document lookup by ID, and OPD queue tracker. |
@@ -471,25 +418,16 @@ AarogyaLocker uses a unified, mathematically tuned CSS variables system:
   --color-vibrant-emerald: #17d9a3;
   --color-ice-blue: #e8f7fd;
 
-  /* Semantic UI Tokens (Light Mode Default) */
+  /* Semantic UI Tokens */
   --color-white: #ffffff;
   --color-light-bg: #f8fafc;
   --color-dark-text: #0f172a;
   --color-slate: #475569;
   --color-gray-200: #e2e8f0;
 }
-
-[data-theme='dark'] {
-  /* Adaptive Surfaces (Dark Mode) */
-  --color-white: #0f172a;
-  --color-light-bg: #0b1120;
-  --color-dark-text: #f1f5f9;
-  --color-slate: #94a3b8;
-  --color-gray-200: #334155;
-}
 ```
 
-- **Zero-Dependency SVG Icons**: Handcrafted inline SVGs (`AarogyaLockerLogo`, `SunIcon`, `MoonIcon`, `ShieldIcon`, `CalendarIcon`, `VideoIcon`, `UploadIcon`, etc.) maintain a sub-100KB bundle footprint.
+- **Zero-Dependency SVG Icons**: Handcrafted inline SVGs (`AarogyaLockerLogo`, `ShieldIcon`, `CalendarIcon`, `VideoIcon`, `UploadIcon`, etc.) maintain a sub-100KB bundle footprint.
 - **Micro-Animations & Responsive Transitions**: Subtle hover lifts, glowing status pills, and backdrop-blur overlays.
 
 ---
